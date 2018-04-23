@@ -72,6 +72,9 @@ router.post("/login", (req, res) => {
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         const payload = { id: user.id, name: user.name };
+        if (user.isAdmin) {
+          payload.isAdmin = user.isAdmin;
+        }
         jwt.sign(
           payload,
           keys.secretOrKey,
@@ -91,10 +94,10 @@ router.post("/login", (req, res) => {
   });
 });
 
-// @route   POST api/users/newAdmin
+// @route   POST api/users/admin
 // @desc    register a new admin account
 // @access  Public (for now)
-router.post("/newAdmin", (req, res) => {
+router.post("/admin", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 
   if (!isValid) {
@@ -127,48 +130,6 @@ router.post("/newAdmin", (req, res) => {
         });
       });
     }
-  });
-});
-
-// @route   POST api/users/admin
-// @desc    login admin
-// @access  Public
-router.post("/admin", (req, res) => {
-  const { errors, isValid } = validateLoginInput(req.body);
-
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
-
-  const email = req.body.email;
-  const password = req.body.password;
-
-  User.findOne({ email }).then(user => {
-    if (!user) {
-      errors.password = "Email or Password Incorrect.";
-      res.status(401).json(errors);
-    }
-    const isAdmin = user.isAdmin || false;
-    if (!isAdmin) {
-      errors.password = "Unauthorized";
-      res.status(401).json(errors);
-    }
-    bcrypt.compare(password, user.password).then(isMatch => {
-      if (isMatch) {
-        const payload = { id: user.id, name: user.name, isAdmin: user.isAdmin };
-        jwt.sign(
-          payload,
-          keys.secretOrKey,
-          { expiresIn: 10800 },
-          (err, token) => {
-            res.json({ success: true, token: "Bearer " + token });
-          }
-        );
-      } else {
-        errors.password = "Email or Password Incorrect.";
-        res.status(401).json(errors);
-      }
-    });
   });
 });
 
