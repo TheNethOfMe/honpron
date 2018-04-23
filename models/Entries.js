@@ -10,13 +10,17 @@ const EntrySchema = new Schema({
     type: Date,
     default: Date.now
   },
+  entryType: {
+    type: String,
+    required: true
+  },
   description: {
     type: String,
     required: true
   },
   series: {
-    type: Schema.Types.ObjectId,
-    ref: "series"
+    type: String,
+    required: true
   },
   youtubeId: {
     // video only
@@ -25,7 +29,7 @@ const EntrySchema = new Schema({
   games: {
     type: [String]
   },
-  length: {
+  duration: {
     // podcast and video only
     type: String
   },
