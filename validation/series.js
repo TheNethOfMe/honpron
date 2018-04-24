@@ -1,6 +1,5 @@
 const Validator = require("validator");
 const isEmpty = require("./is-empty");
-const isValidType = require("./is-valid-type");
 
 module.exports = function validateSeriesInput(data) {
   let errors = {};
@@ -8,7 +7,11 @@ module.exports = function validateSeriesInput(data) {
   data.seriesName = !isEmpty(data.seriesName) ? data.seriesName : "";
   data.seriesDesc = !isEmpty(data.seriesDesc) ? data.seriesDesc : "";
 
-  if (!isValidType(data.seriesType)) {
+  if (
+    data.seriesType !== "video" &&
+    data.seriesType !== "podcast" &&
+    data.seriesType !== "blog"
+  ) {
     errors.seriesType = "The series type must be a video, blog, or podcast";
   }
 

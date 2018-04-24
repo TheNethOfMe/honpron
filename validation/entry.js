@@ -1,7 +1,6 @@
 const Validator = require("validator");
 const Series = require("../models/Series");
 const isEmpty = require("./is-empty");
-const isValidType = require("./is-valid-type");
 
 module.exports = async function validateEntryInput(data) {
   let errors = {};
@@ -19,20 +18,17 @@ module.exports = async function validateEntryInput(data) {
     errors.description = "A description is required";
   }
 
-  if (!isValidType(data.entryType)) {
-    errors.entryType = "The series type must be a video, blog, or podcast";
+  if (
+    data.seriesType !== "video" &&
+    data.seriesType !== "podcast" &&
+    data.seriesType !== "blog"
+  ) {
+    errors.seriesType = "The series type must be a video, blog, or podcast";
   }
 
   let found = await Series.findOne({ seriesName: data.series });
   if (!found) errors.series = "That series does not exist.";
-  // async function validateSeries(seriesName) {
-  //   let found = await Series.findOne({ seriesName });
-  //   if (!found) {
-  //     errors.series = "That series does not exist.";
-  //     console.log(errors);
-  //   }
-  // }
-  // validateSeries(data.series);
+
   if (Validator.isEmpty(data.series)) {
     errors.series = "Series is required";
   }

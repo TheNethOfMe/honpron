@@ -34,10 +34,21 @@ const EntrySchema = new Schema({
     type: String
   },
   blog: {
-    // blog only
-    type: Schema.Types.ObjectId,
-    ref: "blog"
-  }
+    author: { type: String },
+    content: { type: String }
+  },
+  comments: [
+    {
+      author: {
+        type: String,
+        required: true
+      },
+      content: {
+        type: String,
+        required: true
+      }
+    }
+  ]
 });
 
 module.exports = Entry = mongoose.model("entries", EntrySchema);

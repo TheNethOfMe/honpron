@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
@@ -17,23 +16,16 @@ const User = require("../../models/User");
 // @desc    registers new user
 // @access  Public
 router.post("/register", (req, res) => {
-  const { errors, isValid } = validateRegisterInput(req.body);
-
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
-
-  User.findOne({ email: req.body.email }).then(user => {
-    if (user) {
-      errors.email = "That email is already registered.";
+  validateRegisterInput(req.body).then(result => {
+    const { errors, isValid } = result;
+    if (!isValid) {
       return res.status(400).json(errors);
     } else {
       const newUser = new User({
-        name: req.body.name,
+        userName: req.body.userName,
         email: req.body.email,
         password: req.body.password
       });
-
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) {
@@ -43,6 +35,38 @@ router.post("/register", (req, res) => {
             newUser
               .save()
               .then(user => res.json(user))
+              .catch(err => console.log(err));
+          }
+        });
+      });
+    }
+  });
+});
+
+// @route   POST api/users/admin
+// @desc    register a new admin account
+// @access  Public (for now)
+router.post("/admin", (req, res) => {
+  validateRegisterInput(req.body).then(result => {
+    const { errors, isValid } = result;
+    if (!isValid) {
+      return res.status(400).json(errors);
+    } else {
+      const newAdmin = new User({
+        userName: req.body.userName,
+        email: req.body.email,
+        password: req.body.password,
+        isAdmin: true
+      });
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newAdmin.password, salt, (err, hash) => {
+          if (err) {
+            throw err;
+          } else {
+            newAdmin.password = hash;
+            newAdmin
+              .save()
+              .then(admin => res.json(admin))
               .catch(err => console.log(err));
           }
         });
@@ -91,45 +115,6 @@ router.post("/login", (req, res) => {
         return res.status(400).json(errors);
       }
     });
-  });
-});
-
-// @route   POST api/users/admin
-// @desc    register a new admin account
-// @access  Public (for now)
-router.post("/admin", (req, res) => {
-  const { errors, isValid } = validateRegisterInput(req.body);
-
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
-
-  User.findOne({ email: req.body.email }).then(user => {
-    if (user) {
-      errors.email = "This email is already registered.";
-      return res.status(400).json(errors);
-    } else {
-      const newAdmin = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-        isAdmin: true
-      });
-
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newAdmin.password, salt, (err, hash) => {
-          if (err) {
-            throw err;
-          } else {
-            newAdmin.password = hash;
-            newAdmin
-              .save()
-              .then(admin => res.json(admin))
-              .catch(err => console.log(err));
-          }
-        });
-      });
-    }
   });
 });
 
