@@ -69,7 +69,7 @@ router.post(
 
 // @route   POST api/entries/:id
 // @desc    update one entry
-// @access  Private Admin-Only
+// @access  Private (admin only)
 router.post(
   "/:id",
   passport.authenticate("jwt", { session: false }),
@@ -95,7 +95,7 @@ router.post(
 
 // @route   DELETE api/entries/:id
 // @desc    delete one entry
-// @access  Private Admin-Only
+// @access  Private (admin only)
 router.delete(
   "/:id",
   passport.authenticate("jwt", { session: false }),

@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const Validator = require("validator");
+const isEmpty = require("../../validation/is-empty");
 const keys = require("../../config/keys");
 const passport = require("passport");
 
@@ -85,13 +87,16 @@ router.post("/login", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  const email = req.body.email;
+  const userName = req.body.userName;
   const password = req.body.password;
 
-  User.findOne({ email }).then(user => {
+  User.findOne({ userName }).then(user => {
     if (!user) {
-      errors.email = "User not found";
+      errors.userName = "User not found";
       return res.status(404).json(errors);
+    } else if (user.banned) {
+      errors.userName = "This account has been banned.";
+      return res.status(401).json(errors);
     }
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
@@ -117,6 +122,79 @@ router.post("/login", (req, res) => {
     });
   });
 });
+
+// @route   POST api/users/email
+// @desc    allows user to change their email
+// @access  Private (same user only)
+router.post(
+  "/email",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const email = req.body.email;
+    const oldEmail = req.body.oldEmail;
+    if (req.user.email !== oldEmail) {
+      return res
+        .status(401)
+        .json({ oldEmail: "Old Email couldn't be verified." });
+    } else if (isEmpty(email) || !Validator.isEmail(email)) {
+      return res.status(400).json({ email: "Email field is not valid." });
+    } else {
+      User.findOneAndUpdate(
+        { userName: req.user.userName },
+        { $set: { email } },
+        { new: true }
+      )
+        .then(user => {
+          res.json(user);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }
+);
+
+// @route   GET api/users/modify/
+// @desc    allows admin to get a list of all users
+// @access  Private (admin only)
+router.get(
+  "/modify",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const isAdmin = req.user.isAdmin || false;
+    if (!isAdmin) {
+      return res.status(401).json({ msg: "Unauthorized" });
+    } else {
+      User.find({}, "userName email isAdmin banned blackListed").then(users => {
+        return res.json(users);
+      });
+    }
+  }
+);
+
+// @route   POST api/users/modify/:id
+// @desc    allows admin to put blacklist or banned status on users
+// @access  Private (admin only)
+router.post(
+  "/modify/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const isAdmin = req.user.isAdmin || false;
+    const banned = req.body.banned || false;
+    const blackListed = req.body.blackListed || false;
+    let changes = {};
+    if (!isAdmin) return res.status(401).json({ msg: "Unauthorized" });
+    if (banned) changes.banned = true;
+    if (blackListed) changes.blackListed = true;
+    User.findByIdAndUpdate(
+      req.params.id,
+      { $set: changes },
+      { new: true }
+    ).then(user => {
+      return res.json(user);
+    });
+  }
+);
 
 // @route   GET api/users/current
 // @desc    return current user
