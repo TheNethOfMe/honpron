@@ -43,9 +43,26 @@ const EntrySchema = new Schema({
         type: String,
         required: true
       },
+      authorId: {
+        type: String,
+        required: true
+      },
       content: {
         type: String,
         required: true
+      },
+      commentDate: {
+        type: Date,
+        default: Date.now
+      },
+      commentCode: String
+    }
+  ],
+  favorites: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "users"
       }
     }
   ]

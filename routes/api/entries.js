@@ -6,38 +6,31 @@ const passport = require("passport");
 // Input Validation
 const validateEntryInput = require("../../validation/entry");
 const getEntryFields = require("../../validation/entry-fields");
+const getCommentCode = require("../../validation/comment-coding");
 
 // Load Entry Model
 const Entry = require("../../models/Entries");
 const Series = require("../../models/Series");
+const User = require("../../models/User");
 
 // @route   GET api/entries/
 // @desc    get all entries
 // @access  Public
 router.get("/", (req, res) => {
   const errors = {};
-  Entry.find().then(entries => {
-    if (entries.length === 0) {
-      errors.entries = "No entries to display";
-      res.status(404).json(errors);
-    } else {
-      res.json(entries);
-    }
-  });
+  Entry.find()
+    .sort({ dateAdded: -1 })
+    .then(entries => res.json(entries))
+    .catch(err => res.status(404).json({ msg: "No entries to display" }));
 });
 
 // @route   GET api/entries/:id
-// @desc    get one entry
+// @desc    get one entry by id
 // @access  Public
 router.get("/:id", (req, res) => {
   Entry.findById(req.params.id)
-    .then(entry => {
-      if (!entry) {
-        res.status(404).json({ msg: "Entry Not Found" });
-      }
-      res.send(entry);
-    })
-    .catch(err => res.status(500).json({ error: err }));
+    .then(entry => res.send(entry))
+    .catch(err => res.status(404).json({ msg: "Entry Not Found" }));
 });
 
 // @route   POST api/entries/create
@@ -114,6 +107,85 @@ router.delete(
         }
       });
     }
+  }
+);
+
+// @route   POST api/entries/togglefav/:id
+// @desc    toggle fav/unfav an entry
+// @access  Private
+router.post(
+  "/togglefav/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Entry.findById(req.params.id).then(entry => {
+      const favIndex = entry.favorites
+        .map(item => item.user.toString())
+        .indexOf(req.user.id);
+      if (favIndex === -1) {
+        entry.favorites.push({ user: req.user.id });
+      } else {
+        entry.favorites.splice(favIndex, 1);
+      }
+      entry.save().then(entry => res.json(entry));
+    });
+  }
+);
+
+// @route   POST api/entries/comment/:id
+// @desc    adds a comment to an entry
+// @access  Private
+router.post(
+  "/comment/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Entry.findById(req.params.id)
+      .then(entry => {
+        if (!req.body.comment) {
+          return res
+            .status(401)
+            .json({ comment: "Comment is required to post." });
+        }
+        const color = req.user.blackListed
+          ? "black"
+          : getCommentCode(req.body.comment);
+        const newComment = {
+          author: req.user.userName,
+          authorId: req.user.id,
+          content: req.body.comment,
+          commentCode: color
+        };
+        entry.comments.push(newComment);
+        entry.save().then(entry => res.json(entry));
+      })
+      .catch(err => res.status(404).json({ msg: "Post not found." }));
+  }
+);
+
+// @route   DELETE api/entries/comment/:id/:comment_id
+// @desc    deletes a comment from an entry
+// @access  Private (same user or admin)
+router.delete(
+  "/comment/:id/:comment_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Entry.findById(req.params.id)
+      .then(entry => {
+        const removeIndex = entry.comments
+          .map(item => item._id.toString())
+          .indexOf(req.params.comment_id);
+        if (removeIndex === -1) {
+          return res.status(404).json({ msg: "Comment not found." });
+        }
+        if (
+          req.user.id !== entry.comments[removeIndex].authorId.toString() &&
+          !req.user.isAdmin
+        ) {
+          return res.status(401).json({ msg: "Unauthorized" });
+        }
+        entry.comments.splice(removeIndex, 1);
+        entry.save().then(entry => res.json(entry));
+      })
+      .catch(err => res.status(404).json({ msg: "Post not found." }));
   }
 );
 

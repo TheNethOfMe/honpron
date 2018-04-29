@@ -19,11 +19,11 @@ module.exports = async function validateEntryInput(data) {
   }
 
   if (
-    data.seriesType !== "video" &&
-    data.seriesType !== "podcast" &&
-    data.seriesType !== "blog"
+    data.entryType !== "video" &&
+    data.entryType !== "podcast" &&
+    data.entryType !== "blog"
   ) {
-    errors.seriesType = "The series type must be a video, blog, or podcast";
+    errors.entryType = "The series type must be a video, blog, or podcast";
   }
 
   let found = await Series.findOne({ seriesName: data.series });
