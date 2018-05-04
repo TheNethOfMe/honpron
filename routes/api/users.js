@@ -92,10 +92,10 @@ router.post("/login", (req, res) => {
 
   User.findOne({ userName }).then(user => {
     if (!user) {
-      errors.userName = "User not found";
+      errors.alert = "Username or password is incorrect.";
       return res.status(404).json(errors);
     } else if (user.banned) {
-      errors.userName = "This account has been banned.";
+      errors.alert = "This account has been banned.";
       return res.status(401).json(errors);
     }
     bcrypt.compare(password, user.password).then(isMatch => {
@@ -116,7 +116,7 @@ router.post("/login", (req, res) => {
           }
         );
       } else {
-        errors.password = "Password incorrect";
+        errors.alert = "Username or password is incorrect.";
         return res.status(400).json(errors);
       }
     });

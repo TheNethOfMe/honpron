@@ -16,7 +16,7 @@ class Navbar extends Component {
       <ul className="navbar-nav ml-auto">
         {user.isAdmin && (
           <li className="nav-item">
-            <Link className="nav-link" to="/register">
+            <Link className="nav-link" to="/dashboard">
               Admin Controlls
             </Link>
           </li>
@@ -64,14 +64,6 @@ class Navbar extends Component {
           </button>
 
           <div className="collapse navbar-collapse" id="mobile-nav">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <a className="nav-link" href="profiles.html">
-                  {" "}
-                  Developers
-                </a>
-              </li>
-            </ul>
             {isAuthenticated ? authLinks : guestLinks}
           </div>
         </div>

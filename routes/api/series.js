@@ -39,7 +39,7 @@ router.post(
     const { errors, isValid } = validateSeriesInput(req.body);
     const isAdmin = req.user.isAdmin || false;
     if (!isAdmin) {
-      return res.status(401).json({ msg: "Unauthorized" });
+      return res.status(401).json({ alert: "Unauthorized" });
     }
     if (!isValid) {
       return res.status(400).json(errors);

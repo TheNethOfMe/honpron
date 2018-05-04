@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import store from "./store";
+
+import PrivateRoute from "./components/common/PrivateRoute";
+import AdminRoute from "./components/common/AdminRoute";
 
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
@@ -12,6 +15,9 @@ import Register from "./components/auth/Register";
 import Admin from "./components/auth/Admin";
 import Login from "./components/auth/Login";
 import Footer from "./components/layout/Footer";
+
+import Dashboard from "./components/adminOnly/Dashboard";
+import CreateSeries from "./components/adminOnly/CreateSeries";
 
 import "./App.css";
 
@@ -37,8 +43,16 @@ class App extends Component {
             <Navbar />
             <Route exact path="/" component={Landing} />
             <div className="container">
+              <Switch>
+                <AdminRoute exact path="/admin" component={Admin} />
+                <AdminRoute exact path="/dashboard" component={Dashboard} />
+                <AdminRoute
+                  exact
+                  path="/create-series"
+                  component={CreateSeries}
+                />
+              </Switch>
               <Route exact path="/register" component={Register} />
-              <Route exact path="/admin" component={Admin} />
               <Route exact path="/login" component={Login} />
             </div>
             <Footer />

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import EntryList from "../entryDisplay/EntryList";
 class Landing extends Component {
   render() {
     return (
@@ -9,11 +9,9 @@ class Landing extends Component {
             <div className="row">
               <div className="col-md-12 text-center">
                 <h1 className="display-3 mb-4">Honest Piranha Labs</h1>
-                <p className="lead">
-                  {" "}
-                  Another freaking YouTube channel about video games.
-                </p>
-                <hr />
+                <div className="container">
+                  <EntryList />
+                </div>
               </div>
             </div>
           </div>
