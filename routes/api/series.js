@@ -9,17 +9,14 @@ const validateSeriesInput = require("../../validation/series");
 // Load Entry Model
 const Series = require("../../models/Series");
 
-// @route   GET api/series/test
-// @desc    tests series route
-// @access  Public
-router.get("/test", (req, res) => res.json({ msg: "Series Works!" }));
-
 // @route   GET api/series/
 // @desc    gets all series
 // @access  Public
 router.get("/", (req, res) => {
   const errors = {};
-  Series.find().then(series => {
+  let query = {};
+  if (req.query) query = req.query;
+  Series.find(query).then(series => {
     if (series.length === 0) {
       errors.series = "No series found";
       res.status(404).json(errors);

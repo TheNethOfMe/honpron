@@ -22,7 +22,9 @@ class Dashboard extends Component {
         <Link to="/create-series">
           <BlockButton text="Create A New Series" />
         </Link>
-        <BlockButton text="Create A New Entry" />
+        <Link to="/create-entry">
+          <BlockButton text="Create A New Entry" />
+        </Link>
         <BlockButton text="Edit/Delete Entries" />
         <BlockButton text="Manage Users" />
         <BlockButton text="Check Messages" />

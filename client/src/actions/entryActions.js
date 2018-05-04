@@ -1,6 +1,19 @@
 import axios from "axios";
 
-import { GET_ENTRIES, ENTRY_LOADING } from "./types";
+import { GET_ENTRIES, ENTRY_LOADING, GET_ERRORS } from "./types";
+
+// create a new entry
+export const createNewEntry = (entryData, history) => dispatch => {
+  axios
+    .post("api/entries/create", entryData)
+    .then(res => history.push("/dashboard"))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
 
 // get all entries
 export const getAllEntries = () => dispatch => {

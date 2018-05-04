@@ -38,7 +38,7 @@ class CreateSeries extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="create-entry">
+      <div className="create-series">
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">

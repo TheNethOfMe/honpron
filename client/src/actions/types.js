@@ -8,3 +8,4 @@ export const ENTRY_NOT_FOUND = "ENTRY_NOT_FOUND";
 export const GET_ENTRIES = "GET_ENTRIES";
 
 export const GET_SERIES = "GET_SERIES";
+export const SERIES_LOADING = "SERIES_LOADING";

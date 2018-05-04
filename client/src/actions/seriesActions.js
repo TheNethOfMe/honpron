@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { GET_SERIES, GET_ERRORS } from "./types";
+import { GET_SERIES, SERIES_LOADING, GET_ERRORS } from "./types";
 
 // create a series
 export const createNewSeries = (seriesData, history) => dispatch => {
@@ -17,6 +17,7 @@ export const createNewSeries = (seriesData, history) => dispatch => {
 
 // get all series
 export const getAllSeries = () => dispatch => {
+  dispatch(setSeriesLoading());
   axios
     .get("/api/series")
     .then(res =>
@@ -31,4 +32,30 @@ export const getAllSeries = () => dispatch => {
         payload: {}
       })
     );
+};
+
+// get series by type
+export const getSeriesByType = seriesType => dispatch => {
+  dispatch(setSeriesLoading());
+  axios
+    .get("/api/series", { params: { seriesType } })
+    .then(res =>
+      dispatch({
+        type: GET_SERIES,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_SERIES,
+        payload: {}
+      })
+    );
+};
+
+// series loading
+export const setSeriesLoading = () => {
+  return {
+    type: SERIES_LOADING
+  };
 };
