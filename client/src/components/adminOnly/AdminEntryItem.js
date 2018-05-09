@@ -39,7 +39,6 @@ class AdminEntryItem extends Component {
     return (
       <div className="admin-entry-item card text-center mt-2">
         <div className="card-body">
-          {console.log(this.state)}
           {this.state.warn ? (
             warningMsg
           ) : (
