@@ -103,7 +103,7 @@ router.delete(
         } else if (!doc) {
           res.status(404).json({ err: "Entry not found." });
         } else {
-          res.json({ delete: "Successful" });
+          res.json({ msg: "Delete Successful" });
         }
       });
     }

@@ -16,7 +16,13 @@ class AdminEntryList extends Component {
       display = <Spinner />;
     } else {
       display = entries.map(entry => {
-        return <AdminEntryItem key={entry._id} entry={entry} />;
+        return (
+          <AdminEntryItem
+            key={entry._id}
+            entry={entry}
+            history={this.props.history}
+          />
+        );
       });
     }
     return (

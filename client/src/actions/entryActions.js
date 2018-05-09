@@ -72,7 +72,12 @@ export const updateEntry = (id, updates, history) => dispatch => {
     );
 };
 
-// clear single entry
+// delete an entry from database
+export const deleteEntry = (id, history) => dispatch => {
+  axios.delete(`/api/entries/${id}`).then(res => dispatch(getAllEntries()));
+};
+
+// clear single entry from store
 export const clearEntry = () => {
   return {
     type: CLEAR_ENTRY
