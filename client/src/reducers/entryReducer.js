@@ -1,8 +1,14 @@
-import { GET_ENTRIES, ENTRY_LOADING } from "../actions/types";
+import {
+  GET_ENTRIES,
+  ENTRY_LOADING,
+  GET_ONE_ENTRY,
+  CLEAR_ENTRY
+} from "../actions/types";
 
 const initialState = {
   entries: null,
-  loading: false
+  entryLoading: false,
+  singleEntry: null
 };
 
 export default function(state = initialState, action) {
@@ -10,13 +16,24 @@ export default function(state = initialState, action) {
     case ENTRY_LOADING:
       return {
         ...state,
-        loading: true
+        entryLoading: true
       };
     case GET_ENTRIES:
       return {
         ...state,
         entries: action.payload,
-        loading: false
+        entryLoading: false
+      };
+    case GET_ONE_ENTRY:
+      return {
+        ...state,
+        singleEntry: action.payload,
+        entryLoading: false
+      };
+    case CLEAR_ENTRY:
+      return {
+        ...state,
+        singleEntry: null
       };
     default:
       return state;

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import InputTextField from "../common/InputTextField";
-import TextAreaField from "../common/TextAreaField";
-import SelectType from "../common/SelectType";
+import InputTextField from "../formFields/InputTextField";
+import TextAreaField from "../formFields/TextAreaField";
+import SelectType from "../formFields/SelectType";
 import { createNewSeries } from "../../actions/seriesActions";
 
 class CreateSeries extends Component {

@@ -19,6 +19,7 @@ import Footer from "./components/layout/Footer";
 import Dashboard from "./components/adminOnly/Dashboard";
 import CreateSeries from "./components/adminOnly/CreateSeries";
 import CreateEntry from "./components/adminOnly/CreateEntry";
+import AdminEntryList from "./components/adminOnly/AdminEntryList";
 
 import "./App.css";
 
@@ -55,6 +56,16 @@ class App extends Component {
                 <AdminRoute
                   exact
                   path="/create-entry"
+                  component={CreateEntry}
+                />
+                <AdminRoute
+                  exact
+                  path="/all-entries"
+                  component={AdminEntryList}
+                />
+                <AdminRoute
+                  exact
+                  path="/update-entry/:id"
                   component={CreateEntry}
                 />
               </Switch>

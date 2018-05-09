@@ -25,7 +25,9 @@ class Dashboard extends Component {
         <Link to="/create-entry">
           <BlockButton text="Create A New Entry" />
         </Link>
-        <BlockButton text="Edit/Delete Entries" />
+        <Link to="/all-entries">
+          <BlockButton text="Edit/Delete Entries" />
+        </Link>
         <BlockButton text="Manage Users" />
         <BlockButton text="Check Messages" />
         <BlockButton text="Moderate Comments" />

@@ -36,8 +36,4 @@ TextAreaField.propTypes = {
   rows: PropTypes.string.isRequired
 };
 
-TextAreaField.defaultProps = {
-  type: "text"
-};
-
 export default TextAreaField;

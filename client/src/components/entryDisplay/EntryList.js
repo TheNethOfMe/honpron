@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getAllEntries } from "../../actions/entryActions";
-import Spinner from "../common/Spinner";
+import Spinner from "../formFields/Spinner";
 
 class EntryList extends Component {
   componentDidMount() {

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { registerAdmin } from "../../actions/authActions";
+import InputTextField from "../formFields/InputTextField";
 
 class Admin extends Component {
   constructor() {
@@ -46,75 +47,39 @@ class Admin extends Component {
               <div className="col-md-8 m-auto">
                 <h1 className="display-4 text-center">New Admin</h1>
                 <p className="lead text-center">Create a new Admin account</p>
+
                 <form noValidate onSubmit={this.onSubmit}>
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className={
-                        errors.userName
-                          ? "form-control form-control-lg is-invalid"
-                          : "form-control form-control-lg"
-                      }
-                      placeholder="Desired Username"
-                      name="userName"
-                      value={this.state.userName}
-                      onChange={this.onChange}
-                    />
-                    {errors.userName && (
-                      <div className="invalid-feedback">{errors.userName}</div>
-                    )}
-                  </div>
-                  <div className="form-group">
-                    <input
-                      type="email"
-                      className={
-                        errors.email
-                          ? "form-control form-control-lg is-invalid"
-                          : "form-control form-control-lg"
-                      }
-                      placeholder="Email Address"
-                      name="email"
-                      value={this.state.email}
-                      onChange={this.onChange}
-                    />
-                    {errors.email && (
-                      <div className="invalid-feedback">{errors.email}</div>
-                    )}
-                  </div>
-                  <div className="form-group">
-                    <input
-                      type="password"
-                      className={
-                        errors.password
-                          ? "form-control form-control-lg is-invalid"
-                          : "form-control form-control-lg"
-                      }
-                      placeholder="Password"
-                      name="password"
-                      value={this.state.password}
-                      onChange={this.onChange}
-                    />
-                    {errors.password && (
-                      <div className="invalid-feedback">{errors.password}</div>
-                    )}
-                  </div>
-                  <div className="form-group">
-                    <input
-                      type="password"
-                      className={
-                        errors.password2
-                          ? "form-control form-control-lg is-invalid"
-                          : "form-control form-control-lg"
-                      }
-                      placeholder="Confirm Password"
-                      name="password2"
-                      value={this.state.password2}
-                      onChange={this.onChange}
-                    />
-                    {errors.password2 && (
-                      <div className="invalid-feedback">{errors.password2}</div>
-                    )}
-                  </div>
+                  <InputTextField
+                    placeholder="Username"
+                    name="userName"
+                    value={this.state.userName}
+                    onChange={this.onChange}
+                    error={errors.userName}
+                  />
+                  <InputTextField
+                    type="email"
+                    placeholder="Email"
+                    name="email"
+                    value={this.state.email}
+                    onChange={this.onChange}
+                    error={errors.email}
+                  />
+                  <InputTextField
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    value={this.state.password}
+                    onChange={this.onChange}
+                    error={errors.password}
+                  />
+                  <InputTextField
+                    type="password"
+                    placeholder="Confirm Password"
+                    name="password2"
+                    value={this.state.password2}
+                    onChange={this.onChange}
+                    error={errors.password2}
+                  />
                   <input
                     type="submit"
                     className="btn btn-info btn-block mt-4"
