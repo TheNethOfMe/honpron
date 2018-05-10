@@ -60,7 +60,7 @@ router.post("/admin", (req, res) => {
         email: req.body.email,
         password: req.body.password,
         isAdmin: true,
-        status: "admin"
+        status: "Admin"
       });
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newAdmin.password, salt, (err, hash) => {
@@ -102,7 +102,11 @@ router.post("/login", (req, res) => {
     }
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
-        const payload = { id: user.id, userName: user.userName };
+        const payload = {
+          id: user.id,
+          userName: user.userName,
+          status: user.status
+        };
         if (user.isAdmin) {
           payload.isAdmin = user.isAdmin;
         }

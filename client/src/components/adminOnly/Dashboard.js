@@ -33,6 +33,7 @@ class Dashboard extends Component {
         </Link>
         <BlockButton text="Check Messages" />
         <BlockButton text="Moderate Comments" />
+        <BlockButton text="Manage Menus" />
       </div>
     );
   }

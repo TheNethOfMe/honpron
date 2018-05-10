@@ -6,21 +6,23 @@ import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import store from "./store";
 
-import PrivateRoute from "./components/common/PrivateRoute";
-import AdminRoute from "./components/common/AdminRoute";
-
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
-import Admin from "./components/auth/Admin";
 import Login from "./components/auth/Login";
 import Footer from "./components/layout/Footer";
 
+import AdminRoute from "./components/routers/AdminRoute";
+import PrivateRoute from "./components/routers/PrivateRoute";
+
+import Admin from "./components/auth/Admin";
 import Dashboard from "./components/adminOnly/Dashboard";
 import CreateSeries from "./components/adminOnly/CreateSeries";
 import CreateEntry from "./components/adminOnly/CreateEntry";
 import AdminEntryList from "./components/adminOnly/AdminEntryList";
 import AdminUserList from "./components/adminOnly/AdminUserList";
+
+import UserDash from "./components/userArea/UserDash";
 
 import "./App.css";
 
@@ -47,6 +49,9 @@ class App extends Component {
             <Route exact path="/" component={Landing} />
             <div className="container">
               <Switch>
+                {
+                  // ADMIN ROUTES
+                }
                 <AdminRoute exact path="/admin" component={Admin} />
                 <AdminRoute exact path="/dashboard" component={Dashboard} />
                 <AdminRoute
@@ -70,6 +75,14 @@ class App extends Component {
                   component={CreateEntry}
                 />
                 <AdminRoute exact path="/all-users" component={AdminUserList} />
+                {
+                  // USER ROUTES
+                }
+                <PrivateRoute
+                  exact
+                  path="/userDashboard"
+                  Component={UserDash}
+                />
               </Switch>
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
