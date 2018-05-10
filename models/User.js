@@ -15,8 +15,7 @@ const UserSchema = new Schema({
     required: true
   },
   isAdmin: Boolean,
-  blackListed: Boolean,
-  banned: Boolean
+  status: String
 });
 
 module.exports = User = mongoose.model("users", UserSchema);

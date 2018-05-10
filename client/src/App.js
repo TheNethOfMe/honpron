@@ -20,6 +20,7 @@ import Dashboard from "./components/adminOnly/Dashboard";
 import CreateSeries from "./components/adminOnly/CreateSeries";
 import CreateEntry from "./components/adminOnly/CreateEntry";
 import AdminEntryList from "./components/adminOnly/AdminEntryList";
+import AdminUserList from "./components/adminOnly/AdminUserList";
 
 import "./App.css";
 
@@ -68,6 +69,7 @@ class App extends Component {
                   path="/update-entry/:id"
                   component={CreateEntry}
                 />
+                <AdminRoute exact path="/all-users" component={AdminUserList} />
               </Switch>
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />

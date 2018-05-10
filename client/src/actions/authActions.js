@@ -2,7 +2,12 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "../utils/setAuthToken";
 
-import { GET_ERRORS, SET_CURRENT_USER } from "./types";
+import {
+  GET_ERRORS,
+  SET_CURRENT_USER,
+  GET_ALL_USERS,
+  SET_USER_LOADING
+} from "./types";
 
 // Register user
 export const registerUser = (userData, history) => dispatch => {
@@ -16,6 +21,7 @@ export const registerUser = (userData, history) => dispatch => {
       })
     );
 };
+
 // Register admin
 export const registerAdmin = (adminData, history) => dispatch => {
   axios
@@ -28,6 +34,7 @@ export const registerAdmin = (adminData, history) => dispatch => {
       })
     );
 };
+
 // Login - get user token
 export const loginUser = userData => dispatch => {
   axios
@@ -46,6 +53,7 @@ export const loginUser = userData => dispatch => {
       })
     );
 };
+
 // Set logged in user
 export const setCurrentUser = decoded => {
   return {
@@ -53,9 +61,35 @@ export const setCurrentUser = decoded => {
     payload: decoded
   };
 };
+
 // Log user out
 export const logoutUser = () => dispatch => {
   localStorage.removeItem("jwtToken");
   setAuthToken(false);
   dispatch(setCurrentUser({}));
+};
+
+// Get user list
+export const getUsers = () => dispatch => {
+  dispatch(setUserLoading());
+  axios.get("/api/users/modify").then(res =>
+    dispatch({
+      type: GET_ALL_USERS,
+      payload: res.data
+    })
+  );
+};
+
+// Modify a user's status
+export const modifyUserStatus = (id, status) => dispatch => {
+  axios
+    .post(`/api/users/modify/${id}`, status)
+    .then(res => dispatch(getUsers()));
+};
+
+// Set user loading
+export const setUserLoading = () => {
+  return {
+    type: SET_USER_LOADING
+  };
 };

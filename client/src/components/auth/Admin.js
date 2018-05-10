@@ -94,7 +94,7 @@ class Admin extends Component {
   }
 }
 
-Admin.PropTypes = {
+Admin.propTypes = {
   registerAdmin: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired

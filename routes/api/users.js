@@ -26,7 +26,8 @@ router.post("/register", (req, res) => {
       const newUser = new User({
         userName: req.body.userName,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        status: "normal"
       });
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -58,7 +59,8 @@ router.post("/admin", (req, res) => {
         userName: req.body.userName,
         email: req.body.email,
         password: req.body.password,
-        isAdmin: true
+        isAdmin: true,
+        status: "admin"
       });
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newAdmin.password, salt, (err, hash) => {
@@ -94,7 +96,7 @@ router.post("/login", (req, res) => {
     if (!user) {
       errors.alert = "Username or password is incorrect.";
       return res.status(404).json(errors);
-    } else if (user.banned) {
+    } else if (user.status === "banned") {
       errors.alert = "This account has been banned.";
       return res.status(401).json(errors);
     }
@@ -165,7 +167,7 @@ router.get(
     if (!isAdmin) {
       return res.status(401).json({ msg: "Unauthorized" });
     } else {
-      User.find({}, "userName email isAdmin banned blackListed").then(users => {
+      User.find({}, "userName email isAdmin status").then(users => {
         return res.json(users);
       });
     }
@@ -180,15 +182,11 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const isAdmin = req.user.isAdmin || false;
-    const banned = req.body.banned || false;
-    const blackListed = req.body.blackListed || false;
-    let changes = {};
+    const status = req.body.status;
     if (!isAdmin) return res.status(401).json({ msg: "Unauthorized" });
-    if (banned) changes.banned = true;
-    if (blackListed) changes.blackListed = true;
     User.findByIdAndUpdate(
       req.params.id,
-      { $set: changes },
+      { $set: { status } },
       { new: true }
     ).then(user => {
       return res.json(user);
