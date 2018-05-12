@@ -23,6 +23,9 @@ import AdminEntryList from "./components/adminOnly/AdminEntryList";
 import AdminUserList from "./components/adminOnly/AdminUserList";
 
 import UserDash from "./components/userArea/UserDash";
+import ChangeEmail from "./components/userArea/ChangeEmail";
+import SendMessage from "./components/userArea/SendMessage";
+import GetMessages from "./components/userArea/GetMessages";
 
 import "./App.css";
 
@@ -81,7 +84,22 @@ class App extends Component {
                 <PrivateRoute
                   exact
                   path="/userDashboard"
-                  Component={UserDash}
+                  component={UserDash}
+                />
+                <PrivateRoute
+                  exact
+                  path="/changeEmail"
+                  component={ChangeEmail}
+                />
+                <PrivateRoute
+                  exact
+                  path="/sendMessage"
+                  component={SendMessage}
+                />
+                <PrivateRoute
+                  exact
+                  path="/getMessages"
+                  component={GetMessages}
                 />
               </Switch>
               <Route exact path="/register" component={Register} />

@@ -1,13 +1,26 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import BlockButton from "../common/BlockButton";
 
 class UserDash extends Component {
   render() {
     const { user } = this.props.auth;
     return (
       <div>
-        <h1>Welcome {user.username}</h1>
+        <h1>Welcome {user.userName}</h1>
+        <Link to="/changeEmail">
+          <BlockButton text={"Update Email Address"} />
+        </Link>
+        <Link to="/sendMessage">
+          <BlockButton text={"Send A Message"} />
+        </Link>
+        <Link to="/getMessages">
+          <BlockButton text={"Check Messages"} />
+        </Link>
+        <BlockButton text={"Review Comments"} />
+        <BlockButton text={"Delete Account"} />
       </div>
     );
   }
@@ -21,4 +34,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(null)(UserDash);
+export default connect(mapStateToProps)(UserDash);

@@ -13,3 +13,6 @@ export const CLEAR_ENTRY = "CLEAR_ENTRY";
 
 export const GET_SERIES = "GET_SERIES";
 export const SERIES_LOADING = "SERIES_LOADING";
+
+export const GET_MESSAGES = "GET_MESSAGES";
+export const MSG_LOADING = "MSG_LOADING";

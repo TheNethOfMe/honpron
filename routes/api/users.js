@@ -10,6 +10,7 @@ const passport = require("passport");
 // Input Validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
+const validateEmailChange = require("../../validation/email-change");
 
 // Load database models
 const User = require("../../models/User");
@@ -136,27 +137,27 @@ router.post(
   "/email",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const email = req.body.email;
-    const oldEmail = req.body.oldEmail;
-    if (req.user.email !== oldEmail) {
-      return res
-        .status(401)
-        .json({ oldEmail: "Old Email couldn't be verified." });
-    } else if (isEmpty(email) || !Validator.isEmail(email)) {
-      return res.status(400).json({ email: "Email field is not valid." });
-    } else {
-      User.findOneAndUpdate(
-        { userName: req.user.userName },
-        { $set: { email } },
-        { new: true }
-      )
-        .then(user => {
-          res.json(user);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
+    validateEmailChange(req.body, req.user.userName).then(result => {
+      const { isValid, errors } = result;
+      if (!isValid) {
+        return res.status(400).json(errors);
+      } else {
+        const email = req.body.email;
+        const email2 = req.body.email2;
+        const oldEmail = req.body.oldEmail;
+        User.findOneAndUpdate(
+          { userName: req.user.userName },
+          { $set: { email } },
+          { new: true }
+        )
+          .then(user => {
+            res.json(user);
+          })
+          .catch(err => {
+            return res.status(400).json({ msg: "Something went wrong." });
+          });
+      }
+    });
   }
 );
 

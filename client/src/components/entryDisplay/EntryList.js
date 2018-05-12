@@ -9,7 +9,6 @@ class EntryList extends Component {
     this.props.getAllEntries();
   }
   render() {
-    const { user } = this.props.auth;
     const { entries, loading } = this.props.entries;
     let listContent;
     if (entries === null || loading) {

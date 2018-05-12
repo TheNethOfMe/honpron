@@ -87,6 +87,19 @@ export const modifyUserStatus = (id, status) => dispatch => {
     .then(res => dispatch(getUsers()));
 };
 
+// Update user's email
+export const modifyUserEmail = (userData, history) => dispatch => {
+  axios
+    .post("/api/users/email", userData)
+    .then(res => history.push("/userDashboard"))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
 // Set user loading
 export const setUserLoading = () => {
   return {

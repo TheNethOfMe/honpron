@@ -3,12 +3,12 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
 
-// Input Validation
+// Validation
 const validateEntryInput = require("../../validation/entry");
 const getEntryFields = require("../../validation/entry-fields");
 const getCommentCode = require("../../validation/comment-coding");
 
-// Load Entry Model
+// Load Models
 const Entry = require("../../models/Entries");
 const Series = require("../../models/Series");
 const User = require("../../models/User");
