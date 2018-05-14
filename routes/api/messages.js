@@ -97,11 +97,10 @@ router.get(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log("Fire", req.params.id);
     Message.findById(req.params.id)
       .then(message => {
         const self = req.user.userName;
-        const { denyAccess } = canReadMessage(message, self);
+        const denyAccess = canReadMessage(message, self);
         if (denyAccess) {
           return res.status(401).json({ msg: "Access Denied" });
         }

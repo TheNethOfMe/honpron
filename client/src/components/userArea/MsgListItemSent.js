@@ -22,7 +22,7 @@ class MsgListItemSent extends Component {
     this.props.updateMessage(this.props.msg._id, updates);
   }
   render() {
-    const msgLink = `/getMessage/${this.props.msg._id}`;
+    const msgLink = `/sentMessage/${this.props.msg._id}`;
     const warningMsg = (
       <div>
         <p>Are you sure you want to delete this from your sent box?</p>
@@ -46,7 +46,10 @@ class MsgListItemSent extends Component {
                 <Link to={msgLink}>
                   <h5 className="card-title">{this.props.msg.subject}</h5>
                 </Link>
-                <p>To: {this.props.msg.recipient}</p>
+                <p>
+                  To: {this.props.msg.recipient}
+                  <br /> On {new Date(this.props.msg.date).toLocaleDateString()}
+                </p>
               </div>
               <div className="col-md-4">
                 <button onClick={this.warnUser} className="btn btn-danger mr-4">

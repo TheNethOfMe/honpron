@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Spinner from "../formFields/Spinner";
 import { readMessage, updateMessage } from "../../actions/msgActions";
 
-class GetOneMessage extends Component {
+class ViewSentMessage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +17,7 @@ class GetOneMessage extends Component {
     this.props.readMessage(this.state.id);
   }
   onDelete() {
-    const updates = { recipientDelete: true };
+    const updates = { authorDelete: true };
     this.props.updateMessage(this.state.id, updates);
     this.props.history.push("/getMessages");
   }
@@ -31,7 +31,7 @@ class GetOneMessage extends Component {
           <div>
             <h1>{singleMsg.subject}</h1>
             <h3>
-              From: {singleMsg.author}{" "}
+              Sent To: {singleMsg.recipient}{" "}
               <small>On {new Date(singleMsg.date).toLocaleDateString()}</small>
             </h3>
             <button className="btn btn-light">Add Friend</button>
@@ -42,12 +42,14 @@ class GetOneMessage extends Component {
                 to={{
                   pathname: "/sendMessage",
                   state: {
-                    recipient: singleMsg.author,
+                    recipient: singleMsg.recipient,
                     subject: `Re: ${singleMsg.subject}`
                   }
                 }}
               >
-                <button className="btn btn-success">Reply</button>
+                <button className="btn btn-success">
+                  Send Another Message
+                </button>
               </Link>
               <Link to="/getMessages">
                 <button className="btn btn-primary">Return to Inbox</button>
@@ -119,7 +121,7 @@ class GetOneMessage extends Component {
   }
 }
 
-GetOneMessage.propTypes = {
+ViewSentMessage.propTypes = {
   readMessage: PropTypes.func.isRequired,
   updateMessage: PropTypes.func.isRequired,
   messages: PropTypes.object.isRequired
@@ -130,5 +132,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { readMessage, updateMessage })(
-  GetOneMessage
+  ViewSentMessage
 );

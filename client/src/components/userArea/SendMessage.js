@@ -6,11 +6,11 @@ import TextAreaField from "../formFields/TextAreaField";
 import { createNewMessage } from "../../actions/msgActions";
 
 class SendMessage extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      recipient: "",
-      subject: "",
+      recipient: this.props.location.state.recipient || "",
+      subject: this.props.location.state.subject || "",
       body: "",
       errors: {}
     };

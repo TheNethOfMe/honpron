@@ -49,7 +49,10 @@ class MsgListItemRecieved extends Component {
                     {this.props.msg.subject}
                   </h5>
                 </Link>
-                <p>From: {this.props.msg.author}</p>
+                <p>
+                  From: {this.props.msg.author} <br /> On{" "}
+                  {new Date(this.props.msg.date).toLocaleDateString()}
+                </p>
               </div>
               <div className="col-md-4">
                 <button onClick={this.warnUser} className="btn btn-danger mr-4">

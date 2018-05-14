@@ -13,7 +13,15 @@ class UserDash extends Component {
         <Link to="/changeEmail">
           <BlockButton text={"Update Email Address"} />
         </Link>
-        <Link to="/sendMessage">
+        <Link
+          to={{
+            pathname: "/sendMessage",
+            state: {
+              recipient: "",
+              subject: ""
+            }
+          }}
+        >
           <BlockButton text={"Send A Message"} />
         </Link>
         <Link to="/getMessages">
