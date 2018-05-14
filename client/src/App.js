@@ -26,6 +26,7 @@ import UserDash from "./components/userArea/UserDash";
 import ChangeEmail from "./components/userArea/ChangeEmail";
 import SendMessage from "./components/userArea/SendMessage";
 import GetMessages from "./components/userArea/GetMessages";
+import GetOneMessage from "./components/userArea/GetOneMessage";
 
 import "./App.css";
 
@@ -100,6 +101,11 @@ class App extends Component {
                   exact
                   path="/getMessages"
                   component={GetMessages}
+                />
+                <PrivateRoute
+                  exact
+                  path="/getMessage/:id"
+                  component={GetOneMessage}
                 />
               </Switch>
               <Route exact path="/register" component={Register} />

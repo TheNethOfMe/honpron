@@ -5,6 +5,7 @@ const passport = require("passport");
 
 // Validation
 const validateMessageInput = require("../../validation/message");
+const canReadMessage = require("../../validation/can-read-message");
 
 // Load Models
 const Message = require("../../models/Messages");
@@ -59,7 +60,7 @@ router.post(
   }
 );
 
-// @route   POST api/message/:id
+// @route   POST api/messages/:id
 // @desc    adds delete property and deletes message if author and sender have deleted
 // @access  Private
 router.post(
@@ -70,8 +71,8 @@ router.post(
     if (req.body.authorDelete) updates.authorDelete = true;
     if (req.body.recipientDelete) updates.recipientDelete = true;
     Message.findByIdAndUpdate(req.params.id, { $set: updates }, { new: true })
-      .then(entry => {
-        if (entry.authorDelete && entry.recipientDelete) {
+      .then(msg => {
+        if (msg.authorDelete && msg.recipientDelete) {
           Message.findByIdAndRemove(req.params.id, (err, doc) => {
             if (err) {
               res.status(500).json({ msg: "An error occured" });
@@ -86,6 +87,35 @@ router.post(
       .catch(err => {
         res.status(500).json({ msg: "Something went wrong" });
       });
+  }
+);
+
+// @route   GET api/messages/:id
+// @desc    gets one message and adds read property if it's unread
+// @access  Private
+router.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    console.log("Fire", req.params.id);
+    Message.findById(req.params.id)
+      .then(message => {
+        const self = req.user.userName;
+        const { denyAccess } = canReadMessage(message, self);
+        if (denyAccess) {
+          return res.status(401).json({ msg: "Access Denied" });
+        }
+        if (message.recipient === self && message.read === false) {
+          Message.findByIdAndUpdate(
+            req.params.id,
+            { $set: { read: true } },
+            { new: true }
+          ).then(msg => res.json(msg));
+        } else {
+          res.json(message);
+        }
+      })
+      .catch(err => res.status(404).json({ msg: "Message not found" }));
   }
 );
 

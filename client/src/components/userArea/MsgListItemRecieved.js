@@ -22,6 +22,7 @@ class MsgListItemRecieved extends Component {
     this.props.updateMessage(this.props.msg._id, updates);
   }
   render() {
+    const msgLink = `/getMessage/${this.props.msg._id}`;
     const warningMsg = (
       <div>
         <p>Are you sure you want to delete this message?</p>
@@ -42,8 +43,11 @@ class MsgListItemRecieved extends Component {
           ) : (
             <div className="row">
               <div className="col-md-8">
-                <Link to="/getMessages">
-                  <h5 className="card-title">{this.props.msg.subject}</h5>
+                <Link to={msgLink}>
+                  <h5 className="card-title">
+                    {!this.props.msg.read && "*NEW* "}
+                    {this.props.msg.subject}
+                  </h5>
                 </Link>
                 <p>From: {this.props.msg.author}</p>
               </div>

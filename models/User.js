@@ -15,7 +15,9 @@ const UserSchema = new Schema({
     required: true
   },
   isAdmin: Boolean,
-  status: String
+  status: String,
+  friends: [String],
+  foes: [String]
 });
 
 module.exports = User = mongoose.model("users", UserSchema);

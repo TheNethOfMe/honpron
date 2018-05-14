@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { GET_ERRORS, GET_MESSAGES, MSG_LOADING } from "./types";
+import { GET_ERRORS, GET_MESSAGES, MSG_LOADING, GET_ONE_MSG } from "./types";
 
 // compose a new message
 export const createNewMessage = (messageData, history) => dispatch => {
@@ -34,11 +34,31 @@ export const getAllMessages = () => dispatch => {
     );
 };
 
+// update message (for when a recipient or author deletes a message)
 export const updateMessage = (id, updates, history) => dispatch => {
   axios
     .post(`/api/messages/${id}`, updates)
     .then(res => dispatch(getAllMessages()))
     .catch(err => console.log(err));
+};
+
+// read a message (and set message status to read)
+export const readMessage = id => dispatch => {
+  dispatch(setMessageLoading());
+  axios
+    .get(`/api/messages/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_ONE_MSG,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ONE_MSG,
+        payload: {}
+      })
+    );
 };
 
 // set messages loading
