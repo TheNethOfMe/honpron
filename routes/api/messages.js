@@ -59,4 +59,34 @@ router.post(
   }
 );
 
+// @route   POST api/message/:id
+// @desc    adds delete property and deletes message if author and sender have deleted
+// @access  Private
+router.post(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    let updates = {};
+    if (req.body.authorDelete) updates.authorDelete = true;
+    if (req.body.recipientDelete) updates.recipientDelete = true;
+    Message.findByIdAndUpdate(req.params.id, { $set: updates }, { new: true })
+      .then(entry => {
+        if (entry.authorDelete && entry.recipientDelete) {
+          Message.findByIdAndRemove(req.params.id, (err, doc) => {
+            if (err) {
+              res.status(500).json({ msg: "An error occured" });
+            } else {
+              res.json({ msg: "Deletion successful" });
+            }
+          });
+        } else {
+          res.json({ msg: "Updated" });
+        }
+      })
+      .catch(err => {
+        res.status(500).json({ msg: "Something went wrong" });
+      });
+  }
+);
+
 module.exports = router;

@@ -34,6 +34,13 @@ export const getAllMessages = () => dispatch => {
     );
 };
 
+export const updateMessage = (id, updates, history) => dispatch => {
+  axios
+    .post(`/api/messages/${id}`, updates)
+    .then(res => dispatch(getAllMessages()))
+    .catch(err => console.log(err));
+};
+
 // set messages loading
 export const setMessageLoading = () => {
   return {
