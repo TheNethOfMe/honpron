@@ -3,14 +3,16 @@ import isEmpty from "../validation/is-empty";
 import {
   SET_CURRENT_USER,
   GET_ALL_USERS,
-  SET_USER_LOADING
+  SET_USER_LOADING,
+  SET_USER_BLOCKLIST
 } from "../actions/types";
 
 const initialState = {
   isAuthenticated: false,
   user: {},
   userList: null,
-  userLoading: false
+  userLoading: false,
+  userBlocklist: null
 };
 
 export default function(state = initialState, action) {
@@ -26,6 +28,11 @@ export default function(state = initialState, action) {
         ...state,
         userList: action.payload,
         userLoading: false
+      };
+    case SET_USER_BLOCKLIST:
+      return {
+        ...state,
+        userBlocklist: action.payload
       };
     case SET_USER_LOADING:
       return {

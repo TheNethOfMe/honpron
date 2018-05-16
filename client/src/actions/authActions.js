@@ -6,7 +6,8 @@ import {
   GET_ERRORS,
   SET_CURRENT_USER,
   GET_ALL_USERS,
-  SET_USER_LOADING
+  SET_USER_LOADING,
+  SET_USER_BLOCKLIST
 } from "./types";
 
 // Register user
@@ -40,7 +41,8 @@ export const loginUser = userData => dispatch => {
   axios
     .post("/api/users/login", userData)
     .then(res => {
-      const { token } = res.data;
+      const { token, blockList } = res.data;
+      dispatch(setUserBlockList(blockList));
       localStorage.setItem("jwtToken", token);
       setAuthToken(token);
       const decoded = jwt_decode(token);
@@ -62,11 +64,20 @@ export const setCurrentUser = decoded => {
   };
 };
 
+// Set user's friends and foes lists
+export const setUserBlockList = lists => {
+  return {
+    type: SET_USER_BLOCKLIST,
+    payload: lists
+  };
+};
+
 // Log user out
 export const logoutUser = () => dispatch => {
   localStorage.removeItem("jwtToken");
   setAuthToken(false);
   dispatch(setCurrentUser({}));
+  dispatch(setUserBlockList({}));
 };
 
 // Get user list
@@ -98,6 +109,15 @@ export const modifyUserEmail = (userData, history) => dispatch => {
         payload: err.response.data
       })
     );
+};
+
+// updates user's block list
+export const blockUser = (update, history) => dispatch => {
+  console.log("FIRE", update);
+  axios.post("/api/users/block", update).then(res => {
+    dispatch(setUserBlockList(res.data));
+    history.push("/userDashboard");
+  });
 };
 
 // Set user loading

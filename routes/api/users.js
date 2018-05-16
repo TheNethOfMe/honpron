@@ -108,6 +108,7 @@ router.post("/login", (req, res) => {
           userName: user.userName,
           status: user.status
         };
+        const blockList = user.blocked;
         if (user.isAdmin) {
           payload.isAdmin = user.isAdmin;
         }
@@ -118,7 +119,8 @@ router.post("/login", (req, res) => {
           (err, token) => {
             res.json({
               success: true,
-              token: "Bearer " + token
+              token: "Bearer " + token,
+              blockList
             });
           }
         );
@@ -199,18 +201,25 @@ router.post(
   }
 );
 
-// @route   GET api/users/current
-// @desc    return current user
+// @route   POST api/users/block
+// @desc    lets user block another user
 // @access  Private
-router.get(
-  "/current",
+router.post(
+  "/block",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    res.json({
-      id: req.user.id,
-      name: req.user.name,
-      isAdmin: req.user.isAdmin || "User is NOT admin"
-    });
+    const blockUser = req.body.userId;
+    console.log("FIRE", req.body.userId);
+    User.findByIdAndUpdate(
+      req.user._id,
+      { $addToSet: { blocked: blockUser } },
+      { new: true }
+    )
+      .then(user => {
+        const data = user.blocked;
+        return res.json(data);
+      })
+      .catch(err => console.log(err));
   }
 );
 

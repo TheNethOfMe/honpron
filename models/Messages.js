@@ -6,7 +6,15 @@ const MessageSchema = new Schema({
     type: String,
     required: true
   },
+  authorId: {
+    type: String,
+    required: true
+  },
   recipient: {
+    type: String,
+    required: true
+  },
+  recipientId: {
     type: String,
     required: true
   },

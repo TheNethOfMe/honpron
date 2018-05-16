@@ -27,7 +27,6 @@ import ChangeEmail from "./components/userArea/ChangeEmail";
 import SendMessage from "./components/userArea/SendMessage";
 import GetMessages from "./components/userArea/GetMessages";
 import GetOneMessage from "./components/userArea/GetOneMessage";
-import ViewSentMessage from "./components/userArea/ViewSentMessage";
 
 import "./App.css";
 
@@ -107,11 +106,6 @@ class App extends Component {
                   exact
                   path="/getMessage/:id"
                   component={GetOneMessage}
-                />
-                <PrivateRoute
-                  exact
-                  path="/sentMessage/:id"
-                  component={ViewSentMessage}
                 />
               </Switch>
               <Route exact path="/register" component={Register} />

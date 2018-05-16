@@ -18,11 +18,11 @@ router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const self = req.user.userName;
+    const self = req.user.id;
     Message.find({
       $or: [
-        { author: self, authorDelete: false },
-        { recipient: self, recipientDelete: false }
+        { authorId: self, authorDelete: false },
+        { recipientId: self, recipientDelete: false }
       ]
     })
       .sort({ date: -1 })
@@ -39,13 +39,15 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     validateMessageInput(req.body).then(result => {
-      const { errors, isValid } = result;
+      const { errors, isValid, recipientId } = result;
       if (!isValid) {
         return res.status(400).json(errors);
       } else {
         const newMessage = {
           author: req.user.userName,
+          authorId: req.user.id,
           recipient: req.body.recipient,
+          recipientId,
           subject: req.body.subject || "(No Subject)",
           body: req.body.body
         };
@@ -99,12 +101,12 @@ router.get(
   (req, res) => {
     Message.findById(req.params.id)
       .then(message => {
-        const self = req.user.userName;
+        const self = req.user.id;
         const denyAccess = canReadMessage(message, self);
         if (denyAccess) {
           return res.status(401).json({ msg: "Access Denied" });
         }
-        if (message.recipient === self && message.read === false) {
+        if (message.recipientId === self && message.read === false) {
           Message.findByIdAndUpdate(
             req.params.id,
             { $set: { read: true } },

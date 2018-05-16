@@ -4,13 +4,15 @@ const isEmpty = require("./is-empty");
 
 module.exports = async function validateMessageInput(data) {
   let errors = {};
-
+  let recipientId;
   const foundRecipient = await User.findOne({ userName: data.recipient });
   data.recipient = !isEmpty(data.recipient) ? data.recipient : "";
   data.body = !isEmpty(data.body) ? data.body : "";
 
   if (!foundRecipient) {
     errors.recipient = "We can't find a user by that name.";
+  } else {
+    recipientId = foundRecipient._id;
   }
   if (Validator.isEmpty(data.recipient)) {
     errors.recipient = "Message must have a recipient.";
@@ -23,6 +25,7 @@ module.exports = async function validateMessageInput(data) {
   }
   return {
     errors,
-    isValid: isEmpty(errors)
+    isValid: isEmpty(errors),
+    recipientId
   };
 };

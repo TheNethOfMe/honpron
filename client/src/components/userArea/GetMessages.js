@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Spinner from "../formFields/Spinner";
 import { getAllMessages } from "../../actions/msgActions";
-import MsgListItemRecieved from "./MsgListItemRecieved";
-import MsgListItemSent from "./MsgListItemSent";
+import MsgListItem from "./MsgListItem";
 
 class GetMessages extends Component {
   constructor() {
@@ -26,12 +25,12 @@ class GetMessages extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.messages.messages && nextProps.messages.messages !== null) {
       const newMessages = nextProps.messages.messages;
-      const currentUser = this.props.auth.user.userName;
+      const currentUser = this.props.auth.user.id;
       const recievedMail = newMessages.filter(
-        message => message.recipient === currentUser
+        message => message.recipientId === currentUser
       );
       const sentMail = newMessages.filter(
-        message => message.author === currentUser
+        message => message.authorId === currentUser
       );
       this.setState({ recievedMail, sentMail });
     }
@@ -51,12 +50,16 @@ class GetMessages extends Component {
     } else {
       if (msgSelect === "recieved") {
         display = recievedMail.map(message => {
-          return <MsgListItemRecieved msg={message} key={message._id} />;
+          return (
+            <MsgListItem msg={message} key={message._id} useris="recipient" />
+          );
         });
       }
       if (msgSelect === "sent") {
         display = sentMail.map(message => {
-          return <MsgListItemSent msg={message} key={message._id} />;
+          return (
+            <MsgListItem msg={message} key={message._id} useris="author" />
+          );
         });
       }
     }
