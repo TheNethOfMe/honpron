@@ -1,0 +1,21 @@
+// Navbar AND footer
+
+.site-navbar {
+  background-color: $card-color;
+  border-bottom: 3px solid $accent-color;
+}
+
+.site-navbar_text {
+  color: $text-color;
+}
+
+.site-navbar_accent {
+  color: $accent-color;
+  font-family: $accent-text, sans-serif;
+}
+
+.site-footer {
+  background-color: $card-color;
+  color: $text-color;
+  font-family: $accent-text, sans-serif;
+}

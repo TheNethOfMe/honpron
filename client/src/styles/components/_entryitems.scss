@@ -1,0 +1,24 @@
+// Entry Item and Menu Widget
+
+.entry-item {
+  background-color: $card-color;
+}
+
+.entry-item_title {
+  color: $accent-color;
+}
+
+.entry-item_text {
+  color: $text-color;
+  font-family: $article-text, serif;
+}
+
+.widget-items p {
+  color: $accent-color;
+  margin: 0;
+}
+
+.widget-item_secondary {
+  color: $text-color !important;
+  padding-left: 2em;
+}

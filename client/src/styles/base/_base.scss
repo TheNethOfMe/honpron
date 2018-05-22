@@ -1,0 +1,11 @@
+body {
+  background-color: $background-color;
+  font-family: $main-font, sans-serif;
+}
+
+.content-panel {
+  background-color: $card-color;
+  border-radius: 20px;
+  color: $text-color;
+  padding: 1em;
+}

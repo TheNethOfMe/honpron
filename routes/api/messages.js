@@ -38,7 +38,7 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    validateMessageInput(req.body).then(result => {
+    validateMessageInput(req.body, req.user.id).then(result => {
       const { errors, isValid, recipientId } = result;
       if (!isValid) {
         return res.status(400).json(errors);

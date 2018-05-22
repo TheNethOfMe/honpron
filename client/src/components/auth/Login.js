@@ -42,7 +42,7 @@ class Login extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="login">
+      <div className="content-panel">
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
