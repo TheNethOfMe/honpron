@@ -28,6 +28,8 @@ import SendMessage from "./components/userArea/SendMessage";
 import GetMessages from "./components/userArea/GetMessages";
 import GetOneMessage from "./components/userArea/GetOneMessage";
 
+import DisplayEntry from "./components/entryDisplay/DisplayEntry";
+
 import "./App.css";
 
 if (localStorage.jwtToken) {
@@ -108,6 +110,7 @@ class App extends Component {
                   component={GetOneMessage}
                 />
               </Switch>
+              <Route exact path="/view/:id" component={DisplayEntry} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
             </div>

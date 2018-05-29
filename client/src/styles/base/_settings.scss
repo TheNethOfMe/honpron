@@ -13,3 +13,9 @@ $background-color: #343840;
 $card-color: #111919;
 $text-color: #dbdbdb;
 $accent-color: #d17002;
+
+// Mixins
+@mixin article-text {
+  color: $text-color;
+  font-family: $article-text, serif;
+}

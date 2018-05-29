@@ -37,27 +37,10 @@ const EntrySchema = new Schema({
     author: { type: String },
     content: { type: String }
   },
-  comments: [
-    {
-      author: {
-        type: String,
-        required: true
-      },
-      authorId: {
-        type: String,
-        required: true
-      },
-      content: {
-        type: String,
-        required: true
-      },
-      commentDate: {
-        type: Date,
-        default: Date.now
-      },
-      commentCode: String
-    }
-  ],
+  comments: {
+    type: Number,
+    default: 0
+  },
   favorites: [
     {
       user: {

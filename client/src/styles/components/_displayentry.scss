@@ -1,0 +1,20 @@
+.display-entry {
+  background-color: $card-color;
+  text-align: center;
+}
+
+.display-entry_img {
+  margin: auto;
+}
+
+.display-entry_title {
+  color: $accent-color;
+}
+
+.display-entry_text {
+  @include article-text;
+}
+
+.display-entry_details {
+  color: $accent-color;
+}

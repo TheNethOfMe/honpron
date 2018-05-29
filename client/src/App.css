@@ -11,6 +11,10 @@ body {
   color: #dbdbdb;
   padding: 1em; }
 
+a,
+a:hover {
+  text-decoration: none; }
+
 .site-navbar {
   background-color: #111919;
   border-bottom: 3px solid #d17002; }
@@ -27,8 +31,12 @@ body {
   color: #dbdbdb;
   font-family: "Press Start 2P", sans-serif; }
 
-.entry-item {
+.entry-item,
+.entry-item_widget {
   background-color: #111919; }
+
+.entry-item:hover {
+  border: 1px #d17002 solid; }
 
 .entry-item_title {
   color: #d17002; }
@@ -44,3 +52,20 @@ body {
 .widget-item_secondary {
   color: #dbdbdb !important;
   padding-left: 2em; }
+
+.display-entry {
+  background-color: #111919;
+  text-align: center; }
+
+.display-entry_img {
+  margin: auto; }
+
+.display-entry_title {
+  color: #d17002; }
+
+.display-entry_text {
+  color: #dbdbdb;
+  font-family: "Glegoo", serif; }
+
+.display-entry_details {
+  color: #d17002; }

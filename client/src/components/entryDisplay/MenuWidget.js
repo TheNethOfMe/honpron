@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
 class MenuWidget extends Component {
   render() {
-    const entry = this.props.entry;
     return (
-      <div className="card entry-item mb-2">
+      <div className="card entry-item_widget mb-2">
         <div className="card-body text-left widget-items">
           <p>Videos</p>
           <p className="widget-item_secondary">SNEScapades</p>

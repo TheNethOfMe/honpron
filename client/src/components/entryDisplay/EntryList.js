@@ -46,8 +46,8 @@ class EntryList extends Component {
     }
     return (
       <div className="row justify-content-center">
-        <div className="col-md-7">{displayMain}</div>
-        <div className="col-md-3">
+        <div className="col-md-8">{displayMain}</div>
+        <div className="col-md-4">
           <MenuWidget />
           {displaySmall}
         </div>

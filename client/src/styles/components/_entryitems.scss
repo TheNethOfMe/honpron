@@ -1,7 +1,12 @@
 // Entry Item and Menu Widget
 
-.entry-item {
+.entry-item,
+.entry-item_widget {
   background-color: $card-color;
+}
+
+.entry-item:hover {
+  border: 1px $accent-color solid;
 }
 
 .entry-item_title {
@@ -9,8 +14,7 @@
 }
 
 .entry-item_text {
-  color: $text-color;
-  font-family: $article-text, serif;
+  @include article-text;
 }
 
 .widget-items p {

@@ -45,12 +45,12 @@ export const getOneEntry = id => dispatch => {
   dispatch(setEntryLoading());
   axios
     .get(`/api/entries/${id}`)
-    .then(res =>
+    .then(res => {
       dispatch({
         type: GET_ONE_ENTRY,
         payload: res.data
-      })
-    )
+      });
+    })
     .catch(err =>
       dispatch({
         type: GET_ONE_ENTRY,
