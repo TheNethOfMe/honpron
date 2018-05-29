@@ -10,6 +10,10 @@ const CommentSchema = new Schema({
     type: String,
     required: true
   },
+  entry: {
+    type: String,
+    required: true
+  },
   entryId: {
     type: String,
     required: true

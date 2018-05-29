@@ -14,8 +14,27 @@ $card-color: #111919;
 $text-color: #dbdbdb;
 $accent-color: #d17002;
 
+// Other colors
+$hp-red: #c7390a;
+$hp-green: #39c70a;
+$hp-user: #0a98c7;
+$hp-admin: #aaff30;
+$snes-purple: #4f43ae;
+$snes-blue: #b5b6e4;
+$snes-gray: #908a99;
+$snes-lite: #cec9cc;
+
 // Mixins
 @mixin article-text {
   color: $text-color;
   font-family: $article-text, serif;
+}
+
+// Buttons
+.btn-admin {
+  background-color: $hp-green;
+}
+
+.btn-delete {
+  background-color: $hp-red;
 }

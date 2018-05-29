@@ -1,0 +1,22 @@
+// Admin Dashboard, Moderate Comments, and Create Entry Form
+
+.admin-dashboard,
+.create-entry {
+  background-color: $card-color;
+  color: $text-color;
+  padding: 1em;
+  text-align: center;
+}
+
+.admin-title {
+  color: $accent-color;
+}
+
+.moderate-comments {
+  color: $text-color;
+}
+
+.admin-comment {
+  background-color: $card-color;
+  padding: 0.5em;
+}

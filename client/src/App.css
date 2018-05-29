@@ -1,6 +1,12 @@
 @import url("https://fonts.googleapis.com/css?family=Audiowide");
 @import url("https://fonts.googleapis.com/css?family=Glegoo");
 @import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
+.btn-admin {
+  background-color: #39c70a; }
+
+.btn-delete {
+  background-color: #c7390a; }
+
 body {
   background-color: #343840;
   font-family: "Audiowide", sans-serif; }
@@ -69,3 +75,20 @@ a:hover {
 
 .display-entry_details {
   color: #d17002; }
+
+.admin-dashboard,
+.create-entry {
+  background-color: #111919;
+  color: #dbdbdb;
+  padding: 1em;
+  text-align: center; }
+
+.admin-title {
+  color: #d17002; }
+
+.moderate-comments {
+  color: #dbdbdb; }
+
+.admin-comment {
+  background-color: #111919;
+  padding: 0.5em; }

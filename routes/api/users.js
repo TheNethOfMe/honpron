@@ -14,6 +14,7 @@ const validateEmailChange = require("../../validation/email-change");
 
 // Load database models
 const User = require("../../models/User");
+const Entry = require("../../models/Entries");
 
 // @route   POST api/users/register
 // @desc    registers new user
@@ -209,7 +210,6 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const blockUser = req.body.userId;
-    console.log("FIRE", req.body.userId);
     User.findByIdAndUpdate(
       req.user._id,
       { $addToSet: { blocked: blockUser } },
@@ -218,6 +218,31 @@ router.post(
       .then(user => {
         const data = user.blocked;
         return res.json(data);
+      })
+      .catch(err => console.log(err));
+  }
+);
+
+// @route   POST api/users/fav
+// @desc    adds entry to user fav list and increments entry's fav number
+// @access  Private
+router.post(
+  "/fav",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const entryToFav = req.body.entryId;
+    User.findByIdAndUpdate(
+      req.user._id,
+      { $addToSet: { favorites: entryToFav } },
+      { new: true }
+    )
+      .then(user => {
+        const data = user.favorites;
+        Entry.findByIdAndUpdate(entryToFav, { $inc: { favorites: 1 } }).then(
+          entry => {
+            res.json(data);
+          }
+        );
       })
       .catch(err => console.log(err));
   }

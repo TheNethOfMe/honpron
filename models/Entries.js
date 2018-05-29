@@ -41,14 +41,10 @@ const EntrySchema = new Schema({
     type: Number,
     default: 0
   },
-  favorites: [
-    {
-      user: {
-        type: Schema.Types.ObjectId,
-        ref: "users"
-      }
-    }
-  ]
+  favorites: {
+    type: Number,
+    default: 0
+  }
 });
 
 module.exports = Entry = mongoose.model("entries", EntrySchema);

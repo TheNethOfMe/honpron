@@ -21,6 +21,7 @@ import CreateSeries from "./components/adminOnly/CreateSeries";
 import CreateEntry from "./components/adminOnly/CreateEntry";
 import AdminEntryList from "./components/adminOnly/AdminEntryList";
 import AdminUserList from "./components/adminOnly/AdminUserList";
+import ModerateComments from "./components/adminOnly/ModerateComments";
 
 import UserDash from "./components/userArea/UserDash";
 import ChangeEmail from "./components/userArea/ChangeEmail";
@@ -108,6 +109,11 @@ class App extends Component {
                   exact
                   path="/getMessage/:id"
                   component={GetOneMessage}
+                />
+                <PrivateRoute
+                  exact
+                  path="/moderate-comments"
+                  component={ModerateComments}
                 />
               </Switch>
               <Route exact path="/view/:id" component={DisplayEntry} />

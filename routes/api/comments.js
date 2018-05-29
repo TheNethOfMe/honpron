@@ -30,6 +30,7 @@ router.post(
         const newComment = {
           author: req.user.userName,
           authorId: req.user.id,
+          entry: req.body.entryTitle,
           entryId: req.body.entryId,
           content: req.body.comment,
           commentCode: color,

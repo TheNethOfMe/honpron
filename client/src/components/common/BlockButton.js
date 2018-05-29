@@ -5,7 +5,7 @@ const ButtonBlock = ({ text }) => {
   return (
     <div className="row pt-2">
       <div className="col-md-8 m-auto">
-        <button className="btn btn-primary btn-block">{text}</button>
+        <button className="btn btn-admin btn-block">{text}</button>
       </div>
     </div>
   );

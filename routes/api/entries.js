@@ -110,25 +110,4 @@ router.delete(
   }
 );
 
-// @route   POST api/entries/togglefav/:id
-// @desc    toggle fav/unfav an entry
-// @access  Private
-router.post(
-  "/togglefav/:id",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Entry.findById(req.params.id).then(entry => {
-      const favIndex = entry.favorites
-        .map(item => item.user.toString())
-        .indexOf(req.user.id);
-      if (favIndex === -1) {
-        entry.favorites.push({ user: req.user.id });
-      } else {
-        entry.favorites.splice(favIndex, 1);
-      }
-      entry.save().then(entry => res.json(entry));
-    });
-  }
-);
-
 module.exports = router;
