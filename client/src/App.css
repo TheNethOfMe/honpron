@@ -7,6 +7,21 @@
 .btn-delete {
   background-color: #c7390a; }
 
+.btn-snes {
+  background-color: #4f43ae;
+  color: #b5b6e4; }
+
+.btn-snes-invert {
+  background-color: #b5b6e4;
+  color: #4f43ae; }
+
+.btn-orange {
+  background-color: #d17002;
+  color: #dbdbdb; }
+
+.warn-text {
+  color: #c7390a; }
+
 body {
   background-color: #343840;
   font-family: "Audiowide", sans-serif; }
@@ -77,7 +92,9 @@ a:hover {
   color: #d17002; }
 
 .admin-dashboard,
-.create-entry {
+.create-entry,
+.admin-register,
+.create-series {
   background-color: #111919;
   color: #dbdbdb;
   padding: 1em;
@@ -92,3 +109,7 @@ a:hover {
 .admin-comment {
   background-color: #111919;
   padding: 0.5em; }
+
+.admin-entry-item {
+  background-color: #111919;
+  color: #dbdbdb; }

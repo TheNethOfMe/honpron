@@ -38,3 +38,23 @@ $snes-lite: #cec9cc;
 .btn-delete {
   background-color: $hp-red;
 }
+
+.btn-snes {
+  background-color: $snes-purple;
+  color: $snes-blue;
+}
+
+.btn-snes-invert {
+  background-color: $snes-blue;
+  color: $snes-purple;
+}
+
+.btn-orange {
+  background-color: $accent-color;
+  color: $text-color;
+}
+
+// Other
+.warn-text {
+  color: $hp-red;
+}

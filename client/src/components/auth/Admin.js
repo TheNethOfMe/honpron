@@ -41,7 +41,7 @@ class Admin extends Component {
     const { errors } = this.state;
     return (
       <div>
-        <div className="register">
+        <div className="admin-register">
           <div className="container">
             <div className="row">
               <div className="col-md-8 m-auto">
@@ -82,7 +82,7 @@ class Admin extends Component {
                   />
                   <input
                     type="submit"
-                    className="btn btn-info btn-block mt-4"
+                    className="btn btn-orange btn-block mt-4"
                   />
                 </form>
               </div>

@@ -23,15 +23,15 @@ class AdminEntryItem extends Component {
   render() {
     const warningMsg = (
       <div>
-        <p>
+        <p className="warn-text">
           Are you sure you want to delete the {this.props.entry.entryType}{" "}
           {this.props.entry.title}?
         </p>
-        <p>This action cannot be undone.</p>
-        <button onClick={this.warnUser} className="btn btn-success">
+        <p className="warn-text">This action cannot be undone.</p>
+        <button onClick={this.warnUser} className="btn btn-snes-invert mr-2">
           No, Keep This.
         </button>
-        <button onClick={this.onDelete} className="btn btn-dark">
+        <button onClick={this.onDelete} className="btn btn-snes mr-2">
           Yes, Remove This.
         </button>
       </div>
@@ -56,11 +56,11 @@ class AdminEntryItem extends Component {
                     pathname: `/update-entry/${this.props.entry._id}`,
                     search: this.props.entry.entryType
                   }}
-                  className="btn btn-info mr-4"
+                  className="btn btn-snes-invert mr-4"
                 >
                   Edit
                 </Link>
-                <button onClick={this.warnUser} className="btn btn-danger mr-4">
+                <button onClick={this.warnUser} className="btn btn-snes mr-4">
                   Delete
                 </button>
               </div>
