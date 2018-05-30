@@ -27,3 +27,15 @@
   background-color: $card-color;
   color: $text-color;
 }
+
+.code-red {
+  border-left: 10px red solid;
+}
+
+.code-yellow {
+  border-left: 10px yellow solid;
+}
+
+.code-blue {
+  border-left: 10px blue solid;
+}

@@ -112,7 +112,7 @@ class App extends Component {
                 />
                 <PrivateRoute
                   exact
-                  path="/moderate-comments"
+                  path="/moderateComments"
                   component={ModerateComments}
                 />
               </Switch>

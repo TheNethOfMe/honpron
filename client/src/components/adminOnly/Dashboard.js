@@ -31,7 +31,7 @@ class Dashboard extends Component {
         <Link to="/all-users">
           <BlockButton text="Manage Users" />
         </Link>
-        <Link to="/moderate-comments">
+        <Link to="/moderateComments">
           <BlockButton text="Moderate Comments" />
         </Link>
         <BlockButton text="Check Messages" />

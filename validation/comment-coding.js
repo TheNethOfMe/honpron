@@ -6,6 +6,7 @@ const redList = [
   "bitch",
   "retard",
   "trigger",
+  "triggered",
   "snowflake",
   "tranny"
 ];

@@ -1,27 +1,83 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { deleteComment, approveComment } from "../../actions/commentActions";
 
 class ModCommentItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      warn: false
+    };
+    this.warnUser = this.warnUser.bind(this);
+    this.onDelete = this.onDelete.bind(this);
+    this.approve = this.approve.bind(this);
+  }
+  warnUser() {
+    const unWarn = !this.state.warn;
+    this.setState({ warn: unWarn });
+  }
+  onDelete() {
+    this.props.deleteComment(this.props.comment._id);
+  }
+  approve() {
+    this.props.approveComment(this.props.comment._id);
+  }
   render() {
+    const comment = this.props.comment;
+    const commentClass = `admin-comment card mt-2 text-center code-${
+      comment.commentCode
+    }`;
+    const warningMsg = (
+      <div>
+        <p className="warn-text">
+          Are you sure you want to delete this comment?
+        </p>
+        <p className="warn-text">This action cannot be undone.</p>
+        <button onClick={this.warnUser} className="btn btn-snes-invert mr-2">
+          No, Keep This.
+        </button>
+        <button onClick={this.onDelete} className="btn btn-snes mr-2">
+          Yes, Remove This.
+        </button>
+      </div>
+    );
     return (
-      <div className="admin-comment card mt-2 text-center">
+      <div className={commentClass}>
         <div className="card-body">
-          <div className="row">
-            <div className="col-md-8">
-              <h5 className="admin-title">VIDEO TITLE</h5>
-              <p>Posted by USER on DATE</p>
-              <p>This is the comment body. A comment body goes here</p>
+          {this.state.warn ? (
+            warningMsg
+          ) : (
+            <div className="row">
+              <div className="col-md-8">
+                <h5 className="admin-title">{comment.entry}</h5>
+                <p>
+                  Posted by {comment.author} on{" "}
+                  {new Date(comment.commentDate).toLocaleDateString()}
+                </p>
+                <p>{comment.content}</p>
+              </div>
+              <div className="col-md-4">
+                <button onClick={this.approve} className="btn btn-admin mr-4">
+                  Approve
+                </button>
+                <button onClick={this.warnUser} className="btn btn-delete mr-4">
+                  Delete
+                </button>
+              </div>
             </div>
-            <div className="col-md-4">
-              <button className="btn btn-admin mr-4">Approve</button>
-              <button className="btn btn-delete mr-4">Delete</button>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     );
   }
 }
 
-export default ModCommentItem;
+ModCommentItem.propTypes = {
+  comment: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  deleteComment: PropTypes.func.isRequired,
+  approveComment: PropTypes.func.isRequired
+};
+
+export default connect(null, { deleteComment, approveComment })(ModCommentItem);

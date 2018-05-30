@@ -27,7 +27,7 @@ router.post(
         }
         const color = req.user.blackListed
           ? "black"
-          : getCommentCode(req.body.comment);
+          : getCommentCode(req.body.commentText);
         const newComment = {
           author: req.user.userName,
           authorId: req.user.id,
@@ -95,7 +95,7 @@ router.get(
 // @desc    approves a comment and increments the entry's comment counter
 // @access  Private (admin only)
 router.post(
-  "/admin/:comment_id",
+  "/approve/:comment_id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const isAdmin = req.user.isAdmin || false;
@@ -122,23 +122,29 @@ router.delete(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    console.log("Fire");
     const isAdmin = req.user.isAdmin || false;
     Comment.findById(req.params.id).then(comment => {
-      if (!isAdmin || req.user.id !== comment.authorId) {
+      if (!isAdmin && req.user.id !== comment.authorId) {
         return res.status(401).json({ msg: "Unauthorized" });
       } else {
         const commentEntryId = comment.entryId;
+        const wasApproved = comment.approved;
         Comment.findByIdAndRemove(req.params.id, (err, doc) => {
           if (err) {
             res.status(500).json({ err: "An error occured" });
           } else if (!doc) {
             res.status(404).json({ err: "Entry not found." });
           } else {
-            Entry.findByIdAndUpdate(commentEntryId, { $inc: { comments: -1 } })
-              .then(entry => res.json(entry))
-              .catch(err =>
-                res.status(404).json({ msg: "Couldn't find entry" })
-              );
+            if (wasApproved) {
+              Entry.findByIdAndUpdate(commentEntryId, {
+                $inc: { comments: -1 }
+              })
+                .then(entry => res.json(entry))
+                .catch(err =>
+                  res.status(404).json({ msg: "Couldn't find entry" })
+                );
+            }
           }
         });
       }

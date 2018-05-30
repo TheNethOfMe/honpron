@@ -114,3 +114,12 @@ a:hover {
 .admin-entry-item {
   background-color: #111919;
   color: #dbdbdb; }
+
+.code-red {
+  border-left: 10px red solid; }
+
+.code-yellow {
+  border-left: 10px yellow solid; }
+
+.code-blue {
+  border-left: 10px blue solid; }

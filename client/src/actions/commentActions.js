@@ -53,6 +53,20 @@ export const createNewComment = commentData => dispatch => {
     });
 };
 
+// delete a comment
+export const deleteComment = commentId => dispatch => {
+  axios.delete(`/api/comment/${commentId}`).then(res => {
+    window.location.reload();
+  });
+};
+
+// approve a comment
+export const approveComment = commentId => dispatch => {
+  axios.post(`/api/comment/approve/${commentId}`).then(res => {
+    window.location.reload();
+  });
+};
+
 export const setComLoading = () => {
   return {
     type: COM_LOADING
