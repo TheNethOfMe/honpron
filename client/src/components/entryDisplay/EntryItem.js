@@ -34,15 +34,14 @@ class EntryItem extends Component {
               <span>
                 <i className="far fa-comments" />
                 <p>
-                  {entry.comments.length}{" "}
-                  {entry.comments.length === 1 ? "Comment" : "Comments"}
+                  {entry.comments}{" "}
+                  {entry.comments === 1 ? "Comment" : "Comments"}
                 </p>
               </span>
               <span>
                 <i className="far fa-star" />
                 <p>
-                  {entry.favorites.length}{" "}
-                  {entry.favorites.length === 1 ? "Like" : "Likes"}
+                  {entry.favorites} {entry.favorites === 1 ? "Like" : "Likes"}
                 </p>
               </span>
             </div>

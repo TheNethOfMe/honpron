@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getAllEntries } from "../../actions/entryActions";
 import Spinner from "../formFields/Spinner";
-import EntryItem from "./concept1/EntryItem";
+import EntryItem from "./EntryItem";
 import MenuWidget from "./MenuWidget";
 
 class EntryList extends Component {

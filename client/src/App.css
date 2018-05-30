@@ -53,7 +53,8 @@ a:hover {
   font-family: "Press Start 2P", sans-serif; }
 
 .entry-item,
-.entry-item_widget {
+.entry-item_widget,
+.entry-item_comment {
   background-color: #111919; }
 
 .entry-item:hover {

@@ -19,7 +19,8 @@ router.post(
   (req, res) => {
     Entry.findById(req.body.entryId)
       .then(entry => {
-        if (!req.body.comment) {
+        if (!req.body.commentText) {
+          console.log("ERR");
           return res
             .status(401)
             .json({ commentText: "Comment is required to post." });
@@ -32,7 +33,7 @@ router.post(
           authorId: req.user.id,
           entry: req.body.entryTitle,
           entryId: req.body.entryId,
-          content: req.body.comment,
+          content: req.body.commentText,
           commentCode: color,
           approved: false
         };

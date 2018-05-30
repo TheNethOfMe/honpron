@@ -27,7 +27,7 @@ app.use("/api/users", users);
 app.use("/api/series", series);
 app.use("/api/entries", entries);
 app.use("/api/messages", messages);
-app.use("/api/comments", comments);
+app.use("/api/comment", comments);
 
 const port = process.env.PORT || 5000;
 

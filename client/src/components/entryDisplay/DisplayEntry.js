@@ -3,34 +3,32 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import YoutubeEmbedVideo from "youtube-embed-video";
 import { getOneEntry } from "../../actions/entryActions";
+import { getEntryComments } from "../../actions/commentActions";
 import Spinner from "../formFields/Spinner";
 import NoComment from "./NoComment";
+import NoWidget from "./NoWidget";
 import CommentWidget from "./CommentWidget";
+import EntryComment from "./EntryComment";
 
 class DisplayEntry extends Component {
   componentWillMount() {
     this.props.getOneEntry(this.props.match.params.id);
+    this.props.getEntryComments(this.props.match.params.id);
   }
   render() {
     const { singleEntry, loading } = this.props.entry;
+    const { comments, comLoading } = this.props.comments;
     const { isAuthenticated } = this.props.auth;
-    const commentWidget = !isAuthenticated ? (
-      <div className="card mt-2 display-entry">
-        <div className="card-body">
-          <p className="card-title display-entry_title">
-            You must be logged in to leave a comment.
-          </p>
-        </div>
-      </div>
-    ) : (
-      <CommentWidget />
-    );
-    let display, comments, entry, displayHeader;
+    let display, commentDisplay, entry, displayHeader, commentWidget;
     if (singleEntry === null || loading) {
       display = <Spinner />;
-      comments = <NoComment />;
     } else {
       entry = this.props.entry.singleEntry;
+      commentWidget = isAuthenticated ? (
+        <CommentWidget entryId={entry._id} entryTitle={entry.title} />
+      ) : (
+        <NoWidget />
+      );
       displayHeader =
         entry.entryType === "video" ? (
           <YoutubeEmbedVideo videoId={entry.youtubeId} size="large" />
@@ -61,27 +59,28 @@ class DisplayEntry extends Component {
               <span>
                 <i className="far fa-comments" />
                 <p>
-                  {entry.comments.length}{" "}
-                  {entry.comments.length === 1 ? "Comment" : "Comments"}
+                  {entry.comments}{" "}
+                  {entry.comments === 1 ? "Comment" : "Comments"}
                 </p>
               </span>
               <span>
                 <i className="far fa-star" />
                 <p>
-                  {entry.favorites.length}{" "}
-                  {entry.favorites.length === 1 ? "Like" : "Likes"}
+                  {entry.favorites} {entry.favorites === 1 ? "Like" : "Likes"}
                 </p>
               </span>
             </div>
           </div>
         </div>
       );
-      if (entry.comments.length > 0) {
-        comments = entry.comments.map(comment => {
-          return <p>Comment</p>;
-        });
+      if (comments === null || comLoading) {
+        commentDisplay = <Spinner />;
+      } else if (comments.length === 0) {
+        commentDisplay = <NoComment />;
       } else {
-        comments = <NoComment />;
+        commentDisplay = comments.map(comment => {
+          return <EntryComment key={comment._id} comment={comment} />;
+        });
       }
     }
     return (
@@ -90,7 +89,7 @@ class DisplayEntry extends Component {
           <div className="col-md-10">
             {display}
             {commentWidget}
-            {comments}
+            {commentDisplay}
           </div>
         </div>
       </div>
@@ -101,12 +100,16 @@ class DisplayEntry extends Component {
 DisplayEntry.propTypes = {
   entry: PropTypes.object.isRequired,
   getOneEntry: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  getEntryComments: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   entry: state.entry,
-  auth: state.auth
+  auth: state.auth,
+  comments: state.comments
 });
 
-export default connect(mapStateToProps, { getOneEntry })(DisplayEntry);
+export default connect(mapStateToProps, { getOneEntry, getEntryComments })(
+  DisplayEntry
+);
