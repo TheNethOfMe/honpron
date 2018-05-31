@@ -6,6 +6,10 @@
   background-color: $card-color;
 }
 
+.entry-item {
+  margin-bottom: 0.5em;
+}
+
 .entry-item:hover {
   border: 1px $accent-color solid;
 }

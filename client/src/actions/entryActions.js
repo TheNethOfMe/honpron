@@ -44,7 +44,7 @@ export const getAllEntries = () => dispatch => {
 export const getOneEntry = id => dispatch => {
   dispatch(setEntryLoading());
   axios
-    .get(`/api/entries/${id}`)
+    .get(`/api/entries/findOne/${id}`)
     .then(res => {
       dispatch({
         type: GET_ONE_ENTRY,
@@ -84,8 +84,25 @@ export const addFav = id => dispatch => {
 
 // removes a user from entry's favorites array
 export const unFav = id => dispatch => {
-  console.log("Fire Two");
   axios.post(`/api/entries/unfav/${id}`).then(res => dispatch(getOneEntry(id)));
+};
+
+// gets user's liked entries
+export const getFavEntries = () => dispatch => {
+  axios
+    .get("/api/entries/getUserFavs")
+    .then(res =>
+      dispatch({
+        type: GET_ENTRIES,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ENTRIES,
+        payload: {}
+      })
+    );
 };
 
 // clear single entry from store

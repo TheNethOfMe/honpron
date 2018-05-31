@@ -61,6 +61,9 @@ a:hover {
 .entry-item_comment {
   background-color: #111919; }
 
+.entry-item {
+  margin-bottom: 0.5em; }
+
 .entry-item:hover {
   border: 1px #d17002 solid; }
 
@@ -127,3 +130,7 @@ a:hover {
 
 .code-blue {
   border-left: 10px blue solid; }
+
+.user-favorites h1 {
+  color: #d17002;
+  text-align: center; }

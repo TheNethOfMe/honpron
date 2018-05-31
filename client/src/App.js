@@ -28,6 +28,7 @@ import ChangeEmail from "./components/userArea/ChangeEmail";
 import SendMessage from "./components/userArea/SendMessage";
 import GetMessages from "./components/userArea/GetMessages";
 import GetOneMessage from "./components/userArea/GetOneMessage";
+import UserFavorites from "./components/userArea/UserFavorites";
 
 import DisplayEntry from "./components/entryDisplay/DisplayEntry";
 
@@ -114,6 +115,11 @@ class App extends Component {
                   exact
                   path="/moderateComments"
                   component={ModerateComments}
+                />
+                <PrivateRoute
+                  exact
+                  path="/myFavorites"
+                  component={UserFavorites}
                 />
               </Switch>
               <Route exact path="/view/:id" component={DisplayEntry} />

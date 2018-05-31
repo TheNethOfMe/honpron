@@ -27,6 +27,9 @@ class UserDash extends Component {
         <Link to="/getMessages">
           <BlockButton text={"Check Messages"} />
         </Link>
+        <Link to="/myFavorites">
+          <BlockButton text={"View Favorites"} />
+        </Link>
         <BlockButton text={"Review Comments"} />
         <BlockButton text={"Delete Account"} />
       </div>

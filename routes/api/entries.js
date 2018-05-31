@@ -27,7 +27,7 @@ router.get("/", (req, res) => {
 // @route   GET api/entries/:id
 // @desc    get one entry by id
 // @access  Public
-router.get("/:id", (req, res) => {
+router.get("/findOne/:id", (req, res) => {
   Entry.findById(req.params.id)
     .then(entry => res.send(entry))
     .catch(err => res.status(404).json({ msg: "Entry Not Found" }));
@@ -135,6 +135,21 @@ router.post(
     Entry.findByIdAndUpdate(req.params.id, {
       $pull: { favorites: req.user._id }
     }).then(entry => res.json(entry));
+  }
+);
+
+// @route   GET api/entries/getUserFavs
+// @desc    fetches all entries that the user has liked
+// @access  Private
+router.get(
+  "/getUserFavs",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    console.log("Test");
+    Entry.find({ favorites: req.user._id })
+      .sort({ dateAdded: -1 })
+      .then(entries => res.json(entries))
+      .catch(err => res.status(404).json({ msg: "No entries to display" }));
   }
 );
 
