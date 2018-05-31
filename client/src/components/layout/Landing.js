@@ -21,3 +21,4 @@ class Landing extends Component {
 }
 
 export default Landing;
+// DELETE THIS COMPONENT
