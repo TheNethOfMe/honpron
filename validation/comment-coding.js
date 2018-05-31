@@ -11,7 +11,15 @@ const redList = [
   "tranny"
 ];
 
-const yellowList = ["fuck", "political", "commie"];
+const yellowList = [
+  "fuck",
+  "political",
+  "commie",
+  "republican",
+  "conservative",
+  "supremacist",
+  "trump"
+];
 
 module.exports = function getCommentCode(comment) {
   let commentColor = "blue";

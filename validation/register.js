@@ -1,8 +1,10 @@
 const Validator = require("validator");
 const User = require("../models/User");
 const isEmpty = require("./is-empty");
+const getCommentCode = require("./comment-coding");
+const isReserved = require("./reserved-usernames");
 
-module.exports = async function validateRegisterInput(data) {
+module.exports = async function validateRegisterInput(data, regularUser) {
   let errors = {};
   const emailTaken = await User.findOne({ email: data.email });
   const usernameTaken = await User.findOne({ userName: data.userName });
@@ -11,13 +13,26 @@ module.exports = async function validateRegisterInput(data) {
   data.password = !isEmpty(data.password) ? data.password : "";
   data.password2 = !isEmpty(data.password2) ? data.password2 : "";
 
-  if (!Validator.isLength(data.userName, { min: 2, max: 30 })) {
-    errors.userName = "Username must be between 2 and 30 characters";
+  if (!Validator.isLength(data.userName, { min: 4, max: 30 })) {
+    errors.userName = "Username must be between 4 and 30 characters";
   }
   if (Validator.isEmpty(data.userName)) {
     errors.userName = "Username is required.";
   }
   if (usernameTaken) errors.userName = "That username has been taken.";
+
+  if (getCommentCode(data.userName) !== "blue") {
+    errors.userName = "Please choose another username.";
+  }
+
+  if (!!data.userName.match(/\W/)) {
+    errors.userName =
+      "Usernames can only contain letters, numbers, and underscores.";
+  }
+
+  if (regularUser && isReserved(data.userName)) {
+    errors.userName = "Please choose another username.";
+  }
 
   if (!Validator.isEmail(data.email)) {
     errors.email = "Email is invalid.";

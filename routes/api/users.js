@@ -20,7 +20,7 @@ const Entry = require("../../models/Entries");
 // @desc    registers new user
 // @access  Public
 router.post("/register", (req, res) => {
-  validateRegisterInput(req.body).then(result => {
+  validateRegisterInput(req.body, true).then(result => {
     const { errors, isValid } = result;
     if (!isValid) {
       return res.status(400).json(errors);
@@ -52,7 +52,7 @@ router.post("/register", (req, res) => {
 // @desc    register a new admin account
 // @access  Public (for now)
 router.post("/admin", (req, res) => {
-  validateRegisterInput(req.body).then(result => {
+  validateRegisterInput(req.body, false).then(result => {
     const { errors, isValid } = result;
     if (!isValid) {
       return res.status(400).json(errors);
