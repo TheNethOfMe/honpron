@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import YoutubeEmbedVideo from "youtube-embed-video";
+import VideoDisplay from "./VideoDisplay";
 import { getOneEntry } from "../../actions/entryActions";
 import { getEntryComments } from "../../actions/commentActions";
 import Spinner from "../formFields/Spinner";
@@ -36,7 +36,7 @@ class DisplayEntry extends Component {
       );
       displayHeader =
         entry.entryType === "video" ? (
-          <YoutubeEmbedVideo videoId={entry.youtubeId} size="large" />
+          <VideoDisplay ytid={entry.youtubeId} />
         ) : (
           <img
             className="card-img-top display-entry_img"

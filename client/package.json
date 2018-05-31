@@ -13,13 +13,13 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.2.0",
-    "youtube-embed-video": "^1.1.0"
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "start": "npm-run-all -p watch-css start-js",
     "start-js": "react-scripts start",
-    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src src/ -o src/ --watch --recursive",
+    "watch-css":
+      "npm run build-css && node-sass-chokidar --include-path ./src src/ -o src/ --watch --recursive",
     "build": "npm-run-all -p build-css build-js",
     "build-css": "node-sass-chokidar --include-path ./src src/ -o src/",
     "build-js": "react-scripts build",
