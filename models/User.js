@@ -16,8 +16,7 @@ const UserSchema = new Schema({
   },
   isAdmin: Boolean,
   status: String,
-  blocked: [String],
-  favorites: [String]
+  blocked: [String]
 });
 
 module.exports = User = mongoose.model("users", UserSchema);

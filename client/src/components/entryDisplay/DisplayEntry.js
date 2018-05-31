@@ -19,13 +19,18 @@ class DisplayEntry extends Component {
     const { singleEntry, loading } = this.props.entry;
     const { comments, comLoading } = this.props.comments;
     const { isAuthenticated } = this.props.auth;
-    let display, commentDisplay, entry, displayHeader, commentWidget;
+    let display, commentDisplay, entry, isFav, displayHeader, commentWidget;
     if (singleEntry === null || loading) {
       display = <Spinner />;
     } else {
       entry = this.props.entry.singleEntry;
+      isFav = entry.favorites.includes(this.props.auth.user.id);
       commentWidget = isAuthenticated ? (
-        <CommentWidget entryId={entry._id} entryTitle={entry.title} />
+        <CommentWidget
+          entryId={entry._id}
+          entryTitle={entry.title}
+          isFav={isFav}
+        />
       ) : (
         <NoWidget />
       );
@@ -66,7 +71,8 @@ class DisplayEntry extends Component {
               <span>
                 <i className="far fa-star" />
                 <p>
-                  {entry.favorites} {entry.favorites === 1 ? "Like" : "Likes"}
+                  {entry.favorites.length}{" "}
+                  {entry.favorites.length === 1 ? "Like" : "Likes"}
                 </p>
               </span>
             </div>

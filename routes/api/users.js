@@ -223,29 +223,4 @@ router.post(
   }
 );
 
-// @route   POST api/users/fav
-// @desc    adds entry to user fav list and increments entry's fav number
-// @access  Private
-router.post(
-  "/fav",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    const entryToFav = req.body.entryId;
-    User.findByIdAndUpdate(
-      req.user._id,
-      { $addToSet: { favorites: entryToFav } },
-      { new: true }
-    )
-      .then(user => {
-        const data = user.favorites;
-        Entry.findByIdAndUpdate(entryToFav, { $inc: { favorites: 1 } }).then(
-          entry => {
-            res.json(data);
-          }
-        );
-      })
-      .catch(err => console.log(err));
-  }
-);
-
 module.exports = router;

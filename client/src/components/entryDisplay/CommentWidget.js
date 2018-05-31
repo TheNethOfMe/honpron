@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import InputTextField from "../formFields/InputTextField";
 import { createNewComment } from "../../actions/commentActions";
+import { addFav, unFav } from "../../actions/entryActions";
 
 class CommentWidget extends Component {
   constructor() {
@@ -13,6 +14,8 @@ class CommentWidget extends Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.favorite = this.favorite.bind(this);
+    this.unfavorite = this.unfavorite.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
@@ -33,6 +36,12 @@ class CommentWidget extends Component {
     this.props.createNewComment(commentData);
     this.setState({ commentText: "" });
   }
+  favorite(e) {
+    this.props.addFav(this.props.entryId);
+  }
+  unfavorite(e) {
+    this.props.unFav(this.props.entryId);
+  }
   render() {
     const { errors } = this.state;
     return (
@@ -40,27 +49,33 @@ class CommentWidget extends Component {
         <div className="card-body">
           <h4 className="card-title display-entry_title">Leave a comment.</h4>
           <form onSubmit={this.onSubmit}>
-            <div className="row">
-              <div className="col-md-8">
-                <InputTextField
-                  placeholder="Write Comment"
-                  name="commentText"
-                  value={this.state.commentText}
-                  onChange={this.onChange}
-                  error={errors.commentText}
-                />
-              </div>
-              <div className="col-md-2">
-                <button className="btn btn-orange" type="submit">
-                  Post
-                </button>
-              </div>
-              <div className="col-md-2">
-                <button className="btn btn-snes" type="button">
-                  Favorite
-                </button>
-              </div>
-            </div>
+            <InputTextField
+              placeholder="Write Comment"
+              name="commentText"
+              value={this.state.commentText}
+              onChange={this.onChange}
+              error={errors.commentText}
+            />
+            <button className="btn btn-orange" type="submit">
+              Post
+            </button>
+            {this.props.isFav ? (
+              <button
+                onClick={this.unfavorite}
+                className="btn btn-snes"
+                type="button"
+              >
+                Un-Favorite
+              </button>
+            ) : (
+              <button
+                onClick={this.favorite}
+                className="btn btn-snes"
+                type="button"
+              >
+                Favorite
+              </button>
+            )}
           </form>
         </div>
       </div>
@@ -71,11 +86,15 @@ class CommentWidget extends Component {
 CommentWidget.propTypes = {
   entryTitle: PropTypes.string.isRequired,
   entryId: PropTypes.string.isRequired,
-  createNewComment: PropTypes.func.isRequired
+  createNewComment: PropTypes.func.isRequired,
+  addFav: PropTypes.func.isRequired,
+  isFav: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { createNewComment })(CommentWidget);
+export default connect(mapStateToProps, { createNewComment, addFav, unFav })(
+  CommentWidget
+);

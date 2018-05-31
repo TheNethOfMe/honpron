@@ -110,4 +110,32 @@ router.delete(
   }
 );
 
+// @route   POST api/entries/fav/:id
+// @desc    adds user's id to entry's favorite array
+// @access  Private
+router.post(
+  "/fav/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Entry.findByIdAndUpdate(
+      req.params.id,
+      { $addToSet: { favorites: req.user._id } },
+      { new: true }
+    ).then(entry => res.json(entry));
+  }
+);
+
+// @route   POST api/entries/unfav/:id
+// @desc    adds user's id to entry's favorite array
+// @access  Private
+router.post(
+  "/unfav/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Entry.findByIdAndUpdate(req.params.id, {
+      $pull: { favorites: req.user._id }
+    }).then(entry => res.json(entry));
+  }
+);
+
 module.exports = router;

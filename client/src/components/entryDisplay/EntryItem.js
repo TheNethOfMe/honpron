@@ -41,7 +41,8 @@ class EntryItem extends Component {
               <span>
                 <i className="far fa-star" />
                 <p>
-                  {entry.favorites} {entry.favorites === 1 ? "Like" : "Likes"}
+                  {entry.favorites.length}{" "}
+                  {entry.favorites.length === 1 ? "Like" : "Likes"}
                 </p>
               </span>
             </div>

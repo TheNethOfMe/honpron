@@ -77,6 +77,17 @@ export const deleteEntry = (id, history) => dispatch => {
   axios.delete(`/api/entries/${id}`).then(res => dispatch(getAllEntries()));
 };
 
+// adds a user to entry's favorites array
+export const addFav = id => dispatch => {
+  axios.post(`/api/entries/fav/${id}`).then(res => dispatch(getOneEntry(id)));
+};
+
+// removes a user from entry's favorites array
+export const unFav = id => dispatch => {
+  console.log("Fire Two");
+  axios.post(`/api/entries/unfav/${id}`).then(res => dispatch(getOneEntry(id)));
+};
+
 // clear single entry from store
 export const clearEntry = () => {
   return {
