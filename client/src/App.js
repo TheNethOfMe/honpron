@@ -29,6 +29,7 @@ import SendMessage from "./components/userArea/SendMessage";
 import GetMessages from "./components/userArea/GetMessages";
 import GetOneMessage from "./components/userArea/GetOneMessage";
 import UserFavorites from "./components/userArea/UserFavorites";
+import UserComments from "./components/userArea/UserComments";
 
 import DisplayEntry from "./components/entryDisplay/DisplayEntry";
 
@@ -120,6 +121,11 @@ class App extends Component {
                   exact
                   path="/myFavorites"
                   component={UserFavorites}
+                />
+                <PrivateRoute
+                  exact
+                  path="/myComments"
+                  component={UserComments}
                 />
               </Switch>
               <Route exact path="/view/:id" component={DisplayEntry} />

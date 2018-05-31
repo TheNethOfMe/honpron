@@ -30,7 +30,9 @@ class UserDash extends Component {
         <Link to="/myFavorites">
           <BlockButton text={"View Favorites"} />
         </Link>
-        <BlockButton text={"Review Comments"} />
+        <Link to="/myComments">
+          <BlockButton text={"Review Comments"} />
+        </Link>
         <BlockButton text={"Delete Account"} />
       </div>
     );

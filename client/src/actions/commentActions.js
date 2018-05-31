@@ -40,6 +40,25 @@ export const getEntryComments = entryId => dispatch => {
     });
 };
 
+// get user's comments
+export const getUserComments = () => dispatch => {
+  dispatch(setComLoading());
+  axios
+    .get("/api/comment/user")
+    .then(res => {
+      dispatch({
+        type: GET_COMMENTS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_COMMENTS,
+        payload: []
+      });
+    });
+};
+
 // post a new comment
 export const createNewComment = commentData => dispatch => {
   axios
