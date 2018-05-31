@@ -10,18 +10,24 @@ class CommentWidget extends Component {
     super();
     this.state = {
       commentText: "",
-      errors: {}
+      errors: {},
+      alertVisable: false
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.favorite = this.favorite.bind(this);
     this.unfavorite = this.unfavorite.bind(this);
+    this.toggleAlert = this.toggleAlert.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       console.log("FIRE");
       this.setState({ errors: nextProps.errors });
     }
+  }
+  toggleAlert(e) {
+    const alertVisable = !this.state.alertVisable;
+    this.setState({ alertVisable });
   }
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -35,6 +41,7 @@ class CommentWidget extends Component {
     };
     this.props.createNewComment(commentData);
     this.setState({ commentText: "" });
+    this.toggleAlert();
   }
   favorite(e) {
     this.props.addFav(this.props.entryId);
@@ -75,6 +82,23 @@ class CommentWidget extends Component {
               >
                 Favorite
               </button>
+            )}
+            {this.state.alertVisable && (
+              <div
+                class="alert alert-warning alert-dismissible fade show mt-2"
+                role="alert"
+              >
+                <strong>Thanks!</strong> Your comment will appear below once
+                it's approved.
+                <button
+                  type="button"
+                  class="close"
+                  onClick={this.toggleAlert}
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
             )}
           </form>
         </div>
