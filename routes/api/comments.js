@@ -20,14 +20,14 @@ router.post(
     Entry.findById(req.body.entryId)
       .then(entry => {
         if (!req.body.commentText) {
-          console.log("ERR");
           return res
             .status(401)
             .json({ commentText: "Comment is required to post." });
         }
-        const color = req.user.blackListed
-          ? "black"
-          : getCommentCode(req.body.commentText);
+        const color =
+          req.user.status === "blacklisted"
+            ? "black"
+            : getCommentCode(req.body.commentText);
         const newComment = {
           author: req.user.userName,
           authorId: req.user.id,
@@ -122,7 +122,6 @@ router.delete(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log("Fire");
     const isAdmin = req.user.isAdmin || false;
     Comment.findById(req.params.id).then(comment => {
       if (!isAdmin && req.user.id !== comment.authorId) {

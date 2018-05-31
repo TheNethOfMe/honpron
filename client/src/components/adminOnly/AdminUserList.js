@@ -72,20 +72,38 @@ class AdminUserList extends Component {
                         <p>Status: {user.status}</p>
                       </div>
                       <div className="col-md-4">
-                        <button
-                          onClick={() =>
-                            this.modifyUser(user._id, "blacklisted")
-                          }
-                          className="btn btn-dark"
-                        >
-                          Blacklist
-                        </button>
-                        <button
-                          onClick={() => this.modifyUser(user._id, "banned")}
-                          className="btn btn-danger"
-                        >
-                          Ban
-                        </button>
+                        {user.status === "blacklisted" ? (
+                          <button
+                            onClick={() => this.modifyUser(user._id, "normal")}
+                            className="btn btn-dark"
+                          >
+                            Unblacklist
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() =>
+                              this.modifyUser(user._id, "blacklisted")
+                            }
+                            className="btn btn-dark"
+                          >
+                            Blacklist
+                          </button>
+                        )}
+                        {user.status === "banned" ? (
+                          <button
+                            onClick={() => this.modifyUser(user._id, "normal")}
+                            className="btn btn-danger"
+                          >
+                            Unban
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => this.modifyUser(user._id, "banned")}
+                            className="btn btn-danger"
+                          >
+                            Ban
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>

@@ -85,14 +85,14 @@ class CommentWidget extends Component {
             )}
             {this.state.alertVisable && (
               <div
-                class="alert alert-warning alert-dismissible fade show mt-2"
+                className="alert alert-warning alert-dismissible fade show mt-2"
                 role="alert"
               >
                 <strong>Thanks!</strong> Your comment will appear below once
                 it's approved.
                 <button
                   type="button"
-                  class="close"
+                  className="close"
                   onClick={this.toggleAlert}
                   aria-label="Close"
                 >

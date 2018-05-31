@@ -145,7 +145,6 @@ router.get(
   "/getUserFavs",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log("Test");
     Entry.find({ favorites: req.user._id })
       .sort({ dateAdded: -1 })
       .then(entries => res.json(entries))
