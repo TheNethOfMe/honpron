@@ -6,6 +6,7 @@ const passport = require("passport");
 // Validation
 const validateMessageInput = require("../../validation/message");
 const canReadMessage = require("../../validation/can-read-message");
+const getCommentCode = require("../../validation/comment-coding");
 
 // Load Models
 const Message = require("../../models/Messages");
@@ -31,7 +32,7 @@ router.get(
   }
 );
 
-// @route   POST api/messages/
+// @route   POST api/messages
 // @desc    create a message
 // @access  Private
 router.post(
@@ -62,11 +63,47 @@ router.post(
   }
 );
 
-// @route   POST api/messages/:id
+// @route   POST api/messages/admin
+// @desc    creates a message for admin
+// @access  Private
+router.post(
+  "/admin",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    let errors = {};
+    if (!req.body.body) {
+      errors.body = "You must have a message to send.";
+      return res.status(400).json(errors);
+    } else {
+      const color =
+        req.user.status === "blacklisted"
+          ? "black"
+          : getCommentCode(req.body.body);
+      const newMessage = {
+        author: req.user.userName,
+        authorId: req.user.id,
+        recipient: "Admin",
+        recipientId: "Admin",
+        subject: req.body.subject || "(No Subject)",
+        topic: req.body.topic || "(No Topic)",
+        code: color,
+        body: req.body.body
+      };
+      new Message(newMessage)
+        .save()
+        .then(message => res.send(message))
+        .catch(err => {
+          throw err;
+        });
+    }
+  }
+);
+
+// @route   POST api/messages/delete/:id
 // @desc    adds delete property and deletes message if author and sender have deleted
 // @access  Private
 router.post(
-  "/:id",
+  "/delete/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     let updates = {};
@@ -92,11 +129,11 @@ router.post(
   }
 );
 
-// @route   GET api/messages/:id
+// @route   GET api/messages/read/:id
 // @desc    gets one message and adds read property if it's unread
 // @access  Private
 router.get(
-  "/:id",
+  "/read/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Message.findById(req.params.id)

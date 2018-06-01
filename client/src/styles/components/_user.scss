@@ -1,6 +1,11 @@
-// Used in UserFavorites
+// Used in UserDash
 
-.user-favorites h1 {
+.user-dash {
+  background-color: $card-color;
   color: $accent-color;
   text-align: center;
+}
+
+.user-dash button:hover {
+  color: $text-color;
 }

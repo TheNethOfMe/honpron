@@ -3,24 +3,32 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import InputTextField from "../formFields/InputTextField";
 import TextAreaField from "../formFields/TextAreaField";
-import { createNewMessage } from "../../actions/msgActions";
+import { createNewMessage, createAdminMessage } from "../../actions/msgActions";
+import TopicDropdown from "../formFields/TopicDropdown";
 
 class SendMessage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      type: "user",
       recipient: this.props.location.state.recipient || "",
       subject: this.props.location.state.subject || "",
+      topic: "",
       body: "",
       errors: {}
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.changeType = this.changeType.bind(this);
+    this.onSubmitAdmin = this.onSubmitAdmin.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
+  }
+  changeType(type) {
+    this.setState({ type });
   }
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -34,40 +42,93 @@ class SendMessage extends Component {
     };
     this.props.createNewMessage(newMessage, this.props.history);
   }
+  onSubmitAdmin(e) {
+    e.preventDefault();
+    const newMessage = {
+      subject: this.state.subject,
+      topic: this.state.topic,
+      body: this.state.body
+    };
+    this.props.createAdminMessage(newMessage, this.props.history);
+  }
   render() {
     const { errors } = this.state;
     return (
-      <div className="createMessage">
-        <div className="container">
+      <div className="card user-dash">
+        <div className="card-body">
           <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1>Send Message</h1>
-              <form onSubmit={this.onSubmit}>
-                <InputTextField
-                  placeholder="Send to"
-                  name="recipient"
-                  value={this.state.recipient}
-                  onChange={this.onChange}
-                  error={errors.recipient}
-                />
-                <InputTextField
-                  placeholder="Subject"
-                  name="subject"
-                  value={this.state.subject}
-                  onChange={this.onChange}
-                  error={errors.subject}
-                />
-                <TextAreaField
-                  placeholder="Compose your message."
-                  name="body"
-                  value={this.state.body}
-                  onChange={this.onChange}
-                  rows="3"
-                  error={errors.body}
-                />
-                <input type="submit" className="btn btn-info btn-block mt-4" />
-              </form>
-            </div>
+            {this.state.type === "user" && (
+              <div className="col-md-8 m-auto">
+                <h1>Send Message to a User</h1>
+                <button
+                  onClick={() => this.changeType("admin")}
+                  className="btn btn-snes"
+                >
+                  Send Message to Honest Piranha
+                </button>
+                <form onSubmit={this.onSubmit}>
+                  <InputTextField
+                    placeholder="Enter Recipient"
+                    name="recipient"
+                    value={this.state.recipient}
+                    onChange={this.onChange}
+                    error={errors.recipient}
+                  />
+                  <InputTextField
+                    placeholder="Subject"
+                    name="subject"
+                    value={this.state.subject}
+                    onChange={this.onChange}
+                    error={errors.subject}
+                  />
+                  <TextAreaField
+                    placeholder="Compose your message."
+                    name="body"
+                    value={this.state.body}
+                    onChange={this.onChange}
+                    rows="3"
+                    error={errors.body}
+                  />
+                  <input
+                    type="submit"
+                    className="btn btn-orange btn-block mt-4"
+                  />
+                </form>
+              </div>
+            )}
+            {this.state.type === "admin" && (
+              <div className="col-md-8 m-auto">
+                <h2>Send Message to Honest Piranha</h2>
+                <button
+                  onClick={() => this.changeType("user")}
+                  className="btn btn-snes"
+                >
+                  Send Message to Another User
+                </button>
+                <form onSubmit={this.onSubmitAdmin}>
+                  <InputTextField
+                    placeholder="Subject"
+                    name="subject"
+                    value={this.state.subject}
+                    onChange={this.onChange}
+                    error={errors.subject}
+                  />
+                  <TopicDropdown name="topic" onChange={this.onChange} />
+                  <TextAreaField
+                    placeholder="Compose your message."
+                    name="body"
+                    value={this.state.body}
+                    onChange={this.onChange}
+                    rows="3"
+                    error={errors.body}
+                  />
+                  <input
+                    type="submit"
+                    className="btn btn-orange btn-block mt-4"
+                  />
+                </form>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -77,11 +138,15 @@ class SendMessage extends Component {
 
 SendMessage.propTypes = {
   errors: PropTypes.object.isRequired,
-  createNewMessage: PropTypes.func.isRequired
+  createNewMessage: PropTypes.func.isRequired,
+  createAdminMessage: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { createNewMessage })(SendMessage);
+export default connect(mapStateToProps, {
+  createNewMessage,
+  createAdminMessage
+})(SendMessage);

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import podcastIcon from "../../img/podcastIcon.png";
 
 class EntryItem extends Component {
   render() {
@@ -10,7 +11,7 @@ class EntryItem extends Component {
     const picLink =
       entry.entryType === "video"
         ? `http://img.youtube.com/vi/${entry.youtubeId}/maxresdefault.jpg`
-        : "https://picsum.photos/200/?random";
+        : podcastIcon;
     return (
       <div className="card entry-item">
         <Link to={routerLink}>

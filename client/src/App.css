@@ -9,15 +9,17 @@
 
 .btn-snes {
   background-color: #4f43ae;
-  color: #b5b6e4; }
-
-.btn-snes-invert {
-  background-color: #b5b6e4;
-  color: #4f43ae; }
+  color: #b5b6e4;
+  margin: 0.5em; }
+  .btn-snes:hover {
+    background-color: #b5b6e4;
+    color: #343840; }
 
 .btn-orange {
   background-color: #d17002;
   color: #dbdbdb; }
+  .btn-orange:hover {
+    color: #343840; }
 
 .btn-blue {
   background-color: #0a98c7;
@@ -40,6 +42,15 @@ a,
 a:hover {
   text-decoration: none; }
 
+.small-only {
+  display: none; }
+
+@media only screen and (max-width: 800px) {
+  .small-only {
+    display: block; }
+  .large-only {
+    display: none; } }
+
 .site-navbar {
   background-color: #111919;
   border-bottom: 3px solid #d17002; }
@@ -55,6 +66,9 @@ a:hover {
   background-color: #111919;
   color: #dbdbdb;
   font-family: "Press Start 2P", sans-serif; }
+
+.site-navbar_burger {
+  color: #d17002; }
 
 .entry-item,
 .entry-item_widget,
@@ -144,9 +158,13 @@ a:hover {
 .code-blue {
   border-left: 10px blue solid; }
 
-.user-favorites h1 {
+.user-dash {
+  background-color: #111919;
   color: #d17002;
   text-align: center; }
+
+.user-dash button:hover {
+  color: #dbdbdb; }
 
 .spinner {
   color: #d17002; }

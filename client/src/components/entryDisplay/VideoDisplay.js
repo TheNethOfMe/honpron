@@ -11,6 +11,7 @@ class VideoDisplay extends Component {
           height="349"
           src={videoSrc}
           frameborder="0"
+          title={this.props.title}
           allowfullscreen
         />
       </div>
@@ -19,7 +20,8 @@ class VideoDisplay extends Component {
 }
 
 VideoDisplay.propTypes = {
-  ytid: PropTypes.string.isRequried
+  ytid: PropTypes.string.isRequried,
+  title: PropTypes.string.isRequried
 };
 
 export default VideoDisplay;

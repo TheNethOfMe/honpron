@@ -1,0 +1,14 @@
+// breakpoints for mobile devices
+
+.small-only {
+  display: none;
+}
+
+@media only screen and (max-width: 800px) {
+  .small-only {
+    display: block;
+  }
+  .large-only {
+    display: none;
+  }
+}

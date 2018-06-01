@@ -1,4 +1,9 @@
-import { MSG_LOADING, GET_MESSAGES, GET_ONE_MSG } from "../actions/types";
+import {
+  MSG_LOADING,
+  GET_MESSAGES,
+  GET_ONE_MSG,
+  MESSAGE_CLEAR
+} from "../actions/types";
 
 const initialState = {
   messages: null,
@@ -24,6 +29,13 @@ export default function(state = initialState, action) {
         ...state,
         singleMsg: action.payload,
         msgLoading: false
+      };
+    case MESSAGE_CLEAR:
+      return {
+        ...state,
+        messages: null,
+        msgLoading: false,
+        singleMsg: null
       };
     default:
       return state;

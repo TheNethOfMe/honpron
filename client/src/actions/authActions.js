@@ -7,7 +7,8 @@ import {
   SET_CURRENT_USER,
   GET_ALL_USERS,
   SET_USER_LOADING,
-  SET_USER_BLOCKLIST
+  SET_USER_BLOCKLIST,
+  MESSAGE_CLEAR
 } from "./types";
 
 // Register user
@@ -27,7 +28,7 @@ export const registerUser = (userData, history) => dispatch => {
 export const registerAdmin = (adminData, history) => dispatch => {
   axios
     .post("/api/users/admin", adminData)
-    .then(res => history.push("/login")) // CHANGE THIS to go to dashboard later
+    .then(res => history.push("/login"))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -73,11 +74,15 @@ export const setUserBlockList = lists => {
 };
 
 // Log user out
-export const logoutUser = () => dispatch => {
+export const logoutUser = history => dispatch => {
   localStorage.removeItem("jwtToken");
   setAuthToken(false);
   dispatch(setCurrentUser({}));
   dispatch(setUserBlockList({}));
+  dispatch({
+    type: MESSAGE_CLEAR
+  });
+  history.push("/");
 };
 
 // Get user list
@@ -113,7 +118,6 @@ export const modifyUserEmail = (userData, history) => dispatch => {
 
 // updates user's block list
 export const blockUser = (update, history) => dispatch => {
-  console.log("FIRE", update);
   axios.post("/api/users/block", update).then(res => {
     dispatch(setUserBlockList(res.data));
     history.push("/userDashboard");

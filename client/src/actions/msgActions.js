@@ -15,6 +15,19 @@ export const createNewMessage = (messageData, history) => dispatch => {
     );
 };
 
+// compose a new message for admin
+export const createAdminMessage = (messageData, history) => dispatch => {
+  axios
+    .post("/api/messages/admin", messageData)
+    .then(res => history.push("/userDashboard"))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
 // get all messages
 export const getAllMessages = () => dispatch => {
   dispatch(setMessageLoading());
@@ -37,7 +50,7 @@ export const getAllMessages = () => dispatch => {
 // update message (for when a recipient or author deletes a message)
 export const updateMessage = (id, updates, history) => dispatch => {
   axios
-    .post(`/api/messages/${id}`, updates)
+    .post(`/api/messages/delete/${id}`, updates)
     .then(res => dispatch(getAllMessages()))
     .catch(err => console.log(err));
 };
@@ -46,7 +59,7 @@ export const updateMessage = (id, updates, history) => dispatch => {
 export const readMessage = id => dispatch => {
   dispatch(setMessageLoading());
   axios
-    .get(`/api/messages/${id}`)
+    .get(`/api/messages/read/${id}`)
     .then(res =>
       dispatch({
         type: GET_ONE_MSG,

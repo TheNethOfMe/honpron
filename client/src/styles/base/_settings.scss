@@ -42,16 +42,19 @@ $snes-lite: #cec9cc;
 .btn-snes {
   background-color: $snes-purple;
   color: $snes-blue;
-}
-
-.btn-snes-invert {
-  background-color: $snes-blue;
-  color: $snes-purple;
+  margin: 0.5em;
+  &:hover {
+    background-color: $snes-blue;
+    color: $background-color;
+  }
 }
 
 .btn-orange {
   background-color: $accent-color;
   color: $text-color;
+  &:hover {
+    color: $background-color;
+  }
 }
 
 .btn-blue {

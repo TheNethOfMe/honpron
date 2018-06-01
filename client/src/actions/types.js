@@ -18,6 +18,7 @@ export const SERIES_LOADING = "SERIES_LOADING";
 export const GET_MESSAGES = "GET_MESSAGES";
 export const MSG_LOADING = "MSG_LOADING";
 export const GET_ONE_MSG = "GET_ONE_MSG";
+export const MESSAGE_CLEAR = "MESSAGE_CLEAR";
 
 export const GET_COMMENTS = "GET_COMMENTS_UNMOD";
 export const COM_LOADING = "COM_LOADING";

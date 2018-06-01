@@ -8,32 +8,34 @@ class UserDash extends Component {
   render() {
     const { user } = this.props.auth;
     return (
-      <div>
-        <h1>Welcome {user.userName}</h1>
-        <Link to="/changeEmail">
-          <BlockButton text={"Update Email Address"} />
-        </Link>
-        <Link
-          to={{
-            pathname: "/sendMessage",
-            state: {
-              recipient: "",
-              subject: ""
-            }
-          }}
-        >
-          <BlockButton text={"Send A Message"} />
-        </Link>
-        <Link to="/getMessages">
-          <BlockButton text={"Check Messages"} />
-        </Link>
-        <Link to="/myFavorites">
-          <BlockButton text={"View Favorites"} />
-        </Link>
-        <Link to="/myComments">
-          <BlockButton text={"Review Comments"} />
-        </Link>
-        <BlockButton text={"Delete Account"} />
+      <div className="card user-dash">
+        <div className="card-body">
+          <h1 className="card-title">Welcome {user.userName}</h1>
+          <Link to="/changeEmail">
+            <BlockButton text={"Update Email Address"} />
+          </Link>
+          <Link
+            to={{
+              pathname: "/sendMessage",
+              state: {
+                recipient: "",
+                subject: ""
+              }
+            }}
+          >
+            <BlockButton text={"Send A Message"} />
+          </Link>
+          <Link to="/getMessages">
+            <BlockButton text={"Check Messages"} />
+          </Link>
+          <Link to="/myFavorites">
+            <BlockButton text={"View Favorites"} />
+          </Link>
+          <Link to="/myComments">
+            <BlockButton text={"Review Comments"} />
+          </Link>
+          <BlockButton text={"Delete Account"} />
+        </div>
       </div>
     );
   }

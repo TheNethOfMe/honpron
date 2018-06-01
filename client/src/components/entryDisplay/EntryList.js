@@ -19,11 +19,11 @@ class EntryList extends Component {
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.entries.entries && nextProps.entries.entries !== null) {
-      const newEntries = nextProps.entries.entries;
-      const allVideos = newEntries.filter(entry => {
+      const allEntries = nextProps.entries.entries;
+      const allVideos = allEntries.filter(entry => {
         return entry.entryType === "video";
       });
-      const otherEntries = newEntries.filter(entry => {
+      const otherEntries = allEntries.filter(entry => {
         return entry.entryType !== "video";
       });
       this.setState({ allVideos, otherEntries });
@@ -31,8 +31,7 @@ class EntryList extends Component {
   }
   render() {
     const { entries, loading } = this.props.entries;
-    let displayMain;
-    let displaySmall;
+    let displayMain, displaySmall;
     if (entries === null || loading) {
       displayMain = <Spinner />;
       displaySmall = <Spinner />;
@@ -46,10 +45,17 @@ class EntryList extends Component {
     }
     return (
       <div className="container">
-        <div className="row justify-content-center">
+        <div className="row justify-content-center large-only">
           <div className="col-md-8">{displayMain}</div>
           <div className="col-md-4">
             <MenuWidget />
+            {displaySmall}
+          </div>
+        </div>
+        <div className="row justify-content-center small-only">
+          <div className="col-md-12">
+            <MenuWidget />
+            {displayMain}
             {displaySmall}
           </div>
         </div>

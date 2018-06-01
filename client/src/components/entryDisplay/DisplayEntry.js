@@ -36,13 +36,13 @@ class DisplayEntry extends Component {
       );
       displayHeader =
         entry.entryType === "video" ? (
-          <VideoDisplay ytid={entry.youtubeId} />
+          <VideoDisplay ytid={entry.youtubeId} title={entry.title} />
         ) : (
           <img
             className="card-img-top display-entry_img"
-            src={"https://picsum.photos/200/?random"}
+            src="./podcastIcon.png"
             style={{ width: "90%" }}
-            alt="Example"
+            alt="Podcast Icon"
           />
         );
       display = (
