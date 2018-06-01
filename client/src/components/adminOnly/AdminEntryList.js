@@ -26,8 +26,8 @@ class AdminEntryList extends Component {
       });
     }
     return (
-      <div>
-        <h2 className="admin-title">Edit or Delete Entries</h2>
+      <div className="container">
+        <h1 className="user-list_title">Edit or Delete Entries</h1>
         {display}
       </div>
     );

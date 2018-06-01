@@ -41,11 +41,11 @@ class Admin extends Component {
     const { errors } = this.state;
     return (
       <div>
-        <div className="admin-register">
+        <div className="user-card">
           <div className="container">
             <div className="row">
               <div className="col-md-8 m-auto">
-                <h1 className="display-4 text-center">New Admin</h1>
+                <h1 className="user-card_title">New Admin</h1>
                 <p className="lead text-center">Create a new Admin account</p>
 
                 <form noValidate onSubmit={this.onSubmit}>

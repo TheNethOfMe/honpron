@@ -47,6 +47,24 @@ export const getAllMessages = () => dispatch => {
     );
 };
 
+// get admin messages
+export const getAdminMessages = () => dispatch => {
+  axios
+    .get("/api/messages/admin")
+    .then(res =>
+      dispatch({
+        type: GET_MESSAGES,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_MESSAGES,
+        payload: {}
+      })
+    );
+};
+
 // update message (for when a recipient or author deletes a message)
 export const updateMessage = (id, updates, history) => dispatch => {
   axios

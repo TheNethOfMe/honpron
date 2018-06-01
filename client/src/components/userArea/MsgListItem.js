@@ -22,7 +22,7 @@ class MsgListItem extends Component {
     this.props.updateMessage(this.props.msg._id, updates);
   }
   render() {
-    const msgLink = `/getMessage/${this.props.msg._id}`;
+    const msgLink = `/get-message/${this.props.msg._id}`;
     const replyTo =
       this.props.useris === "recipient"
         ? this.props.msg.author
@@ -40,7 +40,7 @@ class MsgListItem extends Component {
       </div>
     );
     return (
-      <div className="msg-list-item card text-center mt-2">
+      <div className="user-card card mt-2">
         <div className="card-body">
           {this.state.warn ? (
             warningMsg
@@ -53,7 +53,7 @@ class MsgListItem extends Component {
                     state: { replyTo, userIs: this.props.useris }
                   }}
                 >
-                  <h5 className="card-title">
+                  <h5 className="user-card_link">
                     {this.props.useris === "recipient" &&
                       !this.props.msg.read &&
                       "*NEW* "}

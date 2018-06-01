@@ -22,7 +22,7 @@ class Navbar extends Component {
         )}
         {user.status !== "Admin" && (
           <li className="nav-item">
-            <Link className="nav-link" to="/userDashboard">
+            <Link className="nav-link" to="/user-dashboard">
               [{user.userName}]
             </Link>
           </li>

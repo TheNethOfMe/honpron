@@ -9,6 +9,7 @@ import CreateEntry from "../adminOnly/CreateEntry";
 import AdminEntryList from "../adminOnly/AdminEntryList";
 import AdminUserList from "../adminOnly/AdminUserList";
 import ModerateComments from "../adminOnly/ModerateComments";
+import GetAdminMessages from "../adminOnly/GetAdminMessages";
 
 export default class AdminRouter extends Component {
   render() {
@@ -23,8 +24,13 @@ export default class AdminRouter extends Component {
         <AdminRoute exact path="/all-users" component={AdminUserList} />
         <AdminRoute
           exact
-          path="/moderateComments"
+          path="/moderate-comments"
           component={ModerateComments}
+        />
+        <AdminRoute
+          exact
+          path="/get-admin-messages"
+          component={GetAdminMessages}
         />
       </Switch>
     );

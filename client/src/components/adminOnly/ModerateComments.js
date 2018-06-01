@@ -68,7 +68,7 @@ class ModerateComments extends Component {
       }
     }
     return (
-      <div className="moderate-comments">
+      <div className="user-list">
         <h1>Moderate Comments</h1>
         {this.state.comSelect === "regular" && (
           <button onClick={this.onSelectBlacklist} className="btn btn-snes">

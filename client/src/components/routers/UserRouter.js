@@ -14,13 +14,13 @@ export default class UserRouter extends Component {
   render() {
     return (
       <Switch>
-        <PrivateRoute exact path="/userDashboard" component={UserDash} />
-        <PrivateRoute exact path="/changeEmail" component={ChangeEmail} />
-        <PrivateRoute exact path="/sendMessage" component={SendMessage} />
-        <PrivateRoute exact path="/getMessages" component={GetMessages} />
-        <PrivateRoute exact path="/getMessage/:id" component={GetOneMessage} />
-        <PrivateRoute exact path="/myFavorites" component={UserFavorites} />
-        <PrivateRoute exact path="/myComments" component={UserComments} />
+        <PrivateRoute exact path="/user-dashboard" component={UserDash} />
+        <PrivateRoute exact path="/change-email" component={ChangeEmail} />
+        <PrivateRoute exact path="/send-message" component={SendMessage} />
+        <PrivateRoute exact path="/get-messages" component={GetMessages} />
+        <PrivateRoute exact path="/get-message/:id" component={GetOneMessage} />
+        <PrivateRoute exact path="/my-favorites" component={UserFavorites} />
+        <PrivateRoute exact path="/my-comments" component={UserComments} />
       </Switch>
     );
   }

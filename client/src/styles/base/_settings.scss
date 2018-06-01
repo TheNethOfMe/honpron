@@ -33,10 +33,16 @@ $snes-lite: #cec9cc;
 // Buttons
 .btn-admin {
   background-color: $hp-green;
+  &:hover {
+    color: $text-color;
+  }
 }
 
 .btn-delete {
   background-color: $hp-red;
+  &:hover {
+    color: $text-color;
+  }
 }
 
 .btn-snes {
@@ -60,6 +66,11 @@ $snes-lite: #cec9cc;
 .btn-blue {
   background-color: $hp-user;
   color: black;
+}
+
+// Spinner
+.spinner {
+  color: $accent-color;
 }
 
 // Other

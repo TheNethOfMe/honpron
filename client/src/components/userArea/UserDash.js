@@ -11,12 +11,12 @@ class UserDash extends Component {
       <div className="card user-dash">
         <div className="card-body">
           <h1 className="card-title">Welcome {user.userName}</h1>
-          <Link to="/changeEmail">
+          <Link to="/change-email">
             <BlockButton text={"Update Email Address"} />
           </Link>
           <Link
             to={{
-              pathname: "/sendMessage",
+              pathname: "/send-message",
               state: {
                 recipient: "",
                 subject: ""
@@ -25,13 +25,13 @@ class UserDash extends Component {
           >
             <BlockButton text={"Send A Message"} />
           </Link>
-          <Link to="/getMessages">
+          <Link to="/get-messages">
             <BlockButton text={"Check Messages"} />
           </Link>
-          <Link to="/myFavorites">
+          <Link to="/my-favorites">
             <BlockButton text={"View Favorites"} />
           </Link>
-          <Link to="/myComments">
+          <Link to="/my-comments">
             <BlockButton text={"Review Comments"} />
           </Link>
           <BlockButton text={"Delete Account"} />

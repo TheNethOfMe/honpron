@@ -3,9 +3,13 @@
 @import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
 .btn-admin {
   background-color: #39c70a; }
+  .btn-admin:hover {
+    color: #dbdbdb; }
 
 .btn-delete {
   background-color: #c7390a; }
+  .btn-delete:hover {
+    color: #dbdbdb; }
 
 .btn-snes {
   background-color: #4f43ae;
@@ -24,6 +28,9 @@
 .btn-blue {
   background-color: #0a98c7;
   color: black; }
+
+.spinner {
+  color: #d17002; }
 
 .warn-text {
   color: #c7390a; }
@@ -126,45 +133,26 @@ a:hover {
   width: 100%;
   height: 100%; }
 
-.admin-dashboard,
-.create-entry,
-.admin-register,
-.create-series {
+.user-list {
+  color: #dbdbdb; }
+
+.user-list_title {
+  color: #d17002; }
+
+.user-card {
   background-color: #111919;
+  border-radius: 5px;
   color: #dbdbdb;
   padding: 1em;
-  text-align: center; }
+  margin: 0.75em; }
 
-.admin-title {
+.user-card a:hover {
+  color: #dbdbdb; }
+
+.user-card_title {
   color: #d17002; }
 
-.moderate-comments {
-  color: #dbdbdb; }
-
-.admin-comment {
-  background-color: #111919;
-  padding: 0.5em; }
-
-.admin-entry-item {
-  background-color: #111919;
-  color: #dbdbdb; }
-
-.code-red {
-  border-left: 10px red solid; }
-
-.code-yellow {
-  border-left: 10px yellow solid; }
-
-.code-blue {
-  border-left: 10px blue solid; }
-
-.user-dash {
-  background-color: #111919;
-  color: #d17002;
-  text-align: center; }
-
-.user-dash button:hover {
-  color: #dbdbdb; }
-
-.spinner {
+.user-card_link {
   color: #d17002; }
+  .user-card_link:hover {
+    color: #4f43ae; }

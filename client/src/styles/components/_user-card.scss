@@ -1,0 +1,24 @@
+// used for components that produce a panel
+
+.user-card {
+  background-color: $card-color;
+  border-radius: 5px;
+  color: $text-color;
+  padding: 1em;
+  margin: 0.75em;
+}
+
+.user-card a:hover {
+  color: $text-color;
+}
+
+.user-card_title {
+  color: $accent-color;
+}
+
+.user-card_link {
+  color: $accent-color;
+  &:hover {
+    color: $snes-purple;
+  }
+}

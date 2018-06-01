@@ -40,71 +40,60 @@ class AdminUserList extends Component {
         {userList === null || userLoading ? (
           <Spinner />
         ) : (
-          <div>
-            <h2>Admin</h2>
+          <div className="user-list">
+            <h2 className="user-list_title">Admin</h2>
             {this.state.admin.map(admin => {
               return (
-                <div className="card text-center mt-2" key={admin._id}>
-                  <div className="card-body">
-                    <div className="row">
-                      <div className="col-md-8">
-                        <h5>{admin.userName}</h5>
-                        <p>{admin.email}</p>
-                      </div>
-                      <div className="col-md-4">
-                        <button className="btn btn-danger">Remove</button>
-                      </div>
-                    </div>
-                  </div>
+                <div className="user-card" key={admin._id}>
+                  <h5>{admin.userName}</h5>
+                  <p>{admin.email}</p>
                 </div>
               );
             })}
 
-            <h2>Users</h2>
+            <h2 className="user-list_title">Users</h2>
             {this.state.users.map(user => {
               return (
-                <div className="card text-center mt-2" key={user._id}>
-                  <div className="card-body">
-                    <div className="row">
-                      <div className="col-md-8">
-                        <h5>{user.userName}</h5>
-                        <p>{user.email}</p>
-                        <p>Status: {user.status}</p>
-                      </div>
-                      <div className="col-md-4">
-                        {user.status === "blacklisted" ? (
-                          <button
-                            onClick={() => this.modifyUser(user._id, "normal")}
-                            className="btn btn-dark"
-                          >
-                            Unblacklist
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() =>
-                              this.modifyUser(user._id, "blacklisted")
-                            }
-                            className="btn btn-dark"
-                          >
-                            Blacklist
-                          </button>
-                        )}
-                        {user.status === "banned" ? (
-                          <button
-                            onClick={() => this.modifyUser(user._id, "normal")}
-                            className="btn btn-danger"
-                          >
-                            Unban
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() => this.modifyUser(user._id, "banned")}
-                            className="btn btn-danger"
-                          >
-                            Ban
-                          </button>
-                        )}
-                      </div>
+                <div className="user-card" key={user._id}>
+                  <div className="row">
+                    <div className="col-md-8">
+                      <h5>{user.userName}</h5>
+                      <p>{user.email}</p>
+                      <p>Status: {user.status}</p>
+                    </div>
+                    <div className="col-md-4">
+                      {user.status === "blacklisted" ? (
+                        <button
+                          onClick={() => this.modifyUser(user._id, "normal")}
+                          className="btn btn-snes"
+                        >
+                          Unblacklist
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() =>
+                            this.modifyUser(user._id, "blacklisted")
+                          }
+                          className="btn btn-snes"
+                        >
+                          Blacklist
+                        </button>
+                      )}
+                      {user.status === "banned" ? (
+                        <button
+                          onClick={() => this.modifyUser(user._id, "normal")}
+                          className="btn btn-delete"
+                        >
+                          Unban
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => this.modifyUser(user._id, "banned")}
+                          className="btn btn-delete"
+                        >
+                          Ban
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>

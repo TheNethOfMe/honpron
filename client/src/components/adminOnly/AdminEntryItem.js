@@ -28,45 +28,43 @@ class AdminEntryItem extends Component {
           {this.props.entry.title}?
         </p>
         <p className="warn-text">This action cannot be undone.</p>
-        <button onClick={this.warnUser} className="btn btn-snes-invert mr-2">
+        <button onClick={this.warnUser} className="btn btn-snes mr-2">
           No, Keep This.
         </button>
-        <button onClick={this.onDelete} className="btn btn-snes mr-2">
+        <button onClick={this.onDelete} className="btn btn-delete mr-2">
           Yes, Remove This.
         </button>
       </div>
     );
     return (
-      <div className="admin-entry-item card text-center mt-2">
-        <div className="card-body">
-          {this.state.warn ? (
-            warningMsg
-          ) : (
-            <div className="row">
-              <div className="col-md-8">
-                <h5>
-                  {this.props.entry.title}
-                  <small> {this.props.entry.entryType}</small>
-                </h5>
-                <p>{this.props.entry.description}</p>
-              </div>
-              <div className="col-md-4">
-                <Link
-                  to={{
-                    pathname: `/update-entry/${this.props.entry._id}`,
-                    search: this.props.entry.entryType
-                  }}
-                  className="btn btn-snes-invert mr-4"
-                >
-                  Edit
-                </Link>
-                <button onClick={this.warnUser} className="btn btn-snes mr-4">
-                  Delete
-                </button>
-              </div>
+      <div className="user-card">
+        {this.state.warn ? (
+          warningMsg
+        ) : (
+          <div className="row">
+            <div className="col-md-8">
+              <h5 className="user-card_title">
+                {this.props.entry.title}
+                <small> {this.props.entry.entryType}</small>
+              </h5>
+              <p>{this.props.entry.description}</p>
             </div>
-          )}
-        </div>
+            <div className="col-md-4">
+              <Link
+                to={{
+                  pathname: `/update-entry/${this.props.entry._id}`,
+                  search: this.props.entry.entryType
+                }}
+                className="btn btn-snes"
+              >
+                Edit
+              </Link>
+              <button onClick={this.warnUser} className="btn btn-delete">
+                Delete
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     );
   }

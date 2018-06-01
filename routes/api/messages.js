@@ -32,6 +32,30 @@ router.get(
   }
 );
 
+// @route   GET api/messages/admin
+// @desc    get all admin messages
+// @access  Private (Admin only)
+router.get(
+  "/admin",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const isAdmin = req.user.isAdmin || false;
+    if (!isAdmin) {
+      return res.status(401).json({ msg: "Unauthorized" });
+    } else {
+      Message.find({
+        $or: [
+          { authorId: "Admin", authorDelete: false },
+          { recipientId: "Admin", recipientDelete: false }
+        ]
+      })
+        .sort({ date: -1 })
+        .then(messages => res.json(messages))
+        .catch(err => res.status(404).json({ msg: "No messages to display." }));
+    }
+  }
+);
+
 // @route   POST api/messages
 // @desc    create a message
 // @access  Private

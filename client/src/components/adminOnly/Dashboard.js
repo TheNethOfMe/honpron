@@ -13,8 +13,8 @@ class Dashboard extends Component {
   }
   render() {
     return (
-      <div className="admin-dashboard">
-        <h1>Hello, {this.state.name}</h1>
+      <div className="card user-card">
+        <h1 className="user-card_title">Hello, {this.state.name}</h1>
         <p className="lead">What would you like to do today?</p>
         <Link to="/admin">
           <BlockButton text="Create New Admin Account" />
@@ -31,11 +31,15 @@ class Dashboard extends Component {
         <Link to="/all-users">
           <BlockButton text="Manage Users" />
         </Link>
-        <Link to="/moderateComments">
+        <Link to="/moderate-comments">
           <BlockButton text="Moderate Comments" />
         </Link>
-        <BlockButton text="Check Messages" />
-        <BlockButton text="Manage Menus" />
+        <Link to="/get-messages">
+          <BlockButton text="Check Personal Messages" />
+        </Link>
+        <Link to="/get-admin-messages">
+          <BlockButton text="Check Admin Messages" />
+        </Link>
       </div>
     );
   }

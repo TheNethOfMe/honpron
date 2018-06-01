@@ -38,11 +38,11 @@ class CreateSeries extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="create-series">
+      <div className="user-card">
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Create Series</h1>
+              <h1 className="user-card_title">Create Series</h1>
               <form onSubmit={this.onSubmit}>
                 <InputTextField
                   placeholder="Series name"

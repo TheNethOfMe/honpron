@@ -97,11 +97,13 @@ class CreateEntry extends Component {
       );
     }
     return (
-      <div className="create-entry">
+      <div className="user-card">
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1>{this.state.id ? "Edit Entry" : "Create Entry"}</h1>
+              <h1 className="user-card_title">
+                {this.state.id ? "Edit Entry" : "Create Entry"}
+              </h1>
               {entryLoading ? (
                 <Spinner />
               ) : (
