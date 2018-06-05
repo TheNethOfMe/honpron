@@ -11,7 +11,7 @@ const TextAreaField = ({
   rows
 }) => {
   return (
-    <div className="form-group">
+    <div className="form-group article-text">
       <textarea
         placeholder={placeholder}
         className={error ? "form-control is-invalid" : "form-control"}

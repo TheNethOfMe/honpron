@@ -23,11 +23,11 @@ class AdminEntryItem extends Component {
   render() {
     const warningMsg = (
       <div>
-        <p className="warn-text">
+        <p className="hp-warning">
           Are you sure you want to delete the {this.props.entry.entryType}{" "}
           {this.props.entry.title}?
         </p>
-        <p className="warn-text">This action cannot be undone.</p>
+        <p className="hp-warning">This action cannot be undone.</p>
         <button onClick={this.warnUser} className="btn btn-snes mr-2">
           No, Keep This.
         </button>
@@ -37,15 +37,20 @@ class AdminEntryItem extends Component {
       </div>
     );
     return (
-      <div className="user-card">
+      <div className="hp-list_item hp-list_item-padding">
         {this.state.warn ? (
           warningMsg
         ) : (
           <div className="row">
             <div className="col-md-8">
-              <h5 className="user-card_title">
-                {this.props.entry.title}
-                <small> {this.props.entry.entryType}</small>
+              <h5>
+                <span className="accent-text">{this.props.entry.title}</span>
+                <small>
+                  {" "}
+                  <span className="purple-text">
+                    {this.props.entry.entryType}
+                  </span>
+                </small>
               </h5>
               <p>{this.props.entry.description}</p>
             </div>

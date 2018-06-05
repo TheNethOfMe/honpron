@@ -8,42 +8,42 @@ class UserDash extends Component {
   render() {
     const { user } = this.props.auth;
     return (
-      <div className="card dashboard">
-        <div className="card-body">
-          <h1>Welcome {user.userName}</h1>
+      <div className="dashboard">
+        <h1>Welcome {user.userName}</h1>
 
-          <h3 className="mt-2">Messages</h3>
-          <Link to="/get-messages">
-            <BlockButton text={"Check Messages"} />
-          </Link>
-          <Link to="/contact-us">
-            <BlockButton text={"Contact Us"} />
-          </Link>
-          <Link
-            to={{
-              pathname: "/send-message",
-              state: {
-                recipient: "",
-                subject: ""
-              }
-            }}
-          >
-            <BlockButton text={"Message Another User"} />
-          </Link>
-          <h3 className="mt-2">Entries</h3>
-          <Link to="/my-favorites">
-            <BlockButton text={"Entries You've Liked"} />
-          </Link>
-          <Link to="/my-comments">
-            <BlockButton text={"Review Your Comments"} />
-          </Link>
-          <h3 className="mt-2">Your Account</h3>
-          <Link to="/change-email">
-            <BlockButton text={"Update Email Address"} />
-          </Link>
+        <h3 className="mt-2">Messages</h3>
+        <Link to="/get-messages">
+          <BlockButton text={"Check Messages"} />
+        </Link>
+        <Link to="/contact-us">
+          <BlockButton text={"Contact Us"} />
+        </Link>
+        <Link
+          to={{
+            pathname: "/send-message",
+            state: {
+              recipient: "",
+              subject: ""
+            }
+          }}
+        >
+          <BlockButton text={"Message Another User"} />
+        </Link>
 
-          <BlockButton text={"Delete Account"} />
-        </div>
+        <h3 className="mt-2">Entries</h3>
+        <Link to="/my-favorites">
+          <BlockButton text={"Entries You've Liked"} />
+        </Link>
+        <Link to="/my-comments">
+          <BlockButton text={"Review Your Comments"} />
+        </Link>
+
+        <h3 className="mt-2">Your Account</h3>
+        <Link to="/change-email">
+          <BlockButton text={"Update Email Address"} />
+        </Link>
+
+        <BlockButton text={"Delete Account"} />
       </div>
     );
   }

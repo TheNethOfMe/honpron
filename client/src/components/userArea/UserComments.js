@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { getUserComments } from "../../actions/commentActions";
 import Spinner from "../common/Spinner";
 import NoComment from "../entryDisplay/NoComment";
-import EntryComment from "../entryDisplay/EntryComment";
+import UserComment from "./UserComment";
 
 class UserComments extends Component {
   constructor(props) {
@@ -30,10 +30,20 @@ class UserComments extends Component {
       display = <NoComment />;
     } else {
       display = this.state.myComments.map(comment => {
-        return <EntryComment key={comment._id} comment={comment} />;
+        return <UserComment key={comment._id} comment={comment} />;
       });
     }
-    return <div>{display}</div>;
+    return (
+      <div className="hp-card">
+        <div className="row justify-content-center">
+          <div className="col-md-10">
+            <h1>My Comments</h1>
+            <div className="hp-nav" />
+            {display}
+          </div>
+        </div>
+      </div>
+    );
   }
 }
 

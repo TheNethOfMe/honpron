@@ -25,10 +25,10 @@ class EntryComment extends Component {
     const userId = this.props.auth.user.id;
     const warningMsg = (
       <div>
-        <p className="warn-text">
+        <p className="hp-warning">
           Are you sure you want to delete this comment?
         </p>
-        <p className="warn-text">This action cannot be undone.</p>
+        <p className="hp-warning">This action cannot be undone.</p>
         <button onClick={this.warnUser} className="btn btn-snes-invert mr-2">
           No, Keep This.
         </button>
@@ -55,7 +55,7 @@ class EntryComment extends Component {
               </div>
               {(isAdmin || userId === comment.authorId) && (
                 <div className="col-md-4">
-                  <button onClick={this.warnUser} className="btn btn-blue">
+                  <button onClick={this.warnUser} className="btn btn-delete">
                     Delete
                   </button>
                 </div>

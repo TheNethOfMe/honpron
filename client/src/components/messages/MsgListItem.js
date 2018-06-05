@@ -28,52 +28,61 @@ class MsgListItem extends Component {
         ? this.props.msg.author
         : this.props.msg.recipient;
     const warningMsg = (
-      <div>
-        <p>Are you sure you want to delete this message?</p>
-        <p>This action cannot be undone.</p>
-        <button onClick={this.warnUser} className="btn btn-success">
+      <div className="hp-warning p-2">
+        <p>
+          Are you sure you want to delete this message?<br />This action cannot
+          be undone.
+        </p>
+        <button onClick={this.warnUser} className="btn btn-orange mr-2">
           No, Keep This.
         </button>
-        <button onClick={this.onDelete} className="btn btn-dark">
+        <button onClick={this.onDelete} className="btn btn-delete">
           Yes, Remove This.
         </button>
       </div>
     );
     return (
-      <div className="user-card card mt-2">
-        <div className="card-body">
-          {this.state.warn ? (
-            warningMsg
-          ) : (
-            <div className="row">
-              <div className="col-md-8">
-                <Link
-                  to={{
-                    pathname: msgLink,
-                    state: { replyTo, userIs: this.props.useris }
-                  }}
-                >
-                  <h5 className="user-card_link">
-                    {this.props.useris === "recipient" &&
-                      !this.props.msg.read &&
-                      "*NEW* "}
-                    {this.props.msg.subject}
-                  </h5>
-                </Link>
-                <p>
-                  {this.props.useris === "recipient" ? "From: " : "To: "}
-                  {replyTo} <br /> On{" "}
-                  {new Date(this.props.msg.date).toLocaleDateString()}
-                </p>
-              </div>
-              <div className="col-md-4">
-                <button onClick={this.warnUser} className="btn btn-danger mr-4">
-                  Delete
-                </button>
-              </div>
+      <div
+        className={
+          this.props.msg.read
+            ? "hp-list_item hp-message"
+            : "hp-list_item hp-unread"
+        }
+      >
+        {this.state.warn ? (
+          warningMsg
+        ) : (
+          <div className="row">
+            <div className="col-md-8 p-2">
+              <Link
+                to={{
+                  pathname: msgLink,
+                  state: { replyTo, userIs: this.props.useris }
+                }}
+              >
+                <h5 className="hp-card_link">
+                  {this.props.useris === "recipient" &&
+                    !this.props.msg.read &&
+                    "*NEW* "}
+                  {this.props.msg.subject}
+                </h5>
+              </Link>
+              <p>
+                {this.props.useris === "recipient" ? "From: " : "To: "}
+                {replyTo}
+                <br /> On {new Date(this.props.msg.date).toLocaleDateString()}
+              </p>
             </div>
-          )}
-        </div>
+            <div className="col-md-4">
+              <button
+                onClick={this.warnUser}
+                className="btn btn-delete mr-4 mt-4"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     );
   }

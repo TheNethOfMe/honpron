@@ -42,39 +42,34 @@ class Login extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="content-panel">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Log In</h1>
-              <p className="lead text-center">
-                Sign in to your Honest Piranha user account
-              </p>
-              {errors.alert && (
-                <div className="alert alert-danger">{errors.alert}</div>
-              )}
-              <form onSubmit={this.onSubmit}>
-                <InputTextField
-                  placeholder="Username"
-                  name="userName"
-                  value={this.state.userName}
-                  onChange={this.onChange}
-                  error={errors.userName}
-                />
-                <InputTextField
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  value={this.state.password}
-                  onChange={this.onChange}
-                  error={errors.password}
-                />
-                <input
-                  type="submit"
-                  className="btn btn-orange btn-block mt-4"
-                />
-              </form>
-            </div>
+      <div className="hp-card">
+        <div className="row">
+          <div className="col-md-8 m-auto">
+            <h1>Log In</h1>
+            <p className="lead text-center">
+              Sign in to your Honest Piranha user account
+            </p>
+            {errors.alert && (
+              <div className="alert alert-danger">{errors.alert}</div>
+            )}
+            <form onSubmit={this.onSubmit}>
+              <InputTextField
+                placeholder="Username"
+                name="userName"
+                value={this.state.userName}
+                onChange={this.onChange}
+                error={errors.userName}
+              />
+              <InputTextField
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={this.state.password}
+                onChange={this.onChange}
+                error={errors.password}
+              />
+              <input type="submit" className="btn btn-orange-block btn-block" />
+            </form>
           </div>
         </div>
       </div>

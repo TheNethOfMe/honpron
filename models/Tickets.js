@@ -10,6 +10,10 @@ const TicketSchema = new Schema({
     type: String,
     required: true
   },
+  subject: {
+    type: String,
+    default: "(No Subject)"
+  },
   topic: String,
   ticketText: {
     type: String,

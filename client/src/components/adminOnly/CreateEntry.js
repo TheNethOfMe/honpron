@@ -97,75 +97,73 @@ class CreateEntry extends Component {
       );
     }
     return (
-      <div className="user-card">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1 className="user-card_title">
-                {this.state.id ? "Edit Entry" : "Create Entry"}
-              </h1>
-              {entryLoading ? (
-                <Spinner />
-              ) : (
-                <form onSubmit={this.onSubmit}>
+      <div className="hp-card">
+        <div className="row">
+          <div className="col-md-8 m-auto">
+            <h1 className="user-card_title">
+              {this.state.id ? "Edit Entry" : "Create Entry"}
+            </h1>
+            {entryLoading ? (
+              <Spinner />
+            ) : (
+              <form onSubmit={this.onSubmit}>
+                <InputTextField
+                  placeholder="Title"
+                  name="title"
+                  value={this.state.title}
+                  onChange={this.onChange}
+                  error={errors.title}
+                />
+                {!this.state.id && (
+                  <SelectType
+                    name="entryType"
+                    type={this.state.entryType}
+                    onChange={this.onChange}
+                  />
+                )}
+                {this.state.entryType === "video" && (
                   <InputTextField
-                    placeholder="Title"
-                    name="title"
-                    value={this.state.title}
+                    placeholder="YouTube ID"
+                    name="youtubeId"
+                    value={this.state.youtubeId}
                     onChange={this.onChange}
-                    error={errors.title}
+                    error={errors.youtubeId}
                   />
-                  {!this.state.id && (
-                    <SelectType
-                      name="entryType"
-                      type={this.state.entryType}
-                      onChange={this.onChange}
-                    />
-                  )}
-                  {this.state.entryType === "video" && (
-                    <InputTextField
-                      placeholder="YouTube ID"
-                      name="youtubeId"
-                      value={this.state.youtubeId}
-                      onChange={this.onChange}
-                      error={errors.youtubeId}
-                    />
-                  )}
-                  {(this.state.entryType === "video" ||
-                    this.state.entryType === "podcast") && (
-                    <InputTextField
-                      placeholder="Video or Podcast Length"
-                      name="duration"
-                      value={this.state.duration}
-                      onChange={this.onChange}
-                      error={errors.duration}
-                    />
-                  )}
-                  <TextAreaField
-                    placeholder="Description of new entry."
-                    name="description"
-                    value={this.state.description}
+                )}
+                {(this.state.entryType === "video" ||
+                  this.state.entryType === "podcast") && (
+                  <InputTextField
+                    placeholder="Video or Podcast Length"
+                    name="duration"
+                    value={this.state.duration}
                     onChange={this.onChange}
-                    rows="3"
-                    error={errors.description}
+                    error={errors.duration}
                   />
-                  <TextAreaField
-                    placeholder="List of Games."
-                    name="games"
-                    value={this.state.games}
-                    onChange={this.onChange}
-                    rows="2"
-                    error={errors.games}
-                    info="Separate games with commas. Ex. Game 1, Game 2"
-                  />
-                  {displayForm}
-                  <input
-                    type="submit"
-                    className="btn btn-orange btn-block mt-4"
-                  />
-                </form>
-              )}
-            </div>
+                )}
+                <TextAreaField
+                  placeholder="Description of new entry."
+                  name="description"
+                  value={this.state.description}
+                  onChange={this.onChange}
+                  rows="3"
+                  error={errors.description}
+                />
+                <TextAreaField
+                  placeholder="List of Games."
+                  name="games"
+                  value={this.state.games}
+                  onChange={this.onChange}
+                  rows="2"
+                  error={errors.games}
+                  info="Separate games with commas. Ex. Game 1, Game 2"
+                />
+                {displayForm}
+                <input
+                  type="submit"
+                  className="btn btn-orange-block btn-block mt-1"
+                />
+              </form>
+            )}
           </div>
         </div>
       </div>

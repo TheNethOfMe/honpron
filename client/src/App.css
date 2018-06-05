@@ -9,6 +9,9 @@ a,
 a:hover {
   text-decoration: none; }
 
+p {
+  margin: 0; }
+
 .btn-admin {
   background-color: #39c70a; }
   .btn-admin:hover {
@@ -29,8 +32,15 @@ a:hover {
 
 .btn-orange {
   background-color: #d17002;
-  color: #dbdbdb; }
+  color: #dbdbdb;
+  margin: 0 1em; }
   .btn-orange:hover {
+    color: #343840; }
+
+.btn-orange-block {
+  background-color: #d17002;
+  color: #dbdbdb; }
+  .btn-orange-block:hover {
     color: #343840; }
 
 .btn-blue {
@@ -40,31 +50,82 @@ a:hover {
 .spinner {
   color: #d17002; }
 
-.warn-text {
+.hp-warning {
   color: #c7390a; }
+
+.accent-text {
+  color: #d17002; }
+
+.article-text {
+  font-family: "Glegoo", serif; }
+
+.purple-text {
+  color: #4f43ae; }
 
 .dashboard {
   background-color: #111919;
   border-radius: 15px;
-  color: #dbdbdb; }
+  color: #dbdbdb;
+  padding: 1em; }
 
-.user-card {
+.hp-card {
   background-color: #111919;
   border-radius: 5px;
   color: #dbdbdb;
   padding: 1em;
   margin: 0.75em; }
 
-.user-card a:hover {
+.hp-card_link {
+  color: #d17002; }
+  .hp-card_link:hover {
+    color: #4f43ae; }
+
+.hp-list {
+  background-color: #111919;
   color: #dbdbdb; }
 
-.user-card_title {
-  color: #d17002; }
+.hp-list_item {
+  background-color: #343840;
+  margin-top: 1em; }
 
-.user-card_link {
+.hp-list_item-padding {
+  padding: 1em; }
+
+.hp-nav {
+  border-bottom: black 1px solid; }
+
+.hp-nav-active {
+  background-color: #d17002;
+  color: #dbdbdb; }
+
+.hp-nav-inactive {
   color: #d17002; }
-  .user-card_link:hover {
-    color: #4f43ae; }
+  .hp-nav-inactive:hover {
+    color: #dbdbdb;
+    cursor: pointer; }
+
+.hp-unread {
+  border-left: #d17002 8px solid; }
+
+.hp-message {
+  border-left: #b5b6e4 8px solid; }
+
+.hp-message_text {
+  background-color: #dbdbdb;
+  color: #111919;
+  font-family: "Glegoo", serif;
+  margin: 1.3em auto;
+  padding: 1em;
+  width: 80%; }
+
+.code-red {
+  border-left: 10px red solid; }
+
+.code-yellow {
+  border-left: 10px yellow solid; }
+
+.code-blue {
+  border-left: 10px blue solid; }
 
 .small-only {
   display: none; }
@@ -149,50 +210,3 @@ a:hover {
   left: 0;
   width: 100%;
   height: 100%; }
-
-.admin-title {
-  color: #d17002; }
-
-.moderate-comments {
-  color: #dbdbdb; }
-
-.admin-comment {
-  background-color: #111919;
-  padding: 0.5em; }
-
-.admin-entry-item {
-  background-color: #111919;
-  color: #dbdbdb; }
-
-.code-red {
-  border-left: 10px red solid; }
-
-.code-yellow {
-  border-left: 10px yellow solid; }
-
-.code-blue {
-  border-left: 10px blue solid; }
-
-.user-list {
-  color: #dbdbdb; }
-
-.user-list_title {
-  color: #d17002; }
-
-.user-card {
-  background-color: #111919;
-  border-radius: 5px;
-  color: #dbdbdb;
-  padding: 1em;
-  margin: 0.75em; }
-
-.user-card a:hover {
-  color: #dbdbdb; }
-
-.user-card_title {
-  color: #d17002; }
-
-.user-card_link {
-  color: #d17002; }
-  .user-card_link:hover {
-    color: #4f43ae; }

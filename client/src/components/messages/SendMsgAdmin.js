@@ -38,34 +38,29 @@ class SendMsgAdmin extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="card user-dash">
-        <div className="card-body">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1>Send Message to Honest Piranha</h1>
-              <form onSubmit={this.onSubmit}>
-                <InputTextField
-                  placeholder="Subject"
-                  name="subject"
-                  value={this.state.subject}
-                  onChange={this.onChange}
-                  error={errors.subject}
-                />
-                <TopicDropdown name="topic" onChange={this.onChange} />
-                <TextAreaField
-                  placeholder="Compose your message."
-                  name="ticketText"
-                  value={this.state.ticketText}
-                  onChange={this.onChange}
-                  rows="3"
-                  error={errors.ticketText}
-                />
-                <input
-                  type="submit"
-                  className="btn btn-orange btn-block mt-4"
-                />
-              </form>
-            </div>
+      <div className="hp-card">
+        <div className="row">
+          <div className="col-md-8 m-auto">
+            <h1>Send Message to Honest Piranha</h1>
+            <form onSubmit={this.onSubmit}>
+              <InputTextField
+                placeholder="Subject"
+                name="subject"
+                value={this.state.subject}
+                onChange={this.onChange}
+                error={errors.subject}
+              />
+              <TopicDropdown name="topic" onChange={this.onChange} />
+              <TextAreaField
+                placeholder="Compose your message."
+                name="ticketText"
+                value={this.state.ticketText}
+                onChange={this.onChange}
+                rows="3"
+                error={errors.ticketText}
+              />
+              <input type="submit" className="btn btn-orange-block btn-block" />
+            </form>
           </div>
         </div>
       </div>

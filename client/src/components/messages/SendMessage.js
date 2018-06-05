@@ -37,40 +37,38 @@ class SendMessage extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="card user-dash">
-        <div className="card-body">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1>Send Message to a User</h1>
-              <form onSubmit={this.onSubmit}>
-                <InputTextField
-                  placeholder="Enter Recipient"
-                  name="recipient"
-                  value={this.state.recipient}
-                  onChange={this.onChange}
-                  error={errors.recipient}
-                />
-                <InputTextField
-                  placeholder="Subject"
-                  name="subject"
-                  value={this.state.subject}
-                  onChange={this.onChange}
-                  error={errors.subject}
-                />
-                <TextAreaField
-                  placeholder="Compose your message."
-                  name="body"
-                  value={this.state.body}
-                  onChange={this.onChange}
-                  rows="3"
-                  error={errors.body}
-                />
-                <input
-                  type="submit"
-                  className="btn btn-orange btn-block mt-4"
-                />
-              </form>
-            </div>
+      <div className="hp-card">
+        <div className="row">
+          <div className="col-md-8 m-auto">
+            <h1>Send Message to a User</h1>
+            <form onSubmit={this.onSubmit}>
+              <InputTextField
+                placeholder="Enter Recipient"
+                name="recipient"
+                value={this.state.recipient}
+                onChange={this.onChange}
+                error={errors.recipient}
+              />
+              <InputTextField
+                placeholder="Subject"
+                name="subject"
+                value={this.state.subject}
+                onChange={this.onChange}
+                error={errors.subject}
+              />
+              <TextAreaField
+                placeholder="Compose your message."
+                name="body"
+                value={this.state.body}
+                onChange={this.onChange}
+                rows="3"
+                error={errors.body}
+              />
+              <input
+                type="submit"
+                className="btn btn-orange-block btn-block mt-4"
+              />
+            </form>
           </div>
         </div>
       </div>

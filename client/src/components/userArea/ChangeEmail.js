@@ -36,7 +36,7 @@ class ChangeEmail extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div>
+      <div className="hp-card">
         <h2>Change Email</h2>
         <form noValidate onSubmit={this.onSubmit}>
           <InputTextField
@@ -61,7 +61,7 @@ class ChangeEmail extends Component {
             onChange={this.onChange}
             error={errors.email2}
           />
-          <input type="submit" className="btn btn-info btn-block mt-4" />
+          <input type="submit" className="btn btn-orange-block btn-block" />
         </form>
       </div>
     );

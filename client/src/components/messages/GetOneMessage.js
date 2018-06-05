@@ -39,22 +39,31 @@ class GetOneMessage extends Component {
   render() {
     const { singleMsg, msgLoading } = this.props.messages;
     return (
-      <div>
+      <div className="hp-card">
         {singleMsg === null || msgLoading ? (
           <Spinner />
         ) : (
           <div>
             <h1>{singleMsg.subject}</h1>
             <h4>
-              From: {singleMsg.author} To: {singleMsg.recipient}
+              From: <span className="accent-text">{singleMsg.author}</span>{" "}
+              {this.state.userIs === "recipient" &&
+                singleMsg.authorId !== "Admin" && (
+                  <button onClick={this.blockUser} className="btn btn-snes">
+                    Block Sender
+                  </button>
+                )}
+              <br />To:{" "}
+              <span className="accent-text">{singleMsg.recipient}</span>
+              {this.state.userIs === "author" && (
+                <button onClick={this.blockUser} className="btn btn-snes">
+                  Block Recipient
+                </button>
+              )}
+              <br />
               <small>On {new Date(singleMsg.date).toLocaleDateString()}</small>
             </h4>
-            {singleMsg.authorId !== "Admin" && (
-              <button onClick={this.blockUser} className="btn btn-dark">
-                Block Sender
-              </button>
-            )}
-            <div>
+            <div className="hp-message_text">
               {singleMsg.body.split("\n").map((line, i) => {
                 return (
                   <span key={i}>
@@ -67,7 +76,7 @@ class GetOneMessage extends Component {
             <div>
               <Link
                 to={{
-                  pathname: "/sendMessage",
+                  pathname: "/send-message",
                   state: {
                     recipient: this.state.replyTo,
                     subject: `Re: ${singleMsg.subject}`
@@ -75,15 +84,15 @@ class GetOneMessage extends Component {
                 }}
               >
                 {singleMsg.authorId !== "Admin" && (
-                  <button className="btn btn-success">Reply</button>
+                  <button className="btn btn-snes">Reply</button>
                 )}
               </Link>
-              <Link to="/getMessages">
-                <button className="btn btn-primary">Return to Inbox</button>
+              <Link to="/get-message">
+                <button className="btn btn-orange">Return to Inbox</button>
               </Link>
               <button
                 type="button"
-                className="btn btn-danger"
+                className="btn btn-delete"
                 data-toggle="modal"
                 data-target="#verifyDelete"
               >

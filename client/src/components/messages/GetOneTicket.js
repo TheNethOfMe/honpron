@@ -37,7 +37,7 @@ class GetOneTicket extends Component {
       const currentTicket = nextProps.tickets.singleTicket;
       const recipient = currentTicket.sender;
       const recipientId = currentTicket.senderId;
-      const subject = "Re: " + currentTicket.topic;
+      const subject = "Re: " + currentTicket.subject;
       const body =
         "\nThanks for reaching out to us. \n---Honest Piranha Labs \nPreviously, you wrote: \n" +
         currentTicket.ticketText;
@@ -76,57 +76,56 @@ class GetOneTicket extends Component {
     const { singleTicket, ticketLoading } = this.props.tickets;
     const { errors } = this.state;
     return (
-      <div className="row justify-content-center">
-        <div className="col-md-10">
-          {singleTicket === null || ticketLoading ? (
-            <Spinner />
-          ) : (
-            <div>
-              <div className="admin-comment card text-center">
-                <div className="card-body">
-                  <h4>
-                    Submitted by {singleTicket.sender} on{" "}
-                    {new Date(singleTicket.date).toLocaleDateString()}
-                  </h4>
-                  <p>{singleTicket.ticketText}</p>
-                  {!singleTicket.closed && (
-                    <form onSubmit={this.onSubmit}>
-                      <TextAreaField
-                        placeholder="Write a response to this user."
-                        name="response"
-                        value={this.state.response}
-                        onChange={this.onChange}
-                        rows="3"
-                        error={errors.body}
-                      />
-                      <button type="submit" className="btn btn-orange">
-                        Reply and Close
-                      </button>
-                      {errors.recipient && <p>{errors.recipient}</p>}
-                    </form>
-                  )}
-                  <div>
-                    {singleTicket.closed ? (
-                      <button
-                        onClick={this.onDelete}
-                        className="btn btn-delete mt-2"
-                      >
-                        Delete
-                      </button>
-                    ) : (
-                      <button
-                        onClick={this.onCloseTicket}
-                        className="btn btn-delete mt-2"
-                      >
-                        Close Without Reply
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
+      <div className="hp-card">
+        {singleTicket === null || ticketLoading ? (
+          <Spinner />
+        ) : (
+          <div>
+            <div className="hp-nav">
+              <h3>
+                <span className="accent-text">{singleTicket.subject}</span>
+                <br />
+                <small>{singleTicket.topic}</small>
+              </h3>
+              <h4>
+                Submitted by{" "}
+                <span className="accent-text">{singleTicket.sender}</span> on{" "}
+                {new Date(singleTicket.date).toLocaleDateString()}
+              </h4>
+              <p className="hp-message_text">{singleTicket.ticketText}</p>
             </div>
-          )}
-        </div>
+            {!singleTicket.closed && (
+              <form onSubmit={this.onSubmit}>
+                <TextAreaField
+                  placeholder="Write a response to this user."
+                  name="response"
+                  value={this.state.response}
+                  onChange={this.onChange}
+                  rows="3"
+                  error={errors.body}
+                />
+                <button type="submit" className="btn btn-orange">
+                  Reply and Close
+                </button>
+                {errors.recipient && <p>{errors.recipient}</p>}
+              </form>
+            )}
+            <div>
+              {singleTicket.closed ? (
+                <button onClick={this.onDelete} className="btn btn-delete mt-2">
+                  Delete
+                </button>
+              ) : (
+                <button
+                  onClick={this.onCloseTicket}
+                  className="btn btn-delete mt-2"
+                >
+                  Close Without Reply
+                </button>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     );
   }

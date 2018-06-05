@@ -25,7 +25,7 @@ class ModCommentItem extends Component {
   }
   render() {
     const comment = this.props.comment;
-    const commentClass = `admin-comment card mt-2 text-center code-${
+    const commentClass = `hp-list_item hp-list_item-padding mt-2 text-center code-${
       comment.commentCode
     }`;
     const warningMsg = (
@@ -44,30 +44,28 @@ class ModCommentItem extends Component {
     );
     return (
       <div className={commentClass}>
-        <div className="card-body">
-          {this.state.warn ? (
-            warningMsg
-          ) : (
-            <div className="row">
-              <div className="col-md-8">
-                <h5 className="admin-title">{comment.entry}</h5>
-                <p>
-                  Posted by {comment.author} on{" "}
-                  {new Date(comment.commentDate).toLocaleDateString()}
-                </p>
-                <p>{comment.content}</p>
-              </div>
-              <div className="col-md-4">
-                <button onClick={this.approve} className="btn btn-admin mr-4">
-                  Approve
-                </button>
-                <button onClick={this.warnUser} className="btn btn-delete mr-4">
-                  Delete
-                </button>
-              </div>
+        {this.state.warn ? (
+          warningMsg
+        ) : (
+          <div className="row">
+            <div className="col-md-8">
+              <h5>{comment.entry}</h5>
+              <p>
+                Posted by <span className="accent-text">{comment.author}</span>{" "}
+                on {new Date(comment.commentDate).toLocaleDateString()}
+              </p>
+              <p className="article-text">{comment.content}</p>
             </div>
-          )}
-        </div>
+            <div className="col-md-4">
+              <button onClick={this.approve} className="btn btn-admin mr-4">
+                Approve
+              </button>
+              <button onClick={this.warnUser} className="btn btn-delete mr-4">
+                Delete
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     );
   }

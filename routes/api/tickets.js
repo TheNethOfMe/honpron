@@ -49,6 +49,7 @@ router.post(
       const newTicket = {
         sender: req.user.userName,
         senderId: req.user.id,
+        subject: req.body.subject,
         topic: req.body.topic || "(No Topic)",
         ticketText: req.body.ticketText,
         colorCode: color

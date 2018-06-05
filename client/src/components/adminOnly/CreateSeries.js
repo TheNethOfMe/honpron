@@ -38,38 +38,36 @@ class CreateSeries extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="user-card">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1 className="user-card_title">Create Series</h1>
-              <form onSubmit={this.onSubmit}>
-                <InputTextField
-                  placeholder="Series name"
-                  name="seriesName"
-                  value={this.state.seriesName}
-                  onChange={this.onChange}
-                  error={errors.seriesName}
-                />
-                <TextAreaField
-                  placeholder="Description of new seriers."
-                  name="seriesDesc"
-                  value={this.state.seriesDesc}
-                  onChange={this.onChange}
-                  rows="3"
-                  error={errors.seriesDesc}
-                />
-                <SelectType
-                  name="seriesType"
-                  type={this.state.seriesType}
-                  onChange={this.onChange}
-                />
-                <input
-                  type="submit"
-                  className="btn btn-orange btn-block mt-4"
-                />
-              </form>
-            </div>
+      <div className="hp-card">
+        <div className="row">
+          <div className="col-md-8 m-auto">
+            <h1 className="user-card_title">Create Series</h1>
+            <form onSubmit={this.onSubmit}>
+              <InputTextField
+                placeholder="Series name"
+                name="seriesName"
+                value={this.state.seriesName}
+                onChange={this.onChange}
+                error={errors.seriesName}
+              />
+              <TextAreaField
+                placeholder="Description of new seriers."
+                name="seriesDesc"
+                value={this.state.seriesDesc}
+                onChange={this.onChange}
+                rows="3"
+                error={errors.seriesDesc}
+              />
+              <SelectType
+                name="seriesType"
+                type={this.state.seriesType}
+                onChange={this.onChange}
+              />
+              <input
+                type="submit"
+                className="btn btn-orange-block btn-block mt-1"
+              />
+            </form>
           </div>
         </div>
       </div>

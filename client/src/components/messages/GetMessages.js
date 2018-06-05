@@ -64,35 +64,37 @@ class GetMessages extends Component {
       }
     }
     return (
-      <div className="messageList">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1>Messages</h1>
-              <ul className="nav nav-pills">
-                <li className="nav-item">
-                  <p
-                    className={
-                      msgSelect === "recieved" ? "nav-link active" : "nav-link"
-                    }
-                    onClick={this.onClickRecieved}
-                  >
-                    Recieved
-                  </p>
-                </li>
-                <li className="nav-item">
-                  <p
-                    className={
-                      msgSelect === "sent" ? "nav-link active" : "nav-link"
-                    }
-                    onClick={this.onClickSent}
-                  >
-                    Sent
-                  </p>
-                </li>
-              </ul>
-              {display}
-            </div>
+      <div className="hp-card">
+        <div className="row justify-content-center">
+          <div className="col-md-10">
+            <h1>Messages</h1>
+            <ul className="nav hp-nav justify-content-center nav-pills">
+              <li className="nav-item">
+                <p
+                  className={
+                    msgSelect === "recieved"
+                      ? "nav-link hp-nav-active"
+                      : "nav-link hp-nav-inactive"
+                  }
+                  onClick={this.onClickRecieved}
+                >
+                  Recieved
+                </p>
+              </li>
+              <li className="nav-item">
+                <p
+                  className={
+                    msgSelect === "sent"
+                      ? "nav-link hp-nav-active"
+                      : "nav-link hp-nav-inactive"
+                  }
+                  onClick={this.onClickSent}
+                >
+                  Sent
+                </p>
+              </li>
+            </ul>
+            {display}
           </div>
         </div>
       </div>

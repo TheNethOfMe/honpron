@@ -8,6 +8,10 @@ a:hover {
   text-decoration: none;
 }
 
+p {
+  margin: 0;
+}
+
 // Buttons
 .btn-admin {
   background-color: $hp-green;
@@ -36,6 +40,15 @@ a:hover {
 .btn-orange {
   background-color: $accent-color;
   color: $text-color;
+  margin: 0 1em;
+  &:hover {
+    color: $background-color;
+  }
+}
+
+.btn-orange-block {
+  background-color: $accent-color;
+  color: $text-color;
   &:hover {
     color: $background-color;
   }
@@ -51,9 +64,21 @@ a:hover {
   color: $accent-color;
 }
 
-// Warning Text
-.warn-text {
+// Text
+.hp-warning {
   color: $hp-red;
+}
+
+.accent-text {
+  color: $accent-color;
+}
+
+.article-text {
+  font-family: $article-text, serif;
+}
+
+.purple-text {
+  color: $snes-purple;
 }
 
 // User and Admin Dashboards
@@ -61,10 +86,11 @@ a:hover {
   background-color: $card-color;
   border-radius: 15px;
   color: $text-color;
+  padding: 1em;
 }
 
 // used for components that produce a panel
-.user-card {
+.hp-card {
   background-color: $card-color;
   border-radius: 5px;
   color: $text-color;
@@ -72,17 +98,73 @@ a:hover {
   margin: 0.75em;
 }
 
-.user-card a:hover {
-  color: $text-color;
-}
-
-.user-card_title {
-  color: $accent-color;
-}
-
-.user-card_link {
+.hp-card_link {
   color: $accent-color;
   &:hover {
     color: $snes-purple;
   }
+}
+
+// used for components that produce lists of panels
+.hp-list {
+  background-color: $card-color;
+  color: $text-color;
+}
+
+.hp-list_item {
+  background-color: $background-color;
+  margin-top: 1em;
+}
+
+.hp-list_item-padding {
+  padding: 1em;
+}
+
+// for components that need their own mini-nav
+.hp-nav {
+  border-bottom: black 1px solid;
+}
+
+.hp-nav-active {
+  background-color: $accent-color;
+  color: $text-color;
+}
+
+.hp-nav-inactive {
+  color: $accent-color;
+  &:hover {
+    color: $text-color;
+    cursor: pointer;
+  }
+}
+
+// specific for messages
+.hp-unread {
+  border-left: $accent-color 8px solid;
+}
+
+.hp-message {
+  border-left: $snes-blue 8px solid;
+}
+
+.hp-message_text {
+  background-color: $text-color;
+  color: $card-color;
+  font-family: $article-text, serif;
+  margin: 1.3em auto;
+  padding: 1em;
+  width: 80%;
+}
+
+// color code for comments and tickets
+.code-red {
+  border-left: 10px red solid;
+}
+
+.code-yellow {
+  border-left: 10px yellow solid;
+}
+
+.code-blue {
+  border-left: 10px blue solid;
 }
