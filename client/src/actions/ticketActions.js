@@ -4,7 +4,8 @@ import {
   GET_TICKETS,
   TICKETS_LOADING,
   GET_ERRORS,
-  GET_ONE_TICKET
+  GET_ONE_TICKET,
+  TICKETS_CLEAR
 } from "./types";
 
 // create a ticket
@@ -58,6 +59,7 @@ export const getOneTicket = id => dispatch => {
     );
 };
 
+// update a ticket (respond and/or close)
 export const updateTicket = (id, updates) => dispatch => {
   axios
     .post(`/api/tickets/update/${id}`, updates)
@@ -65,6 +67,7 @@ export const updateTicket = (id, updates) => dispatch => {
     .catch(err => console.log(err));
 };
 
+// delete a closed ticket
 export const deleteTicket = (id, history) => dispatch => {
   axios
     .delete(`/api/tickets/delete/${id}`)
@@ -75,5 +78,12 @@ export const deleteTicket = (id, history) => dispatch => {
 export const setTicketsLoading = () => {
   return {
     type: TICKETS_LOADING
+  };
+};
+
+// clear tickets on logout
+export const clearTickets = () => {
+  return {
+    type: TICKETS_CLEAR
   };
 };

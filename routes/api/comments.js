@@ -24,6 +24,7 @@ router.post(
             .status(401)
             .json({ commentText: "Comment is required to post." });
         }
+        console.log("USER", req.user);
         const color =
           req.user.status === "blacklisted"
             ? "black"
@@ -52,7 +53,10 @@ router.post(
 // @desc    gets all comments for an entry that have been approved
 // @access  Public
 router.get("/entry/:entry_id", (req, res) => {
-  Comment.find({ $and: [{ entryId: req.params.entry_id }, { approved: true }] })
+  Comment.find(
+    { $and: [{ entryId: req.params.entry_id }, { approved: true }] },
+    { commentCode: 0 }
+  )
     .sort({ commentDate: -1 })
     .then(comments => res.json(comments))
     .catch(err => res.status(404).json({ msg: "No comments to display" }));
@@ -65,7 +69,10 @@ router.get(
   "/user",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Comment.find({ $and: [{ authorId: req.user.id }, { approved: true }] })
+    Comment.find(
+      { $and: [{ authorId: req.user.id }, { approved: true }] },
+      { commentCode: 0 }
+    )
       .sort({ commentDate: -1 })
       .then(comments => res.json(comments))
       .catch(err => res.status(404).json({ msg: "No comments to display" }));
@@ -74,7 +81,7 @@ router.get(
 
 // @route   GET api/comment/admin
 // @desc    gets all comments that require moderation
-// @access  Private (admin only)
+// @access  Private (Admin only)
 router.get(
   "/admin",
   passport.authenticate("jwt", { session: false }),

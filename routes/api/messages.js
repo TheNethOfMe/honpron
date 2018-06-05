@@ -21,12 +21,18 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const self = req.user.id;
-    Message.find({
-      $or: [
-        { authorId: self, authorDelete: false },
-        { recipientId: self, recipientDelete: false }
-      ]
-    })
+    Message.find(
+      {
+        $or: [
+          { authorId: self, authorDelete: false },
+          { recipientId: self, recipientDelete: false }
+        ]
+      },
+      {
+        authorDelete: 0,
+        recipientDelete: 0
+      }
+    )
       .sort({ date: -1 })
       .then(messages => res.json(messages))
       .catch(err => res.status(404).json({ msg: "No messages to display." }));

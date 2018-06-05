@@ -38,6 +38,7 @@ class UserComments extends Component {
         <div className="row justify-content-center">
           <div className="col-md-10">
             <h1>My Comments</h1>
+            <p>Only approved comments will appear here.</p>
             <div className="hp-nav" />
             {display}
           </div>

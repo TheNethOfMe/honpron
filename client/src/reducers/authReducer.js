@@ -4,7 +4,8 @@ import {
   SET_CURRENT_USER,
   GET_ALL_USERS,
   SET_USER_LOADING,
-  SET_USER_BLOCKLIST
+  SET_USER_BLOCKLIST,
+  CLEAR_USER_DATA
 } from "../actions/types";
 
 const initialState = {
@@ -33,6 +34,14 @@ export default function(state = initialState, action) {
       return {
         ...state,
         userBlocklist: action.payload
+      };
+    case CLEAR_USER_DATA:
+      return {
+        ...state,
+        isAuthenticated: false,
+        userList: null,
+        userBlocklist: null,
+        user: {}
       };
     case SET_USER_LOADING:
       return {

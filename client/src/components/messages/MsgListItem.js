@@ -44,9 +44,9 @@ class MsgListItem extends Component {
     return (
       <div
         className={
-          this.props.msg.read
-            ? "hp-list_item hp-message"
-            : "hp-list_item hp-unread"
+          this.props.useris === "recipient" && !this.props.msg.read
+            ? "hp-list_item hp-unread"
+            : "hp-list_item hp-message"
         }
       >
         {this.state.warn ? (

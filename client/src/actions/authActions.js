@@ -8,7 +8,8 @@ import {
   GET_ALL_USERS,
   SET_USER_LOADING,
   SET_USER_BLOCKLIST,
-  MESSAGE_CLEAR
+  MESSAGE_CLEAR,
+  CLEAR_USER_DATA
 } from "./types";
 
 // Register user
@@ -77,8 +78,7 @@ export const setUserBlockList = lists => {
 export const logoutUser = history => dispatch => {
   localStorage.removeItem("jwtToken");
   setAuthToken(false);
-  dispatch(setCurrentUser({}));
-  dispatch(setUserBlockList({}));
+  dispatch(clearUserData());
   dispatch({
     type: MESSAGE_CLEAR
   });
@@ -94,6 +94,13 @@ export const getUsers = () => dispatch => {
       payload: res.data
     })
   );
+};
+
+// Clear user list and blocklist on logout
+export const clearUserData = () => dispatch => {
+  dispatch({
+    type: CLEAR_USER_DATA
+  });
 };
 
 // Modify a user's status

@@ -106,8 +106,7 @@ router.post("/login", (req, res) => {
       if (isMatch) {
         const payload = {
           id: user.id,
-          userName: user.userName,
-          status: user.status
+          userName: user.userName
         };
         const blockList = user.blocked;
         if (user.isAdmin) {
