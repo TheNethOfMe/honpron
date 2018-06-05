@@ -22,9 +22,6 @@ const MessageSchema = new Schema({
     type: String,
     default: "(no subject)"
   },
-  // topic and code for messages to admin only
-  topic: String,
-  code: String,
   body: {
     type: String,
     required: true

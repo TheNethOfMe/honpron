@@ -1,17 +1,18 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import InputTextField from "../formFields/InputTextField";
 import TextAreaField from "../formFields/TextAreaField";
-import { createNewMessage } from "../../actions/msgActions";
+import TopicDropdown from "../formFields/TopicDropdown";
+import { contactUs } from "../../actions/ticketActions";
 
-class SendMessage extends Component {
+class SendMsgAdmin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipient: this.props.location.state.recipient || "",
-      subject: this.props.location.state.subject || "",
-      body: "",
+      subject: "",
+      topic: "",
+      ticketText: "",
       errors: {}
     };
     this.onChange = this.onChange.bind(this);
@@ -27,12 +28,12 @@ class SendMessage extends Component {
   }
   onSubmit(e) {
     e.preventDefault();
-    const newMessage = {
-      recipient: this.state.recipient,
+    const newTicket = {
       subject: this.state.subject,
-      body: this.state.body
+      topic: this.state.topic,
+      ticketText: this.state.ticketText
     };
-    this.props.createNewMessage(newMessage, this.props.history);
+    this.props.contactUs(newTicket);
   }
   render() {
     const { errors } = this.state;
@@ -41,15 +42,8 @@ class SendMessage extends Component {
         <div className="card-body">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1>Send Message to a User</h1>
+              <h1>Send Message to Honest Piranha</h1>
               <form onSubmit={this.onSubmit}>
-                <InputTextField
-                  placeholder="Enter Recipient"
-                  name="recipient"
-                  value={this.state.recipient}
-                  onChange={this.onChange}
-                  error={errors.recipient}
-                />
                 <InputTextField
                   placeholder="Subject"
                   name="subject"
@@ -57,13 +51,14 @@ class SendMessage extends Component {
                   onChange={this.onChange}
                   error={errors.subject}
                 />
+                <TopicDropdown name="topic" onChange={this.onChange} />
                 <TextAreaField
                   placeholder="Compose your message."
-                  name="body"
-                  value={this.state.body}
+                  name="ticketText"
+                  value={this.state.ticketText}
                   onChange={this.onChange}
                   rows="3"
-                  error={errors.body}
+                  error={errors.ticketText}
                 />
                 <input
                   type="submit"
@@ -78,15 +73,13 @@ class SendMessage extends Component {
   }
 }
 
-SendMessage.propTypes = {
-  errors: PropTypes.object.isRequired,
-  createNewMessage: PropTypes.func.isRequired
-};
-
 const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, {
-  createNewMessage
-})(SendMessage);
+SendMsgAdmin.propTypes = {
+  contactUs: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+export default connect(mapStateToProps, { contactUs })(SendMsgAdmin);

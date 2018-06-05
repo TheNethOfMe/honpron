@@ -8,6 +8,7 @@ const series = require("./routes/api/series");
 const entries = require("./routes/api/entries");
 const messages = require("./routes/api/messages");
 const comments = require("./routes/api/comments");
+const tickets = require("./routes/api/tickets");
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use("/api/series", series);
 app.use("/api/entries", entries);
 app.use("/api/messages", messages);
 app.use("/api/comment", comments);
+app.use("/api/tickets", tickets);
 
 const port = process.env.PORT || 5000;
 

@@ -26,9 +26,6 @@ module.exports = async function validateMessageInput(data, senderId) {
   if (Validator.isEmpty(data.recipient)) {
     errors.recipient = "Message must have a recipient.";
   }
-  if (Validator.isEmpty(data.recipient)) {
-    errors.recipient = "Message must have a recipient.";
-  }
   if (Validator.isEmpty(data.body)) {
     errors.body = "You must have a message to send.";
   }

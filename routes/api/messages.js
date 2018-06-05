@@ -7,6 +7,7 @@ const passport = require("passport");
 const validateMessageInput = require("../../validation/message");
 const canReadMessage = require("../../validation/can-read-message");
 const getCommentCode = require("../../validation/comment-coding");
+const validateTicketInput = require("../../validation/ticket");
 
 // Load Models
 const Message = require("../../models/Messages");
@@ -34,7 +35,7 @@ router.get(
 
 // @route   GET api/messages/admin
 // @desc    get all admin messages
-// @access  Private (Admin only)
+// @access  Private (Admin only) DELETE
 router.get(
   "/admin",
   passport.authenticate("jwt", { session: false }),
@@ -88,37 +89,38 @@ router.post(
 );
 
 // @route   POST api/messages/admin
-// @desc    creates a message for admin
-// @access  Private
+// @desc    sends a reply to admin ticket as message
+// @access  Private (Admin only)
 router.post(
   "/admin",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    let errors = {};
-    if (!req.body.body) {
-      errors.body = "You must have a message to send.";
-      return res.status(400).json(errors);
+    const isAdmin = req.user.isAdmin || false;
+    if (!isAdmin) {
+      return res.status(401).json({ msg: "Unauthorized" });
     } else {
-      const color =
-        req.user.status === "blacklisted"
-          ? "black"
-          : getCommentCode(req.body.body);
-      const newMessage = {
-        author: req.user.userName,
-        authorId: req.user.id,
-        recipient: "Admin",
-        recipientId: "Admin",
-        subject: req.body.subject || "(No Subject)",
-        topic: req.body.topic || "(No Topic)",
-        code: color,
-        body: req.body.body
-      };
-      new Message(newMessage)
-        .save()
-        .then(message => res.send(message))
-        .catch(err => {
-          throw err;
-        });
+      validateTicketInput(req.body).then(result => {
+        const { errors, isValid } = result;
+        if (!isValid) {
+          return res.status(400).json(errors);
+        } else {
+          const newMessage = {
+            author: "Honest Piranha Labs",
+            authorId: "Admin",
+            recipient: req.body.recipient,
+            recipientId: req.body.recipientId,
+            subject: req.body.subject || "(No Subject)",
+            body: req.body.body,
+            authorDelete: true
+          };
+          new Message(newMessage)
+            .save()
+            .then(message => res.send(message))
+            .catch(err => {
+              throw err;
+            });
+        }
+      });
     }
   }
 );

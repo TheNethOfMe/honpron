@@ -49,11 +49,21 @@ class GetOneMessage extends Component {
               From: {singleMsg.author} To: {singleMsg.recipient}
               <small>On {new Date(singleMsg.date).toLocaleDateString()}</small>
             </h4>
-            <br />
-            <button onClick={this.blockUser} className="btn btn-dark">
-              Block Sender
-            </button>
-            <div>{singleMsg.body}</div>
+            {singleMsg.authorId !== "Admin" && (
+              <button onClick={this.blockUser} className="btn btn-dark">
+                Block Sender
+              </button>
+            )}
+            <div>
+              {singleMsg.body.split("\n").map((line, i) => {
+                return (
+                  <span key={i}>
+                    {line}
+                    <br />
+                  </span>
+                );
+              })}
+            </div>
             <div>
               <Link
                 to={{
@@ -64,7 +74,9 @@ class GetOneMessage extends Component {
                   }
                 }}
               >
-                <button className="btn btn-success">Reply</button>
+                {singleMsg.authorId !== "Admin" && (
+                  <button className="btn btn-success">Reply</button>
+                )}
               </Link>
               <Link to="/getMessages">
                 <button className="btn btn-primary">Return to Inbox</button>

@@ -12,6 +12,7 @@ const TopicDropdown = ({ name, onChange }) => {
           name={name}
           onChange={onChange}
         >
+          <option value="" />
           <option value="SNEScapades">SNEScapades game recommendation</option>
           <option value="Comment">Critisism/Compliment/Comment</option>
           <option value="Suggestion">General Suggestions</option>

@@ -38,7 +38,7 @@ class Dashboard extends Component {
           <BlockButton text="Check Personal Messages" />
         </Link>
         <Link to="/get-admin-messages">
-          <BlockButton text="Check Admin Messages" />
+          <BlockButton text="Check Honest Piranha Messages" />
         </Link>
       </div>
     );

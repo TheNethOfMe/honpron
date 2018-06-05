@@ -2,79 +2,94 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Spinner from "../formFields/Spinner";
-import { getAdminMessages } from "../../actions/msgActions";
-import MsgListItem from "../userArea/MsgListItem";
+import { getTickets } from "../../actions/ticketActions";
+import AdminMsgItem from "./AdminMsgItem";
 
 class GetAdminMessages extends Component {
   constructor() {
     super();
     this.state = {
-      msgSelect: "recieved",
-      recievedMail: [],
-      sentMail: []
+      msgSelect: "regular",
+      tickets: []
     };
-    this.onClickRecieved = this.onClickRecieved.bind(this);
-    this.onClickSent = this.onClickSent.bind(this);
+    this.onSelect = this.onSelect.bind(this);
   }
   componentDidMount() {
-    this.props.getAdminMessages();
+    this.props.getTickets();
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.messages.messages && nextProps.messages.messages !== null) {
-      const newMessages = nextProps.messages.messages;
-      const recievedMail = newMessages.filter(
-        message => message.recipientId === "Admin"
-      );
-      const sentMail = newMessages.filter(
-        message => message.authorId === "Admin"
-      );
-      this.setState({ recievedMail, sentMail });
+    if (nextProps.tickets.tickets && nextProps.tickets.tickets !== null) {
+      const tickets = nextProps.tickets.tickets;
+      this.setState({ tickets });
     }
   }
-  onClickRecieved() {
-    this.setState({ msgSelect: "recieved" });
+  onSetClass(toMatch) {
+    const thisClass =
+      this.state.msgSelect === toMatch ? "nav-link active" : "nav-link";
+    return thisClass;
   }
-  onClickSent() {
-    this.setState({ msgSelect: "sent" });
-  }
-  onChangeSelect(select) {
-    this.setState({ msgSelect: select });
+  onSelect(e) {
+    this.setState({ msgSelect: e.target.name });
   }
   render() {
-    const { messages, msgLoading } = this.props.messages;
-    const { msgSelect, recievedMail, sentMail } = this.state;
+    const { ticketLoading, tickets } = this.props.tickets;
     let display;
-    if (messages === null || msgLoading) {
+    if (tickets === null || ticketLoading) {
       display = <Spinner />;
     } else {
-      if (msgSelect === "recieved") {
-        display = recievedMail.map(message => {
-          return (
-            <MsgListItem msg={message} key={message._id} useris="recipient" />
-          );
-        });
+      let filteredTickets;
+      if (this.state.msgSelect === "blacklist") {
+        filteredTickets = tickets.filter(
+          ticket => ticket.colorCode === "black"
+        );
       }
-      if (msgSelect === "sent") {
-        display = sentMail.map(message => {
-          return (
-            <MsgListItem msg={message} key={message._id} useris="author" />
-          );
-        });
+      if (this.state.msgSelect === "closed") {
+        filteredTickets = tickets.filter(ticket => ticket.closed);
       }
+      if (this.state.msgSelect === "regular") {
+        filteredTickets = tickets.filter(
+          ticket => ticket.colorCode !== "black" && !ticket.closed
+        );
+      }
+      display = filteredTickets.map(ticket => {
+        return <AdminMsgItem key={ticket._id} msg={ticket} />;
+      });
     }
     return (
       <div className="user-list">
         <h1>Admin Messages</h1>
-        {this.state.msgSelect === "recieved" && (
-          <button onClick={this.onSelectBlacklist} className="btn btn-snes">
-            View Mail Admin Sent
-          </button>
-        )}
-        {this.state.comSelect === "sent" && (
-          <button onClick={this.onSelectRegular} className="btn btn-snes">
-            Check Admin Mail
-          </button>
-        )}
+        <ul className="nav nav-pills">
+          <li className="nav-item">
+            <button
+              onClick={this.onSelect}
+              className={this.onSetClass("regular")}
+              name="regular"
+              href="#"
+            >
+              Tickets
+            </button>
+          </li>
+          <li className="nav-item">
+            <button
+              onClick={this.onSelect}
+              className={this.onSetClass("closed")}
+              name="closed"
+              href="#"
+            >
+              Closed
+            </button>
+          </li>
+          <li className="nav-item">
+            <button
+              onClick={this.onSelect}
+              className={this.onSetClass("blacklist")}
+              name="blacklist"
+              href="#"
+            >
+              Blacklist
+            </button>
+          </li>
+        </ul>
         {display}
       </div>
     );
@@ -82,11 +97,12 @@ class GetAdminMessages extends Component {
 }
 
 const mapStateToProps = state => ({
-  messages: state.messages
+  tickets: state.tickets
 });
 
 GetAdminMessages.propTypes = {
-  getAdminMessages: PropTypes.func.isRequired
+  getTickets: PropTypes.func.isRequired,
+  tickets: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps, { getAdminMessages })(GetAdminMessages);
+export default connect(mapStateToProps, { getTickets })(GetAdminMessages);

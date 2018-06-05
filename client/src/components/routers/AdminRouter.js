@@ -10,6 +10,7 @@ import AdminEntryList from "../adminOnly/AdminEntryList";
 import AdminUserList from "../adminOnly/AdminUserList";
 import ModerateComments from "../adminOnly/ModerateComments";
 import GetAdminMessages from "../adminOnly/GetAdminMessages";
+import GetOneTicket from "../adminOnly/GetOneTicket";
 
 export default class AdminRouter extends Component {
   render() {
@@ -32,6 +33,7 @@ export default class AdminRouter extends Component {
           path="/get-admin-messages"
           component={GetAdminMessages}
         />
+        <AdminRoute exact path="/get-one-ticket/:id" component={GetOneTicket} />
       </Switch>
     );
   }

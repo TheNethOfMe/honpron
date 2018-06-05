@@ -2,23 +2,12 @@ import axios from "axios";
 
 import { GET_ERRORS, GET_MESSAGES, MSG_LOADING, GET_ONE_MSG } from "./types";
 
+import { updateTicket } from "./ticketActions";
+
 // compose a new message
 export const createNewMessage = (messageData, history) => dispatch => {
   axios
     .post("/api/messages", messageData)
-    .then(res => history.push("/userDashboard"))
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
-};
-
-// compose a new message for admin
-export const createAdminMessage = (messageData, history) => dispatch => {
-  axios
-    .post("/api/messages/admin", messageData)
     .then(res => history.push("/userDashboard"))
     .catch(err =>
       dispatch({
@@ -33,24 +22,6 @@ export const getAllMessages = () => dispatch => {
   dispatch(setMessageLoading());
   axios
     .get("/api/messages")
-    .then(res =>
-      dispatch({
-        type: GET_MESSAGES,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_MESSAGES,
-        payload: {}
-      })
-    );
-};
-
-// get admin messages
-export const getAdminMessages = () => dispatch => {
-  axios
-    .get("/api/messages/admin")
     .then(res =>
       dispatch({
         type: GET_MESSAGES,
@@ -97,4 +68,12 @@ export const setMessageLoading = () => {
   return {
     type: MSG_LOADING
   };
+};
+
+// sends user a message from Honest Piranha Labs
+export const ticketResponse = (id, messageData, ticketData) => dispatch => {
+  axios
+    .post("/api/messages/admin", messageData)
+    .then(res => dispatch(updateTicket(id, ticketData)))
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
