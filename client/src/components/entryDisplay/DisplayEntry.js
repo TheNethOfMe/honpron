@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import VideoDisplay from "./VideoDisplay";
 import { getOneEntry } from "../../actions/entryActions";
 import { getEntryComments } from "../../actions/commentActions";
-import Spinner from "../formFields/Spinner";
+import Spinner from "../common/Spinner";
 import NoComment from "./NoComment";
 import NoWidget from "./NoWidget";
 import CommentWidget from "./CommentWidget";

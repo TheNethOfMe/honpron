@@ -3,14 +3,86 @@ body {
   font-family: $main-font, sans-serif;
 }
 
-.content-panel {
-  background-color: $card-color;
-  border-radius: 20px;
-  color: $text-color;
-  padding: 1em;
-}
-
 a,
 a:hover {
   text-decoration: none;
+}
+
+// Buttons
+.btn-admin {
+  background-color: $hp-green;
+  &:hover {
+    color: $text-color;
+  }
+}
+
+.btn-delete {
+  background-color: $hp-red;
+  &:hover {
+    color: $text-color;
+  }
+}
+
+.btn-snes {
+  background-color: $snes-purple;
+  color: $snes-blue;
+  margin: 0.5em;
+  &:hover {
+    background-color: $snes-blue;
+    color: $background-color;
+  }
+}
+
+.btn-orange {
+  background-color: $accent-color;
+  color: $text-color;
+  &:hover {
+    color: $background-color;
+  }
+}
+
+.btn-blue {
+  background-color: $hp-user;
+  color: black;
+}
+
+// Spinner
+.spinner {
+  color: $accent-color;
+}
+
+// Warning Text
+.warn-text {
+  color: $hp-red;
+}
+
+// User and Admin Dashboards
+.dashboard {
+  background-color: $card-color;
+  border-radius: 15px;
+  color: $text-color;
+}
+
+// used for components that produce a panel
+.user-card {
+  background-color: $card-color;
+  border-radius: 5px;
+  color: $text-color;
+  padding: 1em;
+  margin: 0.75em;
+}
+
+.user-card a:hover {
+  color: $text-color;
+}
+
+.user-card_title {
+  color: $accent-color;
+}
+
+.user-card_link {
+  color: $accent-color;
+  &:hover {
+    color: $snes-purple;
+  }
 }

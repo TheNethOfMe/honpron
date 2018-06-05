@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import Spinner from "../formFields/Spinner";
+import Spinner from "../common/Spinner";
 import Modal from "../layout/Modal";
 import { readMessage, updateMessage } from "../../actions/msgActions";
 import { blockUser } from "../../actions/authActions";

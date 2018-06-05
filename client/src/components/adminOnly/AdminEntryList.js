@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getAllEntries } from "../../actions/entryActions";
-import Spinner from "../formFields/Spinner";
+import Spinner from "../common/Spinner";
 import AdminEntryItem from "./AdminEntryItem";
 
 class AdminEntryList extends Component {

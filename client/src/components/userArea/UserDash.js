@@ -8,11 +8,16 @@ class UserDash extends Component {
   render() {
     const { user } = this.props.auth;
     return (
-      <div className="card user-dash">
+      <div className="card dashboard">
         <div className="card-body">
-          <h1 className="card-title">Welcome {user.userName}</h1>
-          <Link to="/change-email">
-            <BlockButton text={"Update Email Address"} />
+          <h1>Welcome {user.userName}</h1>
+
+          <h3 className="mt-2">Messages</h3>
+          <Link to="/get-messages">
+            <BlockButton text={"Check Messages"} />
+          </Link>
+          <Link to="/contact-us">
+            <BlockButton text={"Contact Us"} />
           </Link>
           <Link
             to={{
@@ -23,20 +28,20 @@ class UserDash extends Component {
               }
             }}
           >
-            <BlockButton text={"Send A Message"} />
+            <BlockButton text={"Message Another User"} />
           </Link>
-          <Link to="/get-messages">
-            <BlockButton text={"Check Messages"} />
-          </Link>
-          <Link to="/contact-us">
-            <BlockButton text={"Contact Us"} />
-          </Link>
+          <h3 className="mt-2">Entries</h3>
           <Link to="/my-favorites">
-            <BlockButton text={"View Favorites"} />
+            <BlockButton text={"Entries You've Liked"} />
           </Link>
           <Link to="/my-comments">
-            <BlockButton text={"Review Comments"} />
+            <BlockButton text={"Review Your Comments"} />
           </Link>
+          <h3 className="mt-2">Your Account</h3>
+          <Link to="/change-email">
+            <BlockButton text={"Update Email Address"} />
+          </Link>
+
           <BlockButton text={"Delete Account"} />
         </div>
       </div>

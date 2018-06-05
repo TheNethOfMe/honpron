@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import Spinner from "../formFields/Spinner";
+import Spinner from "../common/Spinner";
 import TextAreaField from "../formFields/TextAreaField";
 import {
   getOneTicket,

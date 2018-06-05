@@ -9,8 +9,8 @@ import CreateEntry from "../adminOnly/CreateEntry";
 import AdminEntryList from "../adminOnly/AdminEntryList";
 import AdminUserList from "../adminOnly/AdminUserList";
 import ModerateComments from "../adminOnly/ModerateComments";
-import GetAdminMessages from "../adminOnly/GetAdminMessages";
-import GetOneTicket from "../adminOnly/GetOneTicket";
+import GetAdminMessages from "../messages/GetAdminMessages";
+import GetOneTicket from "../messages/GetOneTicket";
 
 export default class AdminRouter extends Component {
   render() {

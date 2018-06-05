@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getUsers, modifyUserStatus } from "../../actions/authActions";
-import Spinner from "../formFields/Spinner";
+import Spinner from "../common/Spinner";
 
 class AdminUserList extends Component {
   constructor(props) {

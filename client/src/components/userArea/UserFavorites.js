@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getFavEntries } from "../../actions/entryActions";
-import Spinner from "../formFields/Spinner";
+import Spinner from "../common/Spinner";
 import EntryItem from "../entryDisplay/EntryItem";
 
 class UserFavorites extends Component {

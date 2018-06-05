@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getUnmoddedComments } from "../../actions/commentActions";
-import Spinner from "../formFields/Spinner";
+import Spinner from "../common/Spinner";
 import ModCommentItem from "./ModCommentItem";
 
 class ModerateComments extends Component {

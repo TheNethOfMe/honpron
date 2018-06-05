@@ -5,7 +5,7 @@ import InputTextField from "../formFields/InputTextField";
 import TextAreaField from "../formFields/TextAreaField";
 import SelectType from "../formFields/SelectType";
 import SeriesDropdown from "../formFields/SeriesDropdown";
-import Spinner from "../formFields/Spinner";
+import Spinner from "../common/Spinner";
 import { getSeriesByType } from "../../actions/seriesActions";
 import {
   createNewEntry,

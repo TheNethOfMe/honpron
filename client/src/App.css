@@ -1,6 +1,14 @@
 @import url("https://fonts.googleapis.com/css?family=Audiowide");
 @import url("https://fonts.googleapis.com/css?family=Glegoo");
 @import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
+body {
+  background-color: #343840;
+  font-family: "Audiowide", sans-serif; }
+
+a,
+a:hover {
+  text-decoration: none; }
+
 .btn-admin {
   background-color: #39c70a; }
   .btn-admin:hover {
@@ -35,19 +43,28 @@
 .warn-text {
   color: #c7390a; }
 
-body {
-  background-color: #343840;
-  font-family: "Audiowide", sans-serif; }
-
-.content-panel {
+.dashboard {
   background-color: #111919;
-  border-radius: 20px;
-  color: #dbdbdb;
-  padding: 1em; }
+  border-radius: 15px;
+  color: #dbdbdb; }
 
-a,
-a:hover {
-  text-decoration: none; }
+.user-card {
+  background-color: #111919;
+  border-radius: 5px;
+  color: #dbdbdb;
+  padding: 1em;
+  margin: 0.75em; }
+
+.user-card a:hover {
+  color: #dbdbdb; }
+
+.user-card_title {
+  color: #d17002; }
+
+.user-card_link {
+  color: #d17002; }
+  .user-card_link:hover {
+    color: #4f43ae; }
 
 .small-only {
   display: none; }

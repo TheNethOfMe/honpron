@@ -4,10 +4,10 @@ import PrivateRoute from "./PrivateRoute";
 
 import UserDash from "../userArea/UserDash";
 import ChangeEmail from "../userArea/ChangeEmail";
-import SendMessage from "../userArea/SendMessage";
-import SendMsgAdmin from "../userArea/SendMsgAdmin";
-import GetMessages from "../userArea/GetMessages";
-import GetOneMessage from "../userArea/GetOneMessage";
+import SendMessage from "../messages/SendMessage";
+import SendMsgAdmin from "../messages/SendMsgAdmin";
+import GetMessages from "../messages/GetMessages";
+import GetOneMessage from "../messages/GetOneMessage";
 import UserFavorites from "../userArea/UserFavorites";
 import UserComments from "../userArea/UserComments";
 
