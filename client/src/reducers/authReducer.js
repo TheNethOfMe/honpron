@@ -4,8 +4,8 @@ import {
   SET_CURRENT_USER,
   GET_ALL_USERS,
   SET_USER_LOADING,
-  SET_USER_BLOCKLIST,
-  CLEAR_USER_DATA
+  CLEAR_USER_DATA,
+  GET_BLOCK_LIST
 } from "../actions/types";
 
 const initialState = {
@@ -13,7 +13,7 @@ const initialState = {
   user: {},
   userList: null,
   userLoading: false,
-  userBlocklist: null
+  blockList: null
 };
 
 export default function(state = initialState, action) {
@@ -30,18 +30,19 @@ export default function(state = initialState, action) {
         userList: action.payload,
         userLoading: false
       };
-    case SET_USER_BLOCKLIST:
+    case GET_BLOCK_LIST:
       return {
         ...state,
-        userBlocklist: action.payload
+        blockList: action.payload,
+        userLoading: false
       };
     case CLEAR_USER_DATA:
       return {
         ...state,
         isAuthenticated: false,
         userList: null,
-        userBlocklist: null,
-        user: {}
+        user: {},
+        blockList: null
       };
     case SET_USER_LOADING:
       return {

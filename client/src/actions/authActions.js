@@ -7,9 +7,9 @@ import {
   SET_CURRENT_USER,
   GET_ALL_USERS,
   SET_USER_LOADING,
-  SET_USER_BLOCKLIST,
   MESSAGE_CLEAR,
-  CLEAR_USER_DATA
+  CLEAR_USER_DATA,
+  GET_BLOCK_LIST
 } from "./types";
 
 // Register user
@@ -43,8 +43,7 @@ export const loginUser = userData => dispatch => {
   axios
     .post("/api/users/login", userData)
     .then(res => {
-      const { token, blockList } = res.data;
-      dispatch(setUserBlockList(blockList));
+      const { token } = res.data;
       localStorage.setItem("jwtToken", token);
       setAuthToken(token);
       const decoded = jwt_decode(token);
@@ -63,14 +62,6 @@ export const setCurrentUser = decoded => {
   return {
     type: SET_CURRENT_USER,
     payload: decoded
-  };
-};
-
-// Set user's friends and foes lists
-export const setUserBlockList = lists => {
-  return {
-    type: SET_USER_BLOCKLIST,
-    payload: lists
   };
 };
 
@@ -114,7 +105,7 @@ export const modifyUserStatus = (id, status) => dispatch => {
 export const modifyUserEmail = (userData, history) => dispatch => {
   axios
     .post("/api/users/email", userData)
-    .then(res => history.push("/userDashboard"))
+    .then(res => history.push("/user-dashboard"))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -123,12 +114,35 @@ export const modifyUserEmail = (userData, history) => dispatch => {
     );
 };
 
-// updates user's block list
+// adds a user to another user's block list
 export const blockUser = (update, history) => dispatch => {
   axios.post("/api/users/block", update).then(res => {
-    dispatch(setUserBlockList(res.data));
-    history.push("/userDashboard");
+    history.push("/get-messages");
   });
+};
+
+// removes a user from another user's block list
+export const unblockUser = (update, history) => dispatch => {
+  axios.post("/api/users/unblock", update).then(res => {
+    history.push("/my-block-list");
+    dispatch(getBlockList());
+  });
+};
+
+// retrieves the blocklist and adds it to state
+export const getBlockList = () => dispatch => {
+  dispatch(setUserLoading());
+  axios.get("/api/users/blocklist").then(res => {
+    dispatch({
+      type: GET_BLOCK_LIST,
+      payload: res.data
+    });
+  });
+};
+
+// logs out the user and deletes their account
+export const deleteAccount = history => dispatch => {
+  axios.delete("/api/users").then(res => dispatch(logoutUser(history)));
 };
 
 // Set user loading

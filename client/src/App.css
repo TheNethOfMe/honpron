@@ -127,6 +127,9 @@ p {
 .code-blue {
   border-left: 10px blue solid; }
 
+.hp-card_delete-account p {
+  margin: 1em; }
+
 .small-only {
   display: none; }
 

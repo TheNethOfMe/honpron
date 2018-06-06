@@ -208,7 +208,7 @@ router.post(
   "/block",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const blockUser = req.body.userId;
+    const blockUser = req.body.blockUser;
     User.findByIdAndUpdate(
       req.user._id,
       { $addToSet: { blocked: blockUser } },
@@ -219,6 +219,49 @@ router.post(
         return res.json(data);
       })
       .catch(err => console.log(err));
+  }
+);
+
+// @route   POST api/users/unblock
+// @desc    lets user unblock a blocked user
+// @access  Private
+router.post(
+  "/unblock",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const unblockUser = req.body.unblockUser;
+    User.findByIdAndUpdate(req.user._id, { $pull: { blocked: unblockUser } })
+      .then(user => {
+        const data = user.blocked;
+        return res.json(data);
+      })
+      .catch(err => console.log(err));
+  }
+);
+
+// @route   GET api/users/blocklist
+// @desc    gets a user's blocklist
+// @access  Private
+router.get(
+  "/blocklist",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findById(req.user._id, { blocked: 1 })
+      .then(data => {
+        return res.json(data.blocked);
+      })
+      .catch(err => console.log(err));
+  }
+);
+
+// @route   DELETE api/users/
+// @desc    deletes a user's account
+// @access  Private
+router.delete(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findByIdAndRemove(req.user._id).then(res.json({ msg: "Deleted" }));
   }
 );
 

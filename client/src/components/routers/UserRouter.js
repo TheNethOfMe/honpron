@@ -10,6 +10,8 @@ import GetMessages from "../messages/GetMessages";
 import GetOneMessage from "../messages/GetOneMessage";
 import UserFavorites from "../userArea/UserFavorites";
 import UserComments from "../userArea/UserComments";
+import BlockList from "../userArea/BlockList";
+import DeleteAccount from "../userArea/DeleteAccount";
 
 export default class UserRouter extends Component {
   render() {
@@ -23,6 +25,8 @@ export default class UserRouter extends Component {
         <PrivateRoute exact path="/get-message/:id" component={GetOneMessage} />
         <PrivateRoute exact path="/my-favorites" component={UserFavorites} />
         <PrivateRoute exact path="/my-comments" component={UserComments} />
+        <PrivateRoute exact path="/my-block-list" component={BlockList} />
+        <PrivateRoute exact path="/delete-account" component={DeleteAccount} />
       </Switch>
     );
   }

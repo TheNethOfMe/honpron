@@ -3,8 +3,8 @@ export const GET_ERRORS = "GET_ERRORS";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const SET_USER_LOADING = "SET_USER_LOADING";
-export const SET_USER_BLOCKLIST = "SET_USER_BLOCKLIST";
 export const CLEAR_USER_DATA = "CLEAR_USER_DATA";
+export const GET_BLOCK_LIST = "GET_BLOCK_LIST";
 
 export const GET_ENTRY = "GET_ENTRY";
 export const ENTRY_LOADING = "ENTRY_LOADING";

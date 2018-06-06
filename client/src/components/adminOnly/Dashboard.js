@@ -59,6 +59,9 @@ class Dashboard extends Component {
         <Link to="/all-users">
           <BlockButton text="Manage Users" />
         </Link>
+        <Link to="/my-block-list">
+          <BlockButton text={"Users You've Blocked"} />
+        </Link>
         <Link to="/change-email">
           <BlockButton text={"Update Email Address"} />
         </Link>

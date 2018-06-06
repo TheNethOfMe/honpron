@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 class VideoDisplay extends Component {
   render() {
@@ -10,9 +11,9 @@ class VideoDisplay extends Component {
           width="560"
           height="349"
           src={videoSrc}
-          frameborder="0"
+          frameBorder="0"
           title={this.props.title}
-          allowfullscreen
+          allowFullScreen
         />
       </div>
     );
@@ -20,8 +21,8 @@ class VideoDisplay extends Component {
 }
 
 VideoDisplay.propTypes = {
-  ytid: PropTypes.string.isRequried,
-  title: PropTypes.string.isRequried
+  ytid: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 };
 
-export default VideoDisplay;
+export default connect(null)(VideoDisplay);

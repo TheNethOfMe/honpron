@@ -39,11 +39,15 @@ class UserDash extends Component {
         </Link>
 
         <h3 className="mt-2">Your Account</h3>
+        <Link to="/my-block-list">
+          <BlockButton text={"Users You've Blocked"} />
+        </Link>
         <Link to="/change-email">
           <BlockButton text={"Update Email Address"} />
         </Link>
-
-        <BlockButton text={"Delete Account"} />
+        <Link to="/delete-account">
+          <BlockButton text={"Delete Account"} />
+        </Link>
       </div>
     );
   }

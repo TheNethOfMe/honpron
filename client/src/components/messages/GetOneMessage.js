@@ -26,14 +26,22 @@ class GetOneMessage extends Component {
     if (this.state.userIs === "recipient") updates = { recipientDelete: true };
     if (this.state.userIs === "author") updates = { authorDelete: true };
     this.props.updateMessage(this.state.id, updates);
-    this.props.history.push("/getMessages");
+    this.props.history.push("/get-messages");
   }
   blockUser() {
-    let userToBlock;
-    if (this.state.userIs === "recipient")
-      userToBlock = { userId: this.props.messages.singleMsg.authorId };
-    if (this.state.userIs === "author")
-      userToBlock = { userId: this.props.messages.singleMsg.recipientId };
+    let userToBlock, blockUser;
+    if (this.state.userIs === "recipient") {
+      blockUser = `${this.props.messages.singleMsg.authorId}!${
+        this.props.messages.singleMsg.author
+      }`;
+      userToBlock = { blockUser };
+    }
+    if (this.state.userIs === "author") {
+      blockUser = `${this.props.messages.singleMsg.recipientId}!${
+        this.props.messages.singleMsg.recipient
+      }`;
+      userToBlock = { blockUser };
+    }
     this.props.blockUser(userToBlock, this.props.history);
   }
   render() {
@@ -87,7 +95,7 @@ class GetOneMessage extends Component {
                   <button className="btn btn-snes">Reply</button>
                 )}
               </Link>
-              <Link to="/get-message">
+              <Link to="/get-messages">
                 <button className="btn btn-orange">Return to Inbox</button>
               </Link>
               <button

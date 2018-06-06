@@ -8,7 +8,7 @@ import { updateTicket } from "./ticketActions";
 export const createNewMessage = (messageData, history) => dispatch => {
   axios
     .post("/api/messages", messageData)
-    .then(res => history.push("/userDashboard"))
+    .then(res => history.push("/user-dashboard"))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -37,7 +37,7 @@ export const getAllMessages = () => dispatch => {
 };
 
 // update message (for when a recipient or author deletes a message)
-export const updateMessage = (id, updates, history) => dispatch => {
+export const updateMessage = (id, updates) => dispatch => {
   axios
     .post(`/api/messages/delete/${id}`, updates)
     .then(res => dispatch(getAllMessages()))
@@ -76,4 +76,12 @@ export const ticketResponse = (id, messageData, ticketData) => dispatch => {
     .post("/api/messages/admin", messageData)
     .then(res => dispatch(updateTicket(id, ticketData)))
     .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+};
+
+// used for clearing all messages related to a user
+export const clearAllMessages = (id, updates) => dispatch => {
+  axios
+    .post(`/api/messages/delete/${id}`, updates)
+    .then(res => console.log("Deleted"))
+    .catch(err => console.log(err));
 };

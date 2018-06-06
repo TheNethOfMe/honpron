@@ -46,50 +46,48 @@ class Register extends Component {
     const { errors } = this.state;
     return (
       <div>
-        <div className="content-panel">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-8 m-auto">
-                <h1 className="display-4 text-center">Sign Up</h1>
-                <p className="lead text-center">Create a new user account</p>
-                <form noValidate onSubmit={this.onSubmit}>
-                  <InputTextField
-                    placeholder="Username"
-                    name="userName"
-                    value={this.state.userName}
-                    onChange={this.onChange}
-                    error={errors.userName}
-                  />
-                  <InputTextField
-                    type="email"
-                    placeholder="Email"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                    error={errors.email}
-                  />
-                  <InputTextField
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                    error={errors.password}
-                  />
-                  <InputTextField
-                    type="password"
-                    placeholder="Confirm Password"
-                    name="password2"
-                    value={this.state.password2}
-                    onChange={this.onChange}
-                    error={errors.password2}
-                  />
-                  <input
-                    type="submit"
-                    className="btn btn-orange btn-block mt-4"
-                  />
-                </form>
-              </div>
+        <div className="hp-card">
+          <div className="row">
+            <div className="col-md-8 m-auto">
+              <h1 className="display-4 text-center">Sign Up</h1>
+              <p className="lead text-center">Create a new user account</p>
+              <form noValidate onSubmit={this.onSubmit}>
+                <InputTextField
+                  placeholder="Username"
+                  name="userName"
+                  value={this.state.userName}
+                  onChange={this.onChange}
+                  error={errors.userName}
+                />
+                <InputTextField
+                  type="email"
+                  placeholder="Email"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.onChange}
+                  error={errors.email}
+                />
+                <InputTextField
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={this.state.password}
+                  onChange={this.onChange}
+                  error={errors.password}
+                />
+                <InputTextField
+                  type="password"
+                  placeholder="Confirm Password"
+                  name="password2"
+                  value={this.state.password2}
+                  onChange={this.onChange}
+                  error={errors.password2}
+                />
+                <input
+                  type="submit"
+                  className="btn btn-orange-block btn-block mt-4"
+                />
+              </form>
             </div>
           </div>
         </div>

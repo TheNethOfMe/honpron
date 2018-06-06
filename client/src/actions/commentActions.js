@@ -86,6 +86,13 @@ export const approveComment = commentId => dispatch => {
   });
 };
 
+// when a user deletes their account, this will change the names on their comments to "Deleted User"
+export const changeDeletedUserComments = () => dispatch => {
+  axios
+    .post("/api/comment/userDelete")
+    .then(res => console.log("Resume Firing"));
+};
+
 export const setComLoading = () => {
   return {
     type: COM_LOADING

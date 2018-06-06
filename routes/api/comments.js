@@ -62,7 +62,7 @@ router.get("/entry/:entry_id", (req, res) => {
     .catch(err => res.status(404).json({ msg: "No comments to display" }));
 });
 
-// @route   GET api/comment/user/
+// @route   GET api/comment/user
 // @desc    gets all approved comments for a user
 // @access  Private
 router.get(
@@ -175,6 +175,21 @@ router.delete(
         }
       });
     }
+  }
+);
+
+// @route   POST api/comment/userDelete
+// @desc    changes all the comments a user made to "deleted user"
+// @access  Private
+router.post(
+  "/userDelete",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Comment.update(
+      { authorId: req.user.id },
+      { $set: { author: "Deleted User" } },
+      { multi: true }
+    ).then(res.status({ msg: "Done" }));
   }
 );
 

@@ -18,7 +18,9 @@ class MsgListItem extends Component {
     this.setState({ warn: unWarn });
   }
   onDelete() {
-    const updates = { recipientDelete: true };
+    let updates;
+    if (this.props.useris === "recipient") updates = { recipientDelete: true };
+    if (this.props.useris === "author") updates = { authorDelete: true };
     this.props.updateMessage(this.props.msg._id, updates);
   }
   render() {
