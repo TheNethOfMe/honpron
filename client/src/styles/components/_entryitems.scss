@@ -22,12 +22,20 @@
   @include article-text;
 }
 
-.widget-items p {
+.widget-items_primary {
   color: $accent-color;
   margin: 0;
+  &:hover {
+    color: $snes-purple;
+    cursor: pointer;
+  }
 }
 
 .widget-item_secondary {
-  color: $text-color !important;
+  color: $text-color;
   padding-left: 2em;
+  &:hover {
+    color: $snes-purple;
+    cursor: pointer;
+  }
 }

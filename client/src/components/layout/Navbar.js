@@ -11,18 +11,19 @@ class Navbar extends Component {
   }
   render() {
     const { isAuthenticated, user } = this.props.auth;
+    const isAdmin = this.props.auth.user.isAdmin || false;
     const authLinks = (
       <ul className="navbar-nav ml-auto">
-        {user.isAdmin && (
+        {isAdmin && (
           <li className="nav-item">
-            <Link className="nav-link" to="/dashboard">
-              Admin Controlls
+            <Link className="nav-link hp-nav-item" to="/dashboard">
+              [Admin {user.userName}]
             </Link>
           </li>
         )}
-        {user.status !== "Admin" && (
+        {!isAdmin && (
           <li className="nav-item">
-            <Link className="nav-link" to="/user-dashboard">
+            <Link className="nav-link hp-nav-item" to="/user-dashboard">
               [{user.userName}]
             </Link>
           </li>
@@ -31,7 +32,7 @@ class Navbar extends Component {
           <a
             href="@"
             onClick={this.onLogoutClick.bind(this)}
-            className="nav-link"
+            className="nav-link hp-nav-item"
           >
             Logout
           </a>

@@ -9,6 +9,7 @@ import NoComment from "./NoComment";
 import NoWidget from "./NoWidget";
 import CommentWidget from "./CommentWidget";
 import EntryComment from "./EntryComment";
+import podcasticon from "../../img/podcastIcon.png";
 
 class DisplayEntry extends Component {
   componentWillMount() {
@@ -40,7 +41,7 @@ class DisplayEntry extends Component {
         ) : (
           <img
             className="card-img-top display-entry_img"
-            src="./podcastIcon.png"
+            src={podcasticon}
             style={{ width: "90%" }}
             alt="Podcast Icon"
           />

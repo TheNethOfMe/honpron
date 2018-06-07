@@ -17,8 +17,9 @@ const User = require("../../models/User");
 // @desc    get all entries
 // @access  Public
 router.get("/", (req, res) => {
-  const errors = {};
-  Entry.find()
+  let query = {};
+  if (req.query) query = req.query;
+  Entry.find(query)
     .sort({ dateAdded: -1 })
     .then(entries => res.json(entries))
     .catch(err => res.status(404).json({ msg: "No entries to display" }));

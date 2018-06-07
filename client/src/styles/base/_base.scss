@@ -1,6 +1,21 @@
+html {
+  height: 100%;
+}
+
 body {
   background-color: $background-color;
   font-family: $main-font, sans-serif;
+  height: 100%;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.site-wrapper {
+  flex-grow: 1;
 }
 
 a,
@@ -102,6 +117,13 @@ p {
   color: $accent-color;
   &:hover {
     color: $snes-purple;
+  }
+}
+
+.hp-card_series {
+  color: $text-color;
+  &:hover {
+    border: $accent-color 1px solid;
   }
 }
 

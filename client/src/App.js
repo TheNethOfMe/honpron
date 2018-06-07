@@ -8,6 +8,9 @@ import store from "./store";
 
 import Navbar from "./components/layout/Navbar";
 import EntryList from "./components/entryDisplay/EntryList";
+import EntryListSeries from "./components/entryDisplay/EntryListSeries";
+import DisplaySeries from "./components/entryDisplay/DisplaySeries";
+import Snes from "./components/other/Snes";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Footer from "./components/layout/Footer";
@@ -38,20 +41,41 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-            <Navbar />
-            <div className="container">
-              <div className="row">
-                <div className="col-md-12 text-center">
-                  <Route exact path="/" component={EntryList} />
-                  <Route exact path="/view/:id" component={DisplayEntry} />
-                  <Route exact path="/register" component={Register} />
-                  <Route exact path="/login" component={Login} />
-                  <AdminRouter />
-                  <UserRouter />
+            <div className="wrapper">
+              <div className="nav-wrapper">
+                <Navbar />
+              </div>
+
+              <div className="site-wrapper">
+                <div className="container">
+                  <div className="row">
+                    <div className="col-md-12 text-center">
+                      <Route exact path="/" component={EntryList} />
+                      <Route
+                        exact
+                        path="/series/:series"
+                        component={EntryListSeries}
+                      />
+                      <Route
+                        exact
+                        path="/type/:type"
+                        component={DisplaySeries}
+                      />
+                      <Route exact path="/view/:id" component={DisplayEntry} />
+                      <Route exact path="/snes" component={Snes} />
+                      <Route exact path="/register" component={Register} />
+                      <Route exact path="/login" component={Login} />
+                      <AdminRouter />
+                      <UserRouter />
+                    </div>
+                  </div>
                 </div>
               </div>
+
+              <div className="foot-wrapper">
+                <Footer />
+              </div>
             </div>
-            <Footer />
           </div>
         </Router>
       </Provider>

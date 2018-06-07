@@ -40,6 +40,25 @@ export const getAllEntries = () => dispatch => {
     );
 };
 
+// get all entries in a series
+export const getEntriesBySeries = series => dispatch => {
+  dispatch(setEntryLoading());
+  axios
+    .get("/api/entries", { params: { series } })
+    .then(res =>
+      dispatch({
+        type: GET_ENTRIES,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ENTRIES,
+        payload: {}
+      })
+    );
+};
+
 // get one entry
 export const getOneEntry = id => dispatch => {
   dispatch(setEntryLoading());

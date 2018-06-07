@@ -1,9 +1,21 @@
 @import url("https://fonts.googleapis.com/css?family=Audiowide");
 @import url("https://fonts.googleapis.com/css?family=Glegoo");
 @import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
+html {
+  height: 100%; }
+
 body {
   background-color: #343840;
-  font-family: "Audiowide", sans-serif; }
+  font-family: "Audiowide", sans-serif;
+  height: 100%; }
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; }
+
+.site-wrapper {
+  flex-grow: 1; }
 
 a,
 a:hover {
@@ -80,6 +92,11 @@ p {
   .hp-card_link:hover {
     color: #4f43ae; }
 
+.hp-card_series {
+  color: #dbdbdb; }
+  .hp-card_series:hover {
+    border: #d17002 1px solid; }
+
 .hp-list {
   background-color: #111919;
   color: #dbdbdb; }
@@ -143,12 +160,18 @@ p {
   background-color: #111919;
   border-bottom: 3px solid #d17002; }
 
-.site-navbar_text {
+.site-navbar_text,
+.hp-nav-item {
   color: #dbdbdb; }
+  .site-navbar_text:hover,
+  .hp-nav-item:hover {
+    color: #4f43ae; }
 
 .site-navbar_accent {
   color: #d17002;
   font-family: "Press Start 2P", sans-serif; }
+  .site-navbar_accent:hover {
+    color: #4f43ae; }
 
 .site-footer {
   background-color: #111919;
@@ -176,13 +199,19 @@ p {
   color: #dbdbdb;
   font-family: "Glegoo", serif; }
 
-.widget-items p {
+.widget-items_primary {
   color: #d17002;
   margin: 0; }
+  .widget-items_primary:hover {
+    color: #4f43ae;
+    cursor: pointer; }
 
 .widget-item_secondary {
-  color: #dbdbdb !important;
+  color: #dbdbdb;
   padding-left: 2em; }
+  .widget-item_secondary:hover {
+    color: #4f43ae;
+    cursor: pointer; }
 
 .display-entry {
   background-color: #111919;

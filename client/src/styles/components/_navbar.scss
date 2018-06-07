@@ -5,13 +5,20 @@
   border-bottom: 3px solid $accent-color;
 }
 
-.site-navbar_text {
+.site-navbar_text,
+.hp-nav-item {
   color: $text-color;
+  &:hover {
+    color: $snes-purple;
+  }
 }
 
 .site-navbar_accent {
   color: $accent-color;
   font-family: $accent-text, sans-serif;
+  &:hover {
+    color: $snes-purple;
+  }
 }
 
 .site-footer {
