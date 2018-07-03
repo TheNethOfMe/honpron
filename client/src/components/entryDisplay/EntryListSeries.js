@@ -10,17 +10,24 @@ class EntryListSeries extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      entries: [],
-      currentPath: this.props.location.pathname
+      allEntries: [],
+      visableEntries: [],
+      currentPath: this.props.location.pathname,
+      page: 1,
+      lastPage: null
     };
+    this.paginate = this.paginate.bind(this);
   }
   componentDidMount() {
     this.props.getEntriesBySeries(this.props.match.params.series);
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.entries.entries && nextProps.entries.entries !== null) {
-      const entries = nextProps.entries.entries;
-      this.setState({ entries });
+      const nextEntries = nextProps.entries.entries;
+      const allEntries = nextEntries;
+      const visableEntries = nextEntries.slice(0, 10);
+      const lastPage = Math.ceil(nextEntries.length / 10);
+      this.setState({ allEntries, lastPage, visableEntries, page: 1 });
     }
   }
   componentWillUpdate(nextProps, nextState) {
@@ -29,13 +36,26 @@ class EntryListSeries extends Component {
       this.props.getEntriesBySeries(this.props.match.params.series);
     }
   }
+  paginate(direction) {
+    const page =
+      direction === "forward" ? this.state.page + 1 : this.state.page - 1;
+    const indexLastEntry = page * 10;
+    const indexFirstEntry = indexLastEntry - 10;
+    const visableEntries = this.state.allEntries.slice(
+      indexFirstEntry,
+      indexLastEntry
+    );
+    this.setState({ visableEntries, page });
+    window.scrollTo(0, 0);
+  }
   render() {
     const { entries, loading } = this.props.entries;
+    const { page, lastPage } = this.state;
     let displayMain;
     if (entries === null || loading) {
       displayMain = <Spinner />;
     } else {
-      displayMain = this.state.entries.map(entry => {
+      displayMain = this.state.visableEntries.map(entry => {
         return <EntryItem key={entry._id} entry={entry} />;
       });
     }
@@ -52,6 +72,23 @@ class EntryListSeries extends Component {
             <MenuWidget />
             {displayMain}
           </div>
+        </div>
+        <div className="paginator">
+          <button
+            className="paginator-button"
+            disabled={page === 1}
+            onClick={() => this.paginate("back")}
+          >
+            <i class="fas fa-arrow-alt-circle-left" />
+          </button>
+          <span>Page {page}</span>
+          <button
+            className="paginator-button"
+            disabled={page === lastPage}
+            onClick={() => this.paginate("forward")}
+          >
+            <i class="fas fa-arrow-alt-circle-right" />
+          </button>
         </div>
       </div>
     );

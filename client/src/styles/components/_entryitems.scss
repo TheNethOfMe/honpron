@@ -39,3 +39,25 @@
     cursor: pointer;
   }
 }
+
+.paginator {
+  font-size: 2.2em;
+  span {
+    color: $accent-color;
+  }
+  button {
+    background-color: $snes-purple;
+    border-radius: 25px;
+    margin: 1.3em;
+    &:hover {
+      background-color: $snes-blue;
+      cursor: pointer;
+    }
+    &:disabled {
+      background-color: #eee;
+      &:hover {
+        cursor: default;
+      }
+    }
+  }
+}

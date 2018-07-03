@@ -10,38 +10,60 @@ class EntryList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      allVideos: [],
-      otherEntries: []
+      allEntries: [],
+      visableEntries: [],
+      newPodcast: null,
+      page: 1,
+      lastPage: null
     };
+    this.paginate = this.paginate.bind(this);
   }
   componentDidMount() {
     this.props.getAllEntries();
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.entries.entries && nextProps.entries.entries !== null) {
-      const allEntries = nextProps.entries.entries;
-      const allVideos = allEntries.filter(entry => {
-        return entry.entryType === "video";
+      const nextEntries = nextProps.entries.entries;
+      const allEntries = nextEntries;
+      const visableEntries = nextEntries.slice(0, 10);
+      const lastPage = Math.ceil(nextEntries.length / 10);
+      const newPodcast = allEntries.find(entry => {
+        return entry.entryType === "podcast";
       });
-      const otherEntries = allEntries.filter(entry => {
-        return entry.entryType !== "video";
+      this.setState({
+        allEntries,
+        lastPage,
+        visableEntries,
+        newPodcast,
+        page: 1
       });
-      this.setState({ allVideos, otherEntries });
     }
+  }
+  paginate(direction) {
+    const page =
+      direction === "forward" ? this.state.page + 1 : this.state.page - 1;
+    const indexLastEntry = page * 10;
+    const indexFirstEntry = indexLastEntry - 10;
+    const visableEntries = this.state.allEntries.slice(
+      indexFirstEntry,
+      indexLastEntry
+    );
+    this.setState({ visableEntries, page });
+    window.scrollTo(0, 0);
   }
   render() {
     const { entries, loading } = this.props.entries;
+    const { page, lastPage, visableEntries, newPodcast } = this.state;
     let displayMain, displaySmall;
     if (entries === null || loading) {
       displayMain = <Spinner />;
       displaySmall = <Spinner />;
     } else {
-      displayMain = this.state.allVideos.map(entry => {
+      displayMain = visableEntries.map(entry => {
         return <EntryItem key={entry._id} entry={entry} />;
       });
-      displaySmall = this.state.otherEntries.map(entry => {
-        return <EntryItem key={entry._id} entry={entry} />;
-      });
+      if (newPodcast)
+        displaySmall = <EntryItem key={newPodcast._id} entry={newPodcast} />;
     }
     return (
       <div className="container">
@@ -59,6 +81,23 @@ class EntryList extends Component {
             {displaySmall}
           </div>
         </div>
+        <div className="paginator">
+          <button
+            className="paginator-button"
+            disabled={page === 1}
+            onClick={() => this.paginate("back")}
+          >
+            <i class="fas fa-arrow-alt-circle-left" />
+          </button>
+          <span>Page {page}</span>
+          <button
+            className="paginator-button"
+            disabled={page === lastPage}
+            onClick={() => this.paginate("forward")}
+          >
+            <i class="fas fa-arrow-alt-circle-right" />
+          </button>
+        </div>
       </div>
     );
   }
@@ -75,4 +114,7 @@ EntryList.propTypes = {
   entries: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps, { getAllEntries })(EntryList);
+export default connect(
+  mapStateToProps,
+  { getAllEntries }
+)(EntryList);

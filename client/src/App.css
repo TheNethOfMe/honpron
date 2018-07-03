@@ -213,6 +213,22 @@ p {
     color: #4f43ae;
     cursor: pointer; }
 
+.paginator {
+  font-size: 2.2em; }
+  .paginator span {
+    color: #d17002; }
+  .paginator button {
+    background-color: #4f43ae;
+    border-radius: 25px;
+    margin: 1.3em; }
+    .paginator button:hover {
+      background-color: #b5b6e4;
+      cursor: pointer; }
+    .paginator button:disabled {
+      background-color: #eee; }
+      .paginator button:disabled:hover {
+        cursor: default; }
+
 .display-entry {
   background-color: #111919;
   text-align: center; }
