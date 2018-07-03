@@ -16,6 +16,10 @@ class MenuWidget extends Component {
           <Link to="/series/Summer StarTropics">
             <p className="widget-item_secondary">Summer StarTropics</p>
           </Link>
+          <Link to="/series/Other">
+            <p className="widget-item_secondary">Other Videos</p>
+          </Link>
+          {/*
           <Link to="/type/podcast">
             <p className="widget-items_primary">Podcasts</p>
           </Link>
@@ -23,6 +27,7 @@ class MenuWidget extends Component {
             <p className="widget-item_secondary">Anything But Tangerines</p>
           </Link>
           <p className="widget-item_secondary">Controllers Down</p>
+          */}
           <Link to="/snes">
             <p className="widget-items_primary">SNES Rankings</p>
           </Link>
