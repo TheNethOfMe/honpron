@@ -10,7 +10,8 @@ class EntryListSeries extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      entries: []
+      entries: [],
+      currentPath: this.props.location.pathname
     };
   }
   componentDidMount() {
@@ -20,6 +21,12 @@ class EntryListSeries extends Component {
     if (nextProps.entries.entries && nextProps.entries.entries !== null) {
       const entries = nextProps.entries.entries;
       this.setState({ entries });
+    }
+  }
+  componentWillUpdate(nextProps, nextState) {
+    if (this.state.currentPath !== nextProps.location.pathname) {
+      this.setState({ currentPath: nextProps.location.pathname });
+      this.props.getEntriesBySeries(this.props.match.params.series);
     }
   }
   render() {
@@ -60,6 +67,7 @@ EntryListSeries.propTypes = {
   entries: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps, { getEntriesBySeries })(
-  EntryListSeries
-);
+export default connect(
+  mapStateToProps,
+  { getEntriesBySeries }
+)(EntryListSeries);

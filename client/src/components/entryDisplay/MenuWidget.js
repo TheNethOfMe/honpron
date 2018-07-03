@@ -16,7 +16,7 @@ class MenuWidget extends Component {
           <Link to="/series/Summer StarTropics">
             <p className="widget-item_secondary">Summer StarTropics</p>
           </Link>
-          <Link to="/series/Other">
+          <Link to="/series/Other Videos">
             <p className="widget-item_secondary">Other Videos</p>
           </Link>
           {/*
