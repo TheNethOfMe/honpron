@@ -86,6 +86,10 @@ class CreateEntry extends Component {
     let displayForm;
     if (series === null || loading) {
       displayForm = <Spinner />;
+    } else if (!series.length) {
+      displayForm = (
+        <p>You must create a series before you can create an entry!</p>
+      );
     } else {
       displayForm = (
         <SeriesDropdown
@@ -188,10 +192,13 @@ const mapStateToProps = state => ({
   entry: state.entry
 });
 
-export default connect(mapStateToProps, {
-  getSeriesByType,
-  createNewEntry,
-  getOneEntry,
-  clearEntry,
-  updateEntry
-})(CreateEntry);
+export default connect(
+  mapStateToProps,
+  {
+    getSeriesByType,
+    createNewEntry,
+    getOneEntry,
+    clearEntry,
+    updateEntry
+  }
+)(CreateEntry);
